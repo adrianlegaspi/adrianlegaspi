@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .animate-pop {
+    animation: pop 0.4s ease-out both;
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .cursor-blink::after {
+    content: '_';
+    animation: blink 1s steps(2, start) infinite;
+  }
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    50.01%, 100% {
+      opacity: 0;
+    }
+  }
+}
+
+
+/* custom */
+body {
+  @apply bg-paper text-ink font-mono scroll-smooth;
+}
+
+.dark body {
+  @apply bg-ink text-paper;
+}
+
+section {
+  @apply py-16 md:py-24;
+}
+
+a {
+  @apply underline-offset-2 decoration-dotted hover:underline;
+}
+
+.card {
+  @apply border border-ink/20 dark:border-paper/20 p-6 rounded-md shadow-inner;
+}

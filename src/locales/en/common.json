@@ -1,0 +1,25 @@
+{
+  "home": {
+    "title": "Adrián Legaspi – AI App Developer & Software Engineer",
+    "description": "Portfolio of Adrián Legaspi, AI app developer & software engineer.",
+    "cta": "Scroll down"
+  },
+  "hero": {
+    "greeting": "Hi, I'm Adrián Legaspi",
+    "subtitle": "AI App Developer & Software Engineer",
+    "cta": "Scroll to about"
+  },
+  "about": {
+    "heading": "About Me",
+    "bio": "Placeholder biography text about Adrián Legaspi."
+  },
+  "projects": {
+    "heading": "Projects"
+  },
+  "stack": {
+    "heading": "Tech Stack"
+  },
+  "contact": {
+    "heading": "Get in Touch"
+  }
+}

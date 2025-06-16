@@ -1,0 +1,25 @@
+{
+  "home": {
+    "title": "Adrián Legaspi – Desarrollador de Apps IA & Ingeniero de Software",
+    "description": "Portafolio de Adrián Legaspi, desarrollador de apps IA e ingeniero de software.",
+    "cta": "Desplázate hacia abajo"
+  },
+  "hero": {
+    "greeting": "Hola, soy Adrián Legaspi",
+    "subtitle": "Desarrollador de Apps IA & Ingeniero de Software",
+    "cta": "Ir a sobre mí"
+  },
+  "about": {
+    "heading": "Sobre mí",
+    "bio": "Texto de biografía de ejemplo sobre Adrián Legaspi."
+  },
+  "projects": {
+    "heading": "Proyectos"
+  },
+  "stack": {
+    "heading": "Tecnologías"
+  },
+  "contact": {
+    "heading": "Contacto"
+  }
+}

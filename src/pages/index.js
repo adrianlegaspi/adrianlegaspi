@@ -64,7 +64,7 @@ export default function Home() {
       {/* -----------------------------------------------------------------
          Task bar (Win-95 vibes)
       ------------------------------------------------------------------ */}
-      <header className="sticky top-0 z-50 h-9 shadow-md">
+      <header className="sticky top-0 z-50 h-8 shadow-md">
         <div className="h-full w-full border-b border-ink dark:border-paper bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink">
           <div className="flex h-full items-center">
             {/* Start menu button */}
@@ -74,13 +74,14 @@ export default function Home() {
               className={`
                 ml-2
                 relative mr-2 flex h-[90%] items-center p-1
-                cursor-pointer transition-all
+                cursor-pointer
                 border border-ink dark:border-paper
-                ${startMenuOpen ? 'bg-paper dark:bg-ink' : 'bg-gradient-to-b from-paper to-paper/80 dark:from-ink dark:to-ink/80'}
-                shadow-[1px_1px_0_rgba(255,249,239,0.9),_-1px_-1px_0_rgba(4,0,5,0.8)]
-                dark:shadow-[1px_1px_0_rgba(4,0,5,0.9),_-1px_-1px_0_rgba(255,249,239,0.8)]
+                ${startMenuOpen ? 'bg-paper dark:bg-ink active:shadow-[inset_1px_1px_1px_rgba(0,0,0,0.7)]' : 'bg-paper dark:bg-ink'}
+                ${!startMenuOpen ? 'shadow-[1px_1px_0_rgba(255,255,255,0.7),_-1px_-1px_0_rgba(0,0,0,0.4)]' : ''}
+                dark:shadow-[1px_1px_0_rgba(255,255,255,0.3),_-1px_-1px_0_rgba(0,0,0,0.6)]
                 hover:bg-ink/10 dark:hover:bg-paper/10
-                active:translate-y-[1px] active:shadow-none
+                active:translate-y-[1px] active:translate-x-[1px] active:shadow-[inset_1px_1px_1px_rgba(0,0,0,0.7)]
+                transition-none
                 ${startMenuOpen ? 'after:absolute after:left-0 after:right-0 after:bottom-[-1px] after:h-[1px] after:bg-paper dark:after:bg-ink' : ''}
               `}
               aria-expanded={startMenuOpen}
@@ -184,22 +185,10 @@ export default function Home() {
               </div>
 
               {/* Language + theme */}
-              <div className="mx-1 flex h-[80%]">
-                {[LangSwitcher, ThemeToggle].map((Comp, idx) => (
-                  <div
-                    key={idx}
-                    className="
-                      mx-0.5 flex h-full items-center justify-center px-2
-                      border border-ink dark:border-paper bg-paper/70 dark:bg-ink/70
-                      shadow-[1px_1px_0_rgba(255,249,239,0.3),_-1px_-1px_0_rgba(4,0,5,0.3)]
-                      dark:shadow-[1px_1px_0_rgba(4,0,5,0.3),_-1px_-1px_0_rgba(255,249,239,0.3)]
-                      hover:bg-ink/10 dark:hover:bg-paper/10
-                      active:translate-y-[1px] active:shadow-none
-                    "
-                  >
-                    <Comp />
-                  </div>
-                ))}
+              <div className="mr-1 flex h-full items-center gap-1 py-0.5">
+                {/* Direct components without wrapping divs to ensure full clickable area */}
+                <LangSwitcher />
+                <ThemeToggle />
               </div>
             </div>
           </div>

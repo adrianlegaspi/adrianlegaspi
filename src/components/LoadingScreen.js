@@ -152,15 +152,24 @@ Display configuration complete.`,
           await new Promise(resolve => setTimeout(resolve, execTime));
         }
         
-        // Show output
-        setMessages(prev => {
-          const newMessages = [...prev, { type: 'output', text: output }];
-          setTimeout(() => scrollToBottom(), 50);
-          return newMessages;
-        });
+        // Show output line by line for a more realistic effect
+        const outputLines = output.split('\n');
+        
+        for (let line of outputLines) {
+          // Add a small random delay between each line to simulate realistic printing
+          const lineDelay = 50 + Math.floor(Math.random() * 150);
+          await new Promise(resolve => setTimeout(resolve, lineDelay));
+          
+          // Add the line to the message array
+          setMessages(prev => {
+            const newMessages = [...prev, { type: 'output', text: line }];
+            setTimeout(() => scrollToBottom(), 50);
+            return newMessages;
+          });
+        }
         
         // Wait before next command (varied delay between commands)
-        const commandDelay = 200 + Math.floor(Math.random() * 200);
+        const commandDelay = 300 + Math.floor(Math.random() * 200);
         await new Promise(resolve => setTimeout(resolve, commandDelay));
       }
       

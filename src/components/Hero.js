@@ -41,9 +41,7 @@ function Hero() {
 
       {/* ASCII art decoration */}
       <div className="absolute top-10 left-10 text-xs opacity-20 font-mono hidden lg:block">
-        {'╔══════════╗'}<br/>
-        {'║ PORTFOLIO ║'}<br/>
-        {'╚══════════╝'}
+        {'> PORTFOLIO'}<br/>
       </div>
       
       <div className="absolute bottom-10 right-10 text-xs opacity-20 font-mono hidden lg:block">

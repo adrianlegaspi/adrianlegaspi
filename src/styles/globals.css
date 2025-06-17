@@ -205,9 +205,24 @@ body {
   color: #FFF9EF;
 }
 
+::-moz-selection {
+  background-color: #040005;
+  color: #FFF9EF;
+}
+
 .dark ::selection {
   background-color: #FFF9EF; /* Using paper color at full opacity */
   color: #040005;
+}
+
+/* ===== Terminal cursor blink animation ===== */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ===== Retro scrollbar styling ===== */

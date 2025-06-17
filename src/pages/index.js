@@ -24,12 +24,14 @@ export default function Home() {
         <title>{t('title')}</title>
         <meta name="description" content={t('description')} />
         <link rel="canonical" href="https://adrianlegaspi.dev" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <meta property="og:title" content={t('title')} />
         <meta property="og:description" content={t('description')} />
         <meta property="og:image" content="/og-default.svg" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className="flex justify-between items-center p-4 sticky top-0 bg-paper/80 dark:bg-ink/80 z-10 border-b-2 border-ink/20 dark:border-paper/20 backdrop-blur transition-all duration-300 relative group">
+      <header className="flex justify-between items-center p-4 sticky top-0 bg-paper/80 dark:bg-ink/80 z-50 border-b-2 border-ink/20 dark:border-paper/20 backdrop-blur transition-all duration-300 relative group">
         {/* Animated vertical scan line */}
         <div className="absolute top-0 bottom-0 w-px bg-current opacity-20 animate-pulse" 
           style={{ 

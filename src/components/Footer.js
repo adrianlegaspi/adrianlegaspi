@@ -13,9 +13,9 @@ function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           {/* Copyright with terminal style */}
           <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 bg-current rounded-full opacity-40 animate-pulse"></span>
-            <span className="font-mono text-sm">
-              <span className="text-comment">/* © {currentYear} */</span> Adrián Legaspi
+            <span className="text-comment inline-block w-2 h-2 bg-current rounded-full opacity-40 animate-pulse"></span>
+            <span className="font-mono text-sm text-comment">
+              /* © {currentYear} */ Adrián Legaspi
             </span>
           </div>
           

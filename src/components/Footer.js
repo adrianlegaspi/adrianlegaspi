@@ -4,7 +4,7 @@ function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="relative py-8 border-t-2 border-dashed border-ink/20 dark:border-paper/20">
+    <footer className="relative py-8 border-t-2 border-dashed border-ink dark:border-paper">
       {/* Decorative line pattern */}
       <div className="absolute top-0 left-0 right-0 h-px bg-current opacity-10"></div>
       <div className="absolute top-1 left-0 right-0 h-px bg-current opacity-5"></div>

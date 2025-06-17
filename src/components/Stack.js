@@ -34,7 +34,7 @@ function Stack() {
               onMouseLeave={() => setHoveredTech(null)}
             >
               <div 
-                className={`px-4 py-2 border-2 border-ink/20 dark:border-paper/20 transition-all duration-300 relative group
+                className={`px-4 py-2 border-2 border-ink dark:border-paper transition-all duration-300 relative group
                   ${isHovered ? 'translate-y-[-2px] shadow-lg' : ''}`}
                 style={{
                   boxShadow: isHovered ? '3px 3px 0 #040005' : 'none',

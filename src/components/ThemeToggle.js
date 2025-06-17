@@ -15,8 +15,13 @@ function ThemeToggle() {
     return null; // avoid SSR mismatch
   }
   return (
-    <button type="button" className="flex items-center" onClick={toggle} aria-label="Toggle theme">
-      <i className={`hn ${theme === 'light' ? 'hn-sun' : 'hn-moon'}`} />
+    <button 
+      type="button" 
+      className="flex items-center justify-center" 
+      onClick={toggle} 
+      aria-label="Toggle theme"
+    >
+      <i className={`hn text-xs ${theme === 'light' ? 'hn-sun' : 'hn-moon'}`} />
     </button>
   );
 }

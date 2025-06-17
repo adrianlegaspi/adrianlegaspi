@@ -55,7 +55,7 @@ function About() {
         
         {/* Retro decorative elements */}
         {/* CV Download Section */}
-        <div className="mt-8 border-t border-dashed border-ink/20 dark:border-paper/20 pt-5">
+        <div className="mt-8 border-t border-dashed border-ink dark:border-paper pt-5">
           <h3 className="text-xl font-bold mb-3 relative inline-flex items-center">
             <span className="mr-3 text-comment">/*</span>
             {t('downloadCV') || 'Download CV'}

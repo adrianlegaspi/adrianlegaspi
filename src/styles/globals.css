@@ -86,14 +86,14 @@ body {
 
 .card {
   background-color: #FFF9EF;
-  border: 2px solid rgba(4, 0, 5, 0.1);
+  border: 2px solid var(--color-ink);
   padding: 1.5rem;
   border-radius: 0;
 }
 
 .dark .card {
   background-color: #040005;
-  border: 2px solid rgba(255, 249, 239, 0.1);
+  border: 2px solid var(--color-paper);
 }
 
 /* ===== Retro visual effects ===== */
@@ -351,27 +351,27 @@ body {
 
 /* Enhanced card with retro shadow */
 .enhanced-card {
-  border: 2px solid rgba(4, 0, 5, 0.2);
+  border: 2px solid var(--color-ink);
   padding: 1.5rem;
   border-radius: 0;
   position: relative;
   transition-property: all;
   transition-duration: 300ms;
-  box-shadow: 4px 4px 0 0 rgba(4, 0, 5, 0.2);
+  box-shadow: 4px 4px 0 0 var(--color-ink);
 }
 
 .dark .enhanced-card {
-  border: 2px solid rgba(255, 249, 239, 0.2);
-  box-shadow: 4px 4px 0 0 rgba(255, 249, 239, 0.2);
+  border: 2px solid var(--color-paper);
+  box-shadow: 4px 4px 0 0 var(--color-paper);
 }
 
 .enhanced-card:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 0 rgba(4, 0, 5, 0.3);
+  box-shadow: 6px 6px 0 0 var(--color-ink);
 }
 
 .dark .enhanced-card:hover {
-  box-shadow: 6px 6px 0 0 rgba(255, 249, 239, 0.3);
+  box-shadow: 6px 6px 0 0 var(--color-paper);
 }
 
 /* Button styles */

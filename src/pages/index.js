@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useTranslations } from 'next-intl';
+import { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Projects from '../components/Projects';
@@ -18,6 +19,25 @@ export async function getStaticProps({ locale }) {
 
 export default function Home() {
   const t = useTranslations('home');
+  const [currentTime, setCurrentTime] = useState('');
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+    
+    // Update time initially
+    updateTime();
+    
+    // Set up interval to update time every minute
+    const interval = setInterval(updateTime, 60000);
+    
+    // Clean up interval
+    return () => clearInterval(interval);
+  }, []);
+  
+  const updateTime = () => {
+    setCurrentTime(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true}));
+  };
   return (
     <>
       <Head>
@@ -31,15 +51,8 @@ export default function Home() {
         <meta property="og:image" content="/og-default.svg" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className="flex justify-between items-center p-4 sticky top-0 bg-paper/80 dark:bg-ink/80 z-50 border-b-2 border-ink/20 dark:border-paper/20 backdrop-blur transition-all duration-300 relative group">
-        {/* Animated vertical scan line */}
-        <div className="absolute top-0 bottom-0 w-px bg-current opacity-20 animate-pulse" 
-          style={{ 
-            left: '50%', 
-            animation: 'pulse 4s ease-in-out infinite, moveLeftRight 15s ease-in-out infinite' 
-          }}></div>
-          
-        {/* Header noise texture */}
+      <header className="sticky top-0 z-50 bg-paper dark:bg-ink border-b-2 border-ink dark:border-paper shadow-ink dark:shadow-paper h-9 relative group">
+        {/* Taskbar background with noise texture */}
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div className="h-full w-full" 
             style={{
@@ -48,30 +61,63 @@ export default function Home() {
             }}
           ></div>
         </div>
-        
-        {/* Logo with hover effect */}
-        <div className="font-bold text-lg relative overflow-hidden group/logo">
-          <span className="inline-block group-hover/logo:animate-glitch">Adrián Legaspi</span>
-          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-current opacity-50 group-hover/logo:w-full transition-all duration-500"></span>
-        </div>
-        
-        {/* Animated divider */}
-        <div className="absolute top-1/2 transform -translate-y-1/2 right-[140px] opacity-20 hidden md:block">
-          <div className="flex flex-col gap-1">
-            <div className="h-px w-6 bg-current"></div>
-            <div className="h-px w-6 bg-current"></div>
-            <div className="h-px w-6 bg-current"></div>
+
+        <div className="flex h-full">
+          {/* Start button */}
+          <div className="flex items-center border-r-2 border-ink dark:border-paper px-2 hover:bg-ink/10 dark:hover:bg-paper/10 cursor-pointer group/start transition-colors">
+            <span className="text-xs font-mono font-bold tracking-tight mr-1 text-comment">$</span>
+            <span className="text-sm font-mono">AL</span>
+          </div>
+
+          {/* App section with "opened apps" */}
+          <div className="flex">
+            <a href="#about" className="flex items-center h-full px-3 border-r border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
+              <span className="text-xs text-comment mr-1">/*</span>
+              <span className="text-xs">About</span>
+              <span className="text-xs text-comment ml-1">*/</span>
+            </a>
+            <a href="#projects" className="flex items-center h-full px-3 border-r border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
+              <span className="text-xs text-comment mr-1">/*</span>
+              <span className="text-xs">Projects</span>
+              <span className="text-xs text-comment ml-1">*/</span>
+            </a>
+            <a href="#stack" className="hidden sm:flex items-center h-full px-3 border-r border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
+              <span className="text-xs text-comment mr-1">/*</span>
+              <span className="text-xs">Stack</span>
+              <span className="text-xs text-comment ml-1">*/</span>
+            </a>
+            <a href="#contact" className="hidden sm:flex items-center h-full px-3 border-r border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
+              <span className="text-xs text-comment mr-1">/*</span>
+              <span className="text-xs">Contact</span>
+              <span className="text-xs text-comment ml-1">*/</span>
+            </a>
           </div>
         </div>
-        
-        <div className="flex gap-5 items-center relative z-10">
-          <LangSwitcher />
-          <ThemeToggle />
-          
-          {/* Status indicator */}
-          <div className="hidden md:flex items-center gap-2 text-xs opacity-60">
-            <div className="w-2 h-2 bg-current rounded-full animate-pulse"></div>
-            <span>ONLINE</span>
+
+        {/* Right side system tray */}
+        <div className="absolute right-0 top-0 h-full flex items-center">
+          <div className="hidden md:flex items-center h-full px-3 border-l border-ink dark:border-paper">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-green-400 dark:bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-[10px] font-mono">ONLINE</span>
+            </div>
+          </div>
+
+          {/* Clock */}
+          <div className="hidden sm:flex items-center h-full px-3 border-l border-ink dark:border-paper bg-ink/5 dark:bg-paper/5">
+            <span className="text-[10px] font-mono">
+              {mounted ? currentTime : ''}  
+            </span>
+          </div>
+
+          {/* Language & Theme */}
+          <div className="flex h-full">
+            <div className="flex items-center h-full px-2 border-l border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10">
+              <LangSwitcher />
+            </div>
+            <div className="flex items-center h-full px-2 border-l border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>

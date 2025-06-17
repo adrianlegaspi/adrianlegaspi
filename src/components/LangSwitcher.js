@@ -11,8 +11,13 @@ function LangSwitcher() {
   };
 
   return (
-    <button type="button" onClick={toggleLocale} aria-label="Toggle language">
-      {locale.toUpperCase()}
+    <button 
+      type="button" 
+      onClick={toggleLocale} 
+      aria-label="Toggle language"
+      className="text-[10px] font-mono flex items-center justify-center"
+    >
+      {locale === 'en' ? 'EN' : 'ES'}
     </button>
   );
 }

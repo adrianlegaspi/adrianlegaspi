@@ -19,9 +19,9 @@ function Footer() {
             </span>
           </div>
           
-          {/* ASCII decorative element */}
+          {/* Footer decorative element */}
           <div className="hidden md:block font-mono text-xs text-comment tracking-widest">
-            {'<------- END ------->'}
+            {'/* END */'}
           </div>
           
           {/* Retro-styled stats */}

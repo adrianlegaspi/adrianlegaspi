@@ -39,15 +39,13 @@ function Hero() {
         }}></div>
       </div>
 
-      {/* ASCII art decoration */}
-      <div className="absolute top-10 left-10 text-xs opacity-20 font-mono hidden lg:block">
-        {'> PORTFOLIO'}<br/>
+      {/* Decorative comment elements */}
+      <div className="absolute top-10 left-10 text-xs text-comment font-mono hidden lg:block">
+        {'/* PORTFOLIO */'}
       </div>
       
-      <div className="absolute bottom-10 right-10 text-xs opacity-20 font-mono hidden lg:block">
-        {'┌─────────┐'}<br/>
-        {'│ v1.0.0  │'}<br/>
-        {'└─────────┘'}
+      <div className="absolute bottom-10 right-10 text-xs text-comment font-mono hidden lg:block">
+        {'/* v1.0.0 */'}
       </div>
 
       <div className="relative z-10">
@@ -77,7 +75,7 @@ function Hero() {
       {isTypingComplete && (
         <button
           type="button"
-          className="mt-10 animate-bounce p-2 border-2 border-current btn-retro shadow-ink"
+          className="mt-10 animate-bounce p-2 border-2 border-current btn-retro shadow-ink dark:shadow-paper"
           aria-label={t('cta')}
           onClick={handleScroll}
           style={{ animationDelay: '0.9s' }}

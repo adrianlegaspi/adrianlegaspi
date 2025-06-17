@@ -11,12 +11,14 @@ module.exports = {
         ink: "#040005",
         paper: "#FFF9EF",
         comment: "#2E4730",
+        'comment-dark': "#8FBB96",
       },
       fontFamily: {
         mono: ["'IBM Plex Mono'", "monospace"],
       },
       boxShadow: {
-        'ink': '6px 6px 0px #040005',
+        'ink': '6px 6px 0px var(--color-ink)',
+        'paper': '6px 6px 0px var(--color-paper)',
       },
     },
   },

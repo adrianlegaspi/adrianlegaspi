@@ -241,7 +241,7 @@ function Contact() {
       
       {/* Retro decorative elements */}
       <div className="flex justify-center mt-8 opacity-40">
-        <div className="text-xs tracking-widest uppercase">{'// End of transmission //'}</div>
+        <div className="text-xs tracking-widest uppercase text-comment">{'/* End of transmission */'}</div>
       </div>
       
       <div className="scanlines absolute inset-0 opacity-10 pointer-events-none"></div>

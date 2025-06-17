@@ -11,7 +11,10 @@
   },
   "about": {
     "heading": "About Me",
-    "bio": "Placeholder biography text about Adrián Legaspi."
+    "bio": "I build fast apps, scalable systems, and AI-powered tools — built with architecture that scales, and lasts",
+    "downloadCV": "Download CV",
+    "englishCV": "English",
+    "spanishCV": "Spanish"
   },
   "projects": {
     "heading": "Projects"

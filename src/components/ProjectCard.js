@@ -7,7 +7,7 @@ function ProjectCard({ name, description, live, repo }) {
 
   return (
     <div 
-      className={classNames('card', 'flex flex-col justify-between h-full group relative overflow-hidden shadow-ink transition-all duration-300')}
+      className={classNames('card', 'flex flex-col justify-between h-full group relative overflow-hidden shadow-ink dark:shadow-paper transition-all duration-300')}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

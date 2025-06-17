@@ -11,7 +11,10 @@
   },
   "about": {
     "heading": "Sobre mí",
-    "bio": "Texto de biografía de ejemplo sobre Adrián Legaspi."
+    "bio": "Desarrollo apps rápidas, sistemas que escalan y herramientas con IA — con arquitectura pensada para crecer y durar",
+    "downloadCV": "Descargar CV",
+    "englishCV": "Inglés",
+    "spanishCV": "Español"
   },
   "projects": {
     "heading": "Proyectos"

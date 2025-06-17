@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/router';
 
 function About() {
   const t = useTranslations('about');
+  const router = useRouter();
+  const { locale } = router;
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
@@ -35,8 +38,9 @@ function About() {
       <div className={`card relative overflow-hidden transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}>
         {/* Retro header with underline */}
         <h2 className="text-3xl font-bold mb-6 relative inline-flex items-center">
-          <span className="mr-3 opacity-40">//</span>
+          <span className="mr-3 text-comment">/*</span>
           {t('heading')}
+          <span className="ml-3 text-comment">*/</span>
           <span className="absolute bottom-0 left-0 w-full h-1 bg-current opacity-20"></span>
         </h2>
         
@@ -50,6 +54,33 @@ function About() {
         </div>
         
         {/* Retro decorative elements */}
+        {/* CV Download Section */}
+        <div className="mt-8 border-t border-dashed border-ink/20 dark:border-paper/20 pt-5">
+          <h3 className="text-xl font-bold mb-3 relative inline-flex items-center">
+            <span className="mr-3 text-comment">/*</span>
+            {t('downloadCV') || 'Download CV'}
+            <span className="ml-3 text-comment">*/</span>
+          </h3>
+          <div className="flex flex-wrap gap-4">
+            <a 
+              href="/cv/ADRIAN_LEGASPI_CV_v8_en.pdf" 
+              download
+              className="btn-retro shadow-ink dark:shadow-paper border-2 border-current px-4 py-2 flex items-center text-sm hover:bg-ink hover:text-paper dark:hover:bg-paper dark:hover:text-ink transition-colors"
+            >
+              <span className="font-mono mr-2">[ EN ]</span>
+              <span>{t('englishCV') || 'English'}</span>
+            </a>
+            <a 
+              href="/cv/ADRIAN_LEGASPI_CV_v8_es.pdf" 
+              download
+              className="btn-retro shadow-ink dark:shadow-paper border-2 border-current px-4 py-2 flex items-center text-sm hover:bg-ink hover:text-paper dark:hover:bg-paper dark:hover:text-ink transition-colors"
+            >
+              <span className="font-mono mr-2">[ ES ]</span>
+              <span>{t('spanishCV') || 'Spanish'}</span>
+            </a>
+          </div>
+        </div>
+        
         <div className="mt-8 flex justify-end">
           <div className="flex gap-2 items-center opacity-40 text-sm">
             <span className="inline-block h-px w-6 bg-current"></span>

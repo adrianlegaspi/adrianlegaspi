@@ -1,12 +1,59 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+// CSS for hiding scrollbars
+const scrollbarHideStyles = `
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Classic Windows progress bar stripes */
+  .progress-stripes {
+    height: 100%;
+    width: 200%;
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.2) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0.2) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 20px 20px;
+    animation: progress-animation 1s linear infinite;
+  }
+  
+  @keyframes progress-animation {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-20px);
+    }
+  }
+`;
+
 const LoadingScreen = ({ onLoadComplete }) => {
   const [messages, setMessages] = useState([]);
   const [cursorVisible, setCursorVisible] = useState(true);
+  const [transitioning, setTransitioning] = useState(false);
+  const [progressPercent, setProgressPercent] = useState(5); // Start with 5% visible
+  const [debugMode, setDebugMode] = useState(false); // Debug mode disabled
   const hasStartedRef = useRef(false);
   const terminalRef = useRef(null);
   
   // Command pairs: each entry has a command, output, and execution time (in ms)
+  // Final message after all terminal output is complete
+  const finalStartupMessage = "Starting system...";
+
   const startupSequence = [
     { 
       cmd: 'boot system.kernel', 
@@ -43,14 +90,13 @@ Pass 1 complete - filesystem integrity verified`,
 /dev/sda3 mounted on /home
 tmpfs mounted on /tmp
 procfs mounted on /proc
-All filesystems mounted. Space available: 234.5GB`,
+All filesystems mounted. Space available.`,
       execTime: 320 
     },
     { 
       cmd: 'service network start', 
       output: `Starting network services...
 Initializing interfaces...
-eth0: Link is up at 1000Mbps
 Obtaining IP address: 192.168.1.105
 Network gateway: 192.168.1.1
 DNS: 8.8.8.8, 8.8.4.4
@@ -73,9 +119,7 @@ Application framwork initialized.`,
     { 
       cmd: 'init display', 
       output: `Detecting displays...
-Found monitor: DELL U2720Q (3840x2160)
 Setting optimal resolution
-Refresh rate: 60Hz
 Color depth: 32bit
 Graphics acceleration enabled
 Display configuration complete.`,
@@ -85,6 +129,11 @@ Display configuration complete.`,
       cmd: 'echo "$(date) - System ready."', 
       output: `${new Date().toLocaleString()} - System ready.`,
       execTime: 100 
+    },
+    {
+      cmd: 'startx',
+      output: 'Initializing graphical user interface...',
+      execTime: 150
     }
   ];
   
@@ -173,12 +222,39 @@ Display configuration complete.`,
         await new Promise(resolve => setTimeout(resolve, commandDelay));
       }
       
-      // Calculate elapsed time and wait remaining time to ensure minimum 5 seconds
+      // Calculate elapsed time and wait remaining time to ensure minimum 4 seconds
       const elapsedTime = Date.now() - startTime;
-      const remainingTime = Math.max(5000 - elapsedTime, 0);
+      const remainingTime = Math.max(3000 - elapsedTime, 0);
       
       await new Promise(resolve => setTimeout(resolve, remainingTime));
-      if (onLoadComplete) onLoadComplete();
+      
+      // Show final startup message
+      setMessages(prev => {
+        const newMessages = [...prev, { type: 'system', text: finalStartupMessage }];
+        setTimeout(() => scrollToBottom(), 50);
+        return newMessages;
+      });
+      
+      // Begin progress bar animation
+      setTransitioning(true);
+      
+      // DEBUG MODE: If in debug mode, freeze at progress 50% and don't complete
+      if (debugMode) {
+        console.log('DEBUG MODE: Progress bar frozen at 50%');
+        return; // Stop here in debug mode to examine the UI
+      }
+      
+      // Normal progress animation
+      setTimeout(() => setProgressPercent(20), 100);
+      setTimeout(() => setProgressPercent(40), 400);
+      setTimeout(() => setProgressPercent(60), 700);
+      setTimeout(() => setProgressPercent(80), 1000);
+      setTimeout(() => setProgressPercent(100), 1300);
+      
+      // Complete the transition after progress bar reaches 100%
+      setTimeout(() => {
+        if (onLoadComplete) onLoadComplete();
+      }, 1600);
     };
     
     // Function to scroll the terminal to the bottom
@@ -198,27 +274,67 @@ Display configuration complete.`,
   }, [onLoadComplete]);
   
   return (
-    <div ref={terminalRef} className="fixed inset-0 bg-black flex flex-col items-start justify-start z-50 overflow-auto">
-      <div className="p-6 pt-10 font-mono text-amber-50 w-full max-w-4xl">
-        <pre className="whitespace-pre-wrap text-left">
-          {messages.map((message, index) => (
-            <div key={index} className={
-              message.type === 'command' ? 'text-green-200 font-bold' : 
-              message.type === 'executing' ? 'text-yellow-500 italic pl-4' : 
-              'text-amber-50 pl-0'
-            }>
-              {message.type === 'output' ? (
-                <pre className="whitespace-pre-wrap">{message.text}</pre>
-              ) : (
-                message.text
-              )}
+    <div className="fixed inset-0 z-50">
+      {/* Add inline styles for hiding scrollbars */}
+      <style>{scrollbarHideStyles}</style>
+      {/* Windows 95-style transition overlay */}
+      <div className={`fixed inset-0 bg-paper dark:bg-ink z-10 transition-opacity duration-1500 ${transitioning ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className={`w-full h-full flex items-center justify-center transition-transform duration-1000 ${transitioning ? 'scale-100' : 'scale-75'}`}>
+          <div className="text-center transform transition-all duration-1000">
+            <div className="flex flex-col items-center justify-center">
+                            {/* Windows 95 style progress bar */}
+              <div className="w-64 h-5 mb-4 relative border border-ink dark:border-paper bg-paper dark:bg-ink shadow-[inset_1px_1px_2px_rgba(0,0,0,0.3)]">
+                {/* Classic Windows progress bar with pattern */}
+                <div 
+                  className="absolute h-3 top-[2px] left-[2px] transition-all duration-300 ease-linear bg-ink dark:bg-paper" 
+                  style={{ width: `${progressPercent}%` }}
+                >
+                  {/* Solid color progress bar */}
+                </div>
+              </div>
+              <div className="
+                py-2 px-8 inline-block
+                border border-ink dark:border-paper
+                shadow-[2px_2px_0_rgba(4,0,5,0.5)]
+                dark:shadow-[2px_2px_0_rgba(255,249,239,0.5)]
+                bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink
+              ">
+                <p className="font-mono text-ink dark:text-paper text-sm">Welcome to adrianlegaspi.dev</p>
+              </div>
             </div>
-          ))}
-          <div className="flex items-center">
-            <span className="text-green-200 font-bold">$ </span>
-            <span className={cursorVisible ? 'opacity-100' : 'opacity-0 ml-1'}>_</span>
           </div>
-        </pre>
+        </div>
+      </div>
+      
+      {/* Terminal screen */}
+      <div 
+        ref={terminalRef}
+        className={`fixed inset-0 bg-black flex flex-col items-start justify-start overflow-auto z-0 transition-opacity duration-500 ${transitioning ? 'opacity-0' : 'opacity-100'} scrollbar-hide`}
+      >
+        <div className="p-6 pt-10 font-mono text-amber-50 w-full max-w-4xl">
+          <pre className="whitespace-pre-wrap text-left">
+            {messages.map((message, index) => (
+              <div key={index} className={
+                message.type === 'command' ? 'text-green-200 font-bold' : 
+                message.type === 'executing' ? 'text-yellow-500 italic pl-4' : 
+                message.type === 'system' ? 'text-blue-300 font-bold' :
+                'text-amber-50 pl-0'
+              }>
+                {message.type === 'output' ? (
+                  <pre className="whitespace-pre-wrap">{message.text}</pre>
+                ) : (
+                  message.text
+                )}
+              </div>
+            ))}
+            {!transitioning && (
+              <div className="flex items-center">
+                <span className="text-green-200 font-bold">$ </span>
+                <span className={cursorVisible ? 'opacity-100' : 'opacity-0 ml-1'}>_</span>
+              </div>
+            )}
+          </pre>
+        </div>
       </div>
     </div>
   );

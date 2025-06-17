@@ -18,6 +18,7 @@ export async function getStaticProps({ locale }) {
 export default function Home() {
   const t = useTranslations('home');
   const [currentTime, setCurrentTime] = useState('');
+  const [startMenuOpen, setStartMenuOpen] = useState(false);
 
   /* ------------------------------------------------------------------ */
   /*  Clock — stable callback + cleanup                                 */
@@ -58,67 +59,118 @@ export default function Home() {
       <header className="sticky top-0 z-50 h-9 shadow-md">
         <div className="h-full w-full border-b border-ink dark:border-paper bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink">
           <div className="flex h-full items-center">
-            {/* Start-like button */}
+            {/* Start menu button */}
             <button
               type="button"
-              className="
-                mr-2 flex h-[90%] items-center px-2
+              onClick={() => setStartMenuOpen(!startMenuOpen)}
+              className={`
+                ml-2
+                relative mr-2 flex h-[90%] items-center p-1
                 cursor-pointer transition-all
                 border border-ink dark:border-paper
-                bg-gradient-to-b from-paper to-paper/80 dark:from-ink dark:to-ink/80
+                ${startMenuOpen ? 'bg-paper dark:bg-ink' : 'bg-gradient-to-b from-paper to-paper/80 dark:from-ink dark:to-ink/80'}
                 shadow-[1px_1px_0_rgba(255,249,239,0.9),_-1px_-1px_0_rgba(4,0,5,0.8)]
                 dark:shadow-[1px_1px_0_rgba(4,0,5,0.9),_-1px_-1px_0_rgba(255,249,239,0.8)]
                 hover:bg-ink/10 dark:hover:bg-paper/10
                 active:translate-y-[1px] active:shadow-none
-              "
+                ${startMenuOpen ? 'after:absolute after:left-0 after:right-0 after:bottom-[-1px] after:h-[1px] after:bg-paper dark:after:bg-ink' : ''}
+              `}
+              aria-expanded={startMenuOpen}
+              aria-controls="start-menu"
             >
-              <span className="mr-1 text-xs font-mono font-bold tracking-tight text-comment">$</span>
-              <span className="text-sm font-mono">AL</span>
+              <img 
+                src="/assets/img/adrianlegaspi-logo.png" 
+                alt="Adrian Legaspi Logo" 
+                className="h-6 w-auto" 
+              />
             </button>
-
-            {/* Windows-style tabs */}
-            <nav className="flex h-full">
-              {[
-                { href: '#about', label: 'About' },
-                { href: '#projects', label: 'Projects' },
-                { href: '#stack', label: 'Stack', hideOn: 'sm' },
-                { href: '#contact', label: 'Contact', hideOn: 'sm' },
-              ].map(({ href, label, hideOn }) => (
-                <a
-                  key={href}
-                  href={href}
-                  className={`
-                    relative mx-1 flex h-[85%] items-center rounded-t-sm px-3 transition-colors
-                    border-t border-l border-r border-ink dark:border-paper
-                    bg-paper/80 dark:bg-ink/80 hover:bg-paper dark:hover:bg-ink
-                    after:absolute after:left-0 after:right-0 after:bottom-[-1px] after:h-[1px] after:bg-paper dark:after:bg-ink
-                    ${hideOn ? `hidden ${hideOn}:flex` : ''}
-                  `}
+            
+            {/* Start menu overlay */}
+            {startMenuOpen && (
+              <>
+                {/* Backdrop for closing when clicking outside (desktop only) */}
+                <div 
+                  className="fixed inset-0 z-40 hidden sm:block" 
+                  onClick={() => setStartMenuOpen(false)} 
+                  aria-hidden="true"
+                />
+                
+                {/* Start menu */}
+                <div 
+                  id="start-menu"
+                  className="
+                    fixed left-0 sm:absolute sm:left-1 z-50 
+                    w-full sm:w-64 
+                    top-9 sm:top-full sm:-mt-1
+                    bg-paper dark:bg-ink
+                    border border-ink dark:border-paper
+                    shadow-[2px_2px_10px_rgba(4,0,5,0.2)]
+                    flex flex-col
+                    overflow-y-auto
+                    max-h-[calc(100vh-9px)] sm:max-h-[500px]
+                  "
                 >
-                  <span className="mr-1 text-xs text-comment">/*</span>
-                  <span className="text-xs">{label}</span>
-                  <span className="ml-1 text-xs text-comment">*/</span>
-                </a>
-              ))}
-            </nav>
+                  {/* Start menu header - mobile only */}
+                  <div className="sm:hidden flex items-center justify-between p-4 border-b border-ink dark:border-paper">
+                    <span className="text-lg font-bold font-mono">Menu</span>
+                    <button 
+                      onClick={() => setStartMenuOpen(false)}
+                      className="p-2"
+                      aria-label="Close menu"
+                    >
+                      <span className="text-lg font-mono">×</span>
+                    </button>
+                  </div>
+                  
+                  {/* Menu items */}
+                  <div className="py-2">
+                    {[
+                      { href: '#about', label: 'About', icon: 'hn-user' },
+                      { href: '#projects', label: 'Projects', icon: 'hn-star' },
+                      { href: '#stack', label: 'Stack', icon: 'hn-sun' },
+                      { href: '#contact', label: 'Contact', icon: 'hn-moon' },
+                    ].map(({ href, label, icon }) => (
+                      <a
+                        key={href}
+                        href={href}
+                        onClick={() => setStartMenuOpen(false)}
+                        className="
+                          flex items-center px-4 py-3 hover:bg-ink/10 dark:hover:bg-paper/10
+                          border-l-[3px] border-transparent hover:border-l-[3px] hover:border-accent
+                          transition-colors
+                        "
+                      >
+                        <i className={`hn ${icon} text-xs mr-3`} aria-hidden="true" />
+                        <span className="font-mono">{label}</span>
+                      </a>
+                    ))}
+                  </div>
+                  
+                  {/* Footer items */}
+                  <div className="mt-auto border-t border-ink dark:border-paper/20 py-2">
+                    <div className="flex items-center justify-between px-4 py-2">
+                      <span className="text-xs font-mono opacity-70">Adrian Legaspi © {new Date().getFullYear()}</span>
+                      
+                      <div className="flex space-x-3">
+                        <LangSwitcher />
+                        <ThemeToggle />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Spacer to push items to right */}
+            <div className="flex-1"></div>
 
             {/* Right-side tray */}
             <div className="absolute right-0 top-0 flex h-full items-center">
-              {/* Online badge */}
-              <div className="mx-1 hidden h-[80%] items-center px-3 md:flex
-                border border-ink dark:border-paper bg-paper/70 dark:bg-ink/70
-                shadow-[inset_1px_1px_1px_rgba(4,0,5,0.3),inset_-1px_-1px_0_rgba(255,249,239,0.3)]
-                dark:shadow-[inset_1px_1px_1px_rgba(255,249,239,0.3),inset_-1px_-1px_0_rgba(4,0,5,0.3)]
-              ">
-                <span className="mr-1 inline-block h-2 w-2 animate-pulse rounded-full bg-green-400 dark:bg-green-500" />
-                <span className="text-[10px] font-mono">ONLINE</span>
-              </div>
+              {/* Placeholder for spacing if needed */}
 
               {/* Clock */}
               <div className="mx-1 hidden h-[80%] items-center justify-center px-3 sm:flex
-                border border-ink dark:border-paper bg-paper/70 dark:bg-ink/70
-                shadow-[inset_1px_1px_1px_rgba(4,0,5,0.3),inset_-1px_-1px_0_rgba(255,249,239,0.3)]
-                dark:shadow-[inset_1px_1px_1px_rgba(255,249,239,0.3),inset_-1px_-1px_0_rgba(4,0,5,0.3)]
+                bg-paper/70 dark:bg-ink/70
               ">
                 <span className="text-[10px] font-mono">{currentTime}</span>
               </div>

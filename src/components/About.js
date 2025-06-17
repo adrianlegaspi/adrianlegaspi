@@ -31,8 +31,8 @@ function About() {
   return (
     <section id="about" className="mx-auto px-4 py-8 max-w-3xl relative">
       {/* Decorative ASCII frame */}
-      <div className="absolute -left-2 top-0 text-xs opacity-20 font-mono hidden md:block pt-2">
-        {'> ABOUT'}<br/>
+      <div className="text-xs text-comment font-mono hidden lg:block pb-6">
+        /* ABOUT */
       </div>
       
       <div className={`card relative overflow-hidden transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}>

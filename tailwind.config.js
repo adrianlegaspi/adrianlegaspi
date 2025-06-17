@@ -10,9 +10,13 @@ module.exports = {
       colors: {
         ink: "#040005",
         paper: "#FFF9EF",
+        comment: "#2E4730",
       },
       fontFamily: {
         mono: ["'IBM Plex Mono'", "monospace"],
+      },
+      boxShadow: {
+        'ink': '6px 6px 0px #040005',
       },
     },
   },

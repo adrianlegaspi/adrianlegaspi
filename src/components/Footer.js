@@ -1,9 +1,44 @@
 import React from 'react';
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
+  
   return (
-    <footer className="text-center py-4 border-t border-ink/10 dark:border-paper/10">
-      © {new Date().getFullYear()} Adrián Legaspi
+    <footer className="relative py-8 border-t-2 border-dashed border-ink/20 dark:border-paper/20">
+      {/* Decorative line pattern */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-current opacity-10"></div>
+      <div className="absolute top-1 left-0 right-0 h-px bg-current opacity-5"></div>
+      
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Copyright with terminal style */}
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 bg-current rounded-full opacity-40 animate-pulse"></span>
+            <span className="font-mono text-sm">
+              <span className="text-comment">/* © {currentYear} */</span> Adrián Legaspi
+            </span>
+          </div>
+          
+          {/* ASCII decorative element */}
+          <div className="hidden md:block font-mono text-xs text-comment tracking-widest">
+            {'<------- END ------->'}
+          </div>
+          
+          {/* Retro-styled stats */}
+          <div className="flex gap-4 text-xs font-mono text-comment">
+            <div>{'[ VERSION 1.0.1 ]'}</div>
+            <div className="hidden md:block">{'[ LAST UPDATE: ' + currentYear + ' ]'}</div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Bottom decorative pattern */}
+      <div className="absolute bottom-0 left-0 w-full h-1 overflow-hidden">
+        <div className="w-full h-full" style={{
+          backgroundImage: 'repeating-linear-gradient(90deg, currentColor, currentColor 5px, transparent 5px, transparent 10px)',
+          opacity: 0.1
+        }}></div>
+      </div>
     </footer>
   );
 }

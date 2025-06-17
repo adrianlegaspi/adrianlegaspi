@@ -68,9 +68,9 @@ function Hero() {
             
             {/* Retro style decorative elements */}
             <div className="flex justify-center gap-4 mt-8 animate-slide-up opacity-0" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
-              <span className="text-sm opacity-50">[</span>
+              <span className="text-sm text-comment">[</span>
               <span className="text-sm uppercase tracking-widest">Creative Developer</span>
-              <span className="text-sm opacity-50">]</span>
+              <span className="text-sm text-comment">]</span>
             </div>
           </>
         )}
@@ -79,7 +79,7 @@ function Hero() {
       {isTypingComplete && (
         <button
           type="button"
-          className="mt-10 animate-bounce p-2 border-2 border-current btn-retro"
+          className="mt-10 animate-bounce p-2 border-2 border-current btn-retro shadow-ink"
           aria-label={t('cta')}
           onClick={handleScroll}
           style={{ animationDelay: '0.9s' }}

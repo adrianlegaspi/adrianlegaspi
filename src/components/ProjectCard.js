@@ -7,7 +7,7 @@ function ProjectCard({ name, description, live, repo }) {
 
   return (
     <div 
-      className={classNames('card', 'flex flex-col justify-between h-full group relative overflow-hidden')}
+      className={classNames('card', 'flex flex-col justify-between h-full group relative overflow-hidden shadow-ink transition-all duration-300')}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -23,7 +23,7 @@ function ProjectCard({ name, description, live, repo }) {
       
       <div>
         <h3 className="text-xl font-semibold mb-2 group-hover:animate-glitch">{name}</h3>
-        <p className="mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300">{description}</p>
+        <p className="mb-4 text-comment group-hover:text-current transition-all duration-300">{description}</p>
       </div>
       
       {/* Enhanced link buttons */}

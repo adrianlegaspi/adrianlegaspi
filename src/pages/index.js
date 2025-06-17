@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { useState, useEffect, useCallback } from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
@@ -17,8 +18,15 @@ export async function getStaticProps({ locale }) {
 
 export default function Home() {
   const t = useTranslations('home');
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
   const [startMenuOpen, setStartMenuOpen] = useState(false);
+  
+  // Handle theme mounting to prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   /* ------------------------------------------------------------------ */
   /*  Clock — stable callback + cleanup                                 */
@@ -79,7 +87,7 @@ export default function Home() {
               aria-controls="start-menu"
             >
               <img 
-                src="/assets/img/adrianlegaspi-logo.png" 
+                src={mounted ? `/assets/img/adrianlegaspi-logo-${theme === 'dark' ? 'light' : 'dark'}.png` : '/assets/img/adrianlegaspi-logo.png'} 
                 alt="Adrian Legaspi Logo" 
                 className="h-6 w-auto" 
               />

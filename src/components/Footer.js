@@ -7,7 +7,6 @@ function Footer() {
     <footer className="relative py-8 border-t-2 border-dashed border-ink dark:border-paper">
       {/* Decorative line pattern */}
       <div className="absolute top-0 left-0 right-0 h-px bg-current opacity-10"></div>
-      <div className="absolute top-1 left-0 right-0 h-px bg-current opacity-5"></div>
       
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -30,14 +29,6 @@ function Footer() {
             <div className="hidden md:block">{'[ LAST UPDATE: ' + currentYear + ' ]'}</div>
           </div>
         </div>
-      </div>
-      
-      {/* Bottom decorative pattern */}
-      <div className="absolute bottom-0 left-0 w-full h-1 overflow-hidden">
-        <div className="w-full h-full" style={{
-          backgroundImage: 'repeating-linear-gradient(90deg, currentColor, currentColor 5px, transparent 5px, transparent 10px)',
-          opacity: 0.1
-        }}></div>
       </div>
     </footer>
   );

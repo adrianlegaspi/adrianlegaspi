@@ -4,6 +4,8 @@ import { ThemeProvider } from 'next-themes';
 import { NextIntlProvider } from 'next-intl';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { useState, useEffect } from 'react';
+import LoadingScreen from '../components/LoadingScreen';
 
 function GA() {
   if (!process.env.NEXT_PUBLIC_GA_ID) return null;
@@ -24,6 +26,25 @@ function GA() {
 
 function MyApp({ Component, pageProps }) {
   const { locale, defaultLocale } = useRouter();
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    // Check if this is the first visit
+    const isFirstVisit = typeof window !== 'undefined' && !localStorage.getItem('hasVisited');
+    
+    if (isFirstVisit) {
+      // Set the loading screen to display
+      setShowLoading(true);
+      
+      // Mark that the user has visited
+      //localStorage.setItem('hasVisited', 'true');
+    }
+  }, []);
+
+  const handleLoadComplete = () => {
+    setShowLoading(false);
+  };
+
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
       <NextIntlProvider
@@ -35,7 +56,11 @@ function MyApp({ Component, pageProps }) {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <GA />
-        <Component {...pageProps} />
+        {showLoading ? (
+          <LoadingScreen onLoadComplete={handleLoadComplete} />
+        ) : (
+          <Component {...pageProps} />
+        )}
       </NextIntlProvider>
     </ThemeProvider>
   );

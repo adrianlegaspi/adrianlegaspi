@@ -9,23 +9,29 @@ function Hero() {
 
   useEffect(() => {
     let currentIndex = 0;
+    
     const typingInterval = setInterval(() => {
       if (currentIndex <= greeting.length) {
         setDisplayText(greeting.slice(0, currentIndex));
         currentIndex++;
       } else {
         clearInterval(typingInterval);
+        // Set isTypingComplete and immediately prevent scroll
         setIsTypingComplete(true);
+        // Ensure we stay at the top after typing completes
+        window.scrollTo(0, 0);
       }
     }, 100);
 
     return () => clearInterval(typingInterval);
   }, [greeting]);
 
+  // Only scroll when user explicitly clicks the button
   const handleScroll = () => {
     const about = document.getElementById('about');
     if (about) {
-      about.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Manually trigger scroll to about section
+      //about.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 

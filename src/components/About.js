@@ -10,14 +10,18 @@ function About() {
   
   useEffect(() => {
     // Intersection Observer to trigger animation when section is in view
+    // This should ONLY control animation, not scroll position
+    // Only animate when visible, don't trigger any scrolling
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Just handle animation, don't affect scrolling
           setIsVisible(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      // Use a small negative rootMargin to prevent accidental triggering
+      { threshold: 0.1, rootMargin: '-10px' }
     );
     
     const section = document.getElementById('about');

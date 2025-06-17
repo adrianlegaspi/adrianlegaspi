@@ -29,20 +29,20 @@ function MyApp({ Component, pageProps }) {
   const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
-    // Check if this is the first visit
-    const isFirstVisit = typeof window !== 'undefined' && !localStorage.getItem('hasVisited');
-    
-    if (isFirstVisit) {
-      // Set the loading screen to display
+    // For dev purposes - always show loading screen on refresh
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('hasVisited');
       setShowLoading(true);
-      
-      // Mark that the user has visited
-      //localStorage.setItem('hasVisited', 'true');
     }
   }, []);
 
   const handleLoadComplete = () => {
     setShowLoading(false);
+    
+    // Ensure no unwanted scrolling happens when the app loads
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
   };
 
   return (

@@ -59,8 +59,6 @@ const LoadingScreen = ({ onLoadComplete }) => {
       cmd: 'boot system.kernel', 
       output: `[OK] Loading kernel module core.sys
 [OK] Hardware detection completed
-[OK] CPU: Intel Core i7 @ 3.4GHz detected
-[OK] Memory: 16384MB available
 [OK] System initialization complete`, 
       execTime: 250 
     },
@@ -246,16 +244,18 @@ Display configuration complete.`,
         return; // Stop here in debug mode to examine the UI
       }
       
-      // Normal progress animation - faster with fewer steps
-      setTimeout(() => setProgressPercent(25), 100);
-      setTimeout(() => setProgressPercent(50), 300);
-      setTimeout(() => setProgressPercent(75), 500);
-      setTimeout(() => setProgressPercent(100), 700);
+      // Set progress immediately to ensure visibility
+      setProgressPercent(25);
       
-      // Complete the transition sooner
+      // Normal progress animation with guaranteed completion
+      setTimeout(() => setProgressPercent(50), 200);
+      setTimeout(() => setProgressPercent(75), 400);
+      setTimeout(() => setProgressPercent(100), 600);
+      
+      // Only complete transition AFTER progress bar is 100%
       setTimeout(() => {
         if (onLoadComplete) onLoadComplete();
-      }, 900);
+      }, 1000);
     };
     
     // Function to scroll the terminal to the bottom
@@ -284,11 +284,11 @@ Display configuration complete.`,
           <div className="text-center transform transition-all duration-1000">
             <div className="flex flex-col items-center justify-center">
                             {/* Windows 95 style progress bar */}
-              <div className="w-64 h-5 mb-4 relative border border-ink dark:border-paper bg-paper dark:bg-ink shadow-[inset_1px_1px_2px_rgba(0,0,0,0.3)]">
-                {/* Classic Windows progress bar with pattern */}
+              <div className="w-64 h-5 mb-4 relative border border-ink dark:border-paper bg-paper dark:bg-ink shadow-[inset_1px_1px_2px_rgba(0,0,0,0.3)] overflow-hidden">
+                {/* Progress bar with consistent padding and no overflow */}
                 <div 
-                  className="absolute h-3 top-[2px] left-[2px] transition-all duration-300 ease-linear bg-ink dark:bg-paper" 
-                  style={{ width: `${progressPercent}%` }}
+                  className="absolute inset-0 transition-all duration-300 ease-linear bg-ink dark:bg-paper m-[2px]" 
+                  style={{ width: `calc(${progressPercent}% - 4px)` }}
                 >
                   {/* Solid color progress bar */}
                 </div>

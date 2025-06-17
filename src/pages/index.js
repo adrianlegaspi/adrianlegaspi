@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useTranslations } from 'next-intl';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Projects from '../components/Projects';
@@ -12,115 +12,143 @@ import ThemeToggle from '../components/ThemeToggle';
 
 export async function getStaticProps({ locale }) {
   const messages = (await import(`../locales/${locale}/common.json`)).default;
-  return {
-    props: { messages },
-  };
+  return { props: { messages } };
 }
 
 export default function Home() {
   const t = useTranslations('home');
   const [currentTime, setCurrentTime] = useState('');
-  const [mounted, setMounted] = useState(false);
-  
-  useEffect(() => {
-    setMounted(true);
-    
-    // Update time initially
-    updateTime();
-    
-    // Set up interval to update time every minute
-    const interval = setInterval(updateTime, 60000);
-    
-    // Clean up interval
-    return () => clearInterval(interval);
+
+  /* ------------------------------------------------------------------ */
+  /*  Clock — stable callback + cleanup                                 */
+  /* ------------------------------------------------------------------ */
+  const updateTime = useCallback(() => {
+    setCurrentTime(
+      new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      }),
+    );
   }, []);
-  
-  const updateTime = () => {
-    setCurrentTime(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true}));
-  };
+
+  useEffect(() => {
+    updateTime(); // first paint
+    const id = setInterval(updateTime, 60_000);
+    return () => clearInterval(id);
+  }, [updateTime]);
+
   return (
     <>
       <Head>
         <title>{t('title')}</title>
         <meta name="description" content={t('description')} />
         <link rel="canonical" href="https://adrianlegaspi.dev" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" href="/favicon.png" sizes="any" />
         <link rel="apple-touch-icon" href="/favicon.png" />
         <meta property="og:title" content={t('title')} />
         <meta property="og:description" content={t('description')} />
         <meta property="og:image" content="/og-default.svg" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className="sticky top-0 z-50 bg-paper dark:bg-ink border-b-2 border-ink dark:border-paper shadow-ink dark:shadow-paper h-9 relative group">
-        {/* Taskbar background with noise texture */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none">
-          <div className="h-full w-full" 
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E")`,
-              opacity: 0.1
-            }}
-          ></div>
-        </div>
 
-        <div className="flex h-full">
-          {/* Start button */}
-          <div className="flex items-center border-r-2 border-ink dark:border-paper px-2 hover:bg-ink/10 dark:hover:bg-paper/10 cursor-pointer group/start transition-colors">
-            <span className="text-xs font-mono font-bold tracking-tight mr-1 text-comment">$</span>
-            <span className="text-sm font-mono">AL</span>
-          </div>
+      {/* -----------------------------------------------------------------
+         Task bar (Win-95 vibes)
+      ------------------------------------------------------------------ */}
+      <header className="sticky top-0 z-50 h-9 shadow-md">
+        <div className="h-full w-full border-b border-ink dark:border-paper bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink">
+          <div className="flex h-full items-center">
+            {/* Start-like button */}
+            <button
+              type="button"
+              className="
+                mr-2 flex h-[90%] items-center px-2
+                cursor-pointer transition-all
+                border border-ink dark:border-paper
+                bg-gradient-to-b from-paper to-paper/80 dark:from-ink dark:to-ink/80
+                shadow-[1px_1px_0_rgba(255,249,239,0.9),_-1px_-1px_0_rgba(4,0,5,0.8)]
+                dark:shadow-[1px_1px_0_rgba(4,0,5,0.9),_-1px_-1px_0_rgba(255,249,239,0.8)]
+                hover:bg-ink/10 dark:hover:bg-paper/10
+                active:translate-y-[1px] active:shadow-none
+              "
+            >
+              <span className="mr-1 text-xs font-mono font-bold tracking-tight text-comment">$</span>
+              <span className="text-sm font-mono">AL</span>
+            </button>
 
-          {/* App section with "opened apps" */}
-          <div className="flex">
-            <a href="#about" className="flex items-center h-full px-3 border-r border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
-              <span className="text-xs text-comment mr-1">/*</span>
-              <span className="text-xs">About</span>
-              <span className="text-xs text-comment ml-1">*/</span>
-            </a>
-            <a href="#projects" className="flex items-center h-full px-3 border-r border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
-              <span className="text-xs text-comment mr-1">/*</span>
-              <span className="text-xs">Projects</span>
-              <span className="text-xs text-comment ml-1">*/</span>
-            </a>
-            <a href="#stack" className="hidden sm:flex items-center h-full px-3 border-r border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
-              <span className="text-xs text-comment mr-1">/*</span>
-              <span className="text-xs">Stack</span>
-              <span className="text-xs text-comment ml-1">*/</span>
-            </a>
-            <a href="#contact" className="hidden sm:flex items-center h-full px-3 border-r border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
-              <span className="text-xs text-comment mr-1">/*</span>
-              <span className="text-xs">Contact</span>
-              <span className="text-xs text-comment ml-1">*/</span>
-            </a>
-          </div>
-        </div>
+            {/* Windows-style tabs */}
+            <nav className="flex h-full">
+              {[
+                { href: '#about', label: 'About' },
+                { href: '#projects', label: 'Projects' },
+                { href: '#stack', label: 'Stack', hideOn: 'sm' },
+                { href: '#contact', label: 'Contact', hideOn: 'sm' },
+              ].map(({ href, label, hideOn }) => (
+                <a
+                  key={href}
+                  href={href}
+                  className={`
+                    relative mx-1 flex h-[85%] items-center rounded-t-sm px-3 transition-colors
+                    border-t border-l border-r border-ink dark:border-paper
+                    bg-paper/80 dark:bg-ink/80 hover:bg-paper dark:hover:bg-ink
+                    after:absolute after:left-0 after:right-0 after:bottom-[-1px] after:h-[1px] after:bg-paper dark:after:bg-ink
+                    ${hideOn ? `hidden ${hideOn}:flex` : ''}
+                  `}
+                >
+                  <span className="mr-1 text-xs text-comment">/*</span>
+                  <span className="text-xs">{label}</span>
+                  <span className="ml-1 text-xs text-comment">*/</span>
+                </a>
+              ))}
+            </nav>
 
-        {/* Right side system tray */}
-        <div className="absolute right-0 top-0 h-full flex items-center">
-          <div className="hidden md:flex items-center h-full px-3 border-l border-ink dark:border-paper">
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-green-400 dark:bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-[10px] font-mono">ONLINE</span>
-            </div>
-          </div>
+            {/* Right-side tray */}
+            <div className="absolute right-0 top-0 flex h-full items-center">
+              {/* Online badge */}
+              <div className="mx-1 hidden h-[80%] items-center px-3 md:flex
+                border border-ink dark:border-paper bg-paper/70 dark:bg-ink/70
+                shadow-[inset_1px_1px_1px_rgba(4,0,5,0.3),inset_-1px_-1px_0_rgba(255,249,239,0.3)]
+                dark:shadow-[inset_1px_1px_1px_rgba(255,249,239,0.3),inset_-1px_-1px_0_rgba(4,0,5,0.3)]
+              ">
+                <span className="mr-1 inline-block h-2 w-2 animate-pulse rounded-full bg-green-400 dark:bg-green-500" />
+                <span className="text-[10px] font-mono">ONLINE</span>
+              </div>
 
-          {/* Clock */}
-          <div className="hidden sm:flex items-center h-full px-3 border-l border-ink dark:border-paper bg-ink/5 dark:bg-paper/5">
-            <span className="text-[10px] font-mono">
-              {mounted ? currentTime : ''}  
-            </span>
-          </div>
+              {/* Clock */}
+              <div className="mx-1 hidden h-[80%] items-center justify-center px-3 sm:flex
+                border border-ink dark:border-paper bg-paper/70 dark:bg-ink/70
+                shadow-[inset_1px_1px_1px_rgba(4,0,5,0.3),inset_-1px_-1px_0_rgba(255,249,239,0.3)]
+                dark:shadow-[inset_1px_1px_1px_rgba(255,249,239,0.3),inset_-1px_-1px_0_rgba(4,0,5,0.3)]
+              ">
+                <span className="text-[10px] font-mono">{currentTime}</span>
+              </div>
 
-          {/* Language & Theme */}
-          <div className="flex h-full">
-            <div className="flex items-center h-full px-2 border-l border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10">
-              <LangSwitcher />
-            </div>
-            <div className="flex items-center h-full px-2 border-l border-ink dark:border-paper hover:bg-ink/10 dark:hover:bg-paper/10">
-              <ThemeToggle />
+              {/* Language + theme */}
+              <div className="mx-1 flex h-[80%]">
+                {[LangSwitcher, ThemeToggle].map((Comp, idx) => (
+                  <div
+                    key={idx}
+                    className="
+                      mx-0.5 flex h-full items-center justify-center px-2
+                      border border-ink dark:border-paper bg-paper/70 dark:bg-ink/70
+                      shadow-[1px_1px_0_rgba(255,249,239,0.3),_-1px_-1px_0_rgba(4,0,5,0.3)]
+                      dark:shadow-[1px_1px_0_rgba(4,0,5,0.3),_-1px_-1px_0_rgba(255,249,239,0.3)]
+                      hover:bg-ink/10 dark:hover:bg-paper/10
+                      active:translate-y-[1px] active:shadow-none
+                    "
+                  >
+                    <Comp />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </header>
+
+      {/* ----------------------------------------------------------------- */}
+      {/*  Content                                                          */}
+      {/* ----------------------------------------------------------------- */}
       <main>
         <Hero />
         <About />

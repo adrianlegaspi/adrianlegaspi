@@ -59,8 +59,10 @@ const LoadingScreen = ({ onLoadComplete }) => {
       cmd: 'boot system.kernel', 
       output: `[OK] Loading kernel module core.sys
 [OK] Hardware detection completed
-[OK] System initialization complete`,
-      execTime: 450 
+[OK] CPU: Intel Core i7 @ 3.4GHz detected
+[OK] Memory: 16384MB available
+[OK] System initialization complete`, 
+      execTime: 250 
     },
     { 
       cmd: 'load kernel_modules', 
@@ -73,15 +75,15 @@ All kernel modules loaded successfully.`,
       execTime: 750 
     },
     { 
-      cmd: 'fsck --integrity', 
-      output: `Checking filesystem structure...
+      cmd: 'fsck /dev/sda2', 
+      output: `Checking filesystem...
 Verifying inode tables: 586428/586428 files
 Checking sector allocation: 2847301/2984251 clusters
 Verifying file extents...
 Verifying directory structure...
 Resolving hardlinks...
 Pass 1 complete - filesystem integrity verified`,
-      execTime: 850 
+      execTime: 350 
     },
     { 
       cmd: 'mount --all', 
@@ -91,7 +93,7 @@ Pass 1 complete - filesystem integrity verified`,
 tmpfs mounted on /tmp
 procfs mounted on /proc
 All filesystems mounted. Space available.`,
-      execTime: 320 
+      execTime: 180 
     },
     { 
       cmd: 'service network start', 
@@ -101,7 +103,7 @@ Obtaining IP address: 192.168.1.105
 Network gateway: 192.168.1.1
 DNS: 8.8.8.8, 8.8.4.4
 Network connectivity established.`,
-      execTime: 580 
+      execTime: 250 
     },
     { 
       cmd: 'load ui_components', 
@@ -123,7 +125,7 @@ Setting optimal resolution
 Color depth: 32bit
 Graphics acceleration enabled
 Display configuration complete.`,
-      execTime: 400 
+      execTime: 200 
     },
     { 
       cmd: 'echo "$(date) - System ready."', 
@@ -164,7 +166,7 @@ Display configuration complete.`,
         });
         
         // Simulate "Enter" key press with slightly varied timing
-        const typingDelay = 150 + Math.floor(Math.random() * 100);
+        const typingDelay = 50 + Math.floor(Math.random() * 50);
         await new Promise(resolve => setTimeout(resolve, typingDelay));
         
         // Execute command with its specified time
@@ -206,7 +208,7 @@ Display configuration complete.`,
         
         for (let line of outputLines) {
           // Add a small random delay between each line to simulate realistic printing
-          const lineDelay = 50 + Math.floor(Math.random() * 150);
+          const lineDelay = 20 + Math.floor(Math.random() * 40);
           await new Promise(resolve => setTimeout(resolve, lineDelay));
           
           // Add the line to the message array
@@ -218,13 +220,13 @@ Display configuration complete.`,
         }
         
         // Wait before next command (varied delay between commands)
-        const commandDelay = 300 + Math.floor(Math.random() * 200);
+        const commandDelay = 100 + Math.floor(Math.random() * 100);
         await new Promise(resolve => setTimeout(resolve, commandDelay));
       }
       
-      // Calculate elapsed time and wait remaining time to ensure minimum 4 seconds
+      // Calculate elapsed time and wait remaining time to ensure minimum 3 seconds
       const elapsedTime = Date.now() - startTime;
-      const remainingTime = Math.max(3000 - elapsedTime, 0);
+      const remainingTime = Math.max(2500 - elapsedTime, 0);
       
       await new Promise(resolve => setTimeout(resolve, remainingTime));
       
@@ -244,17 +246,16 @@ Display configuration complete.`,
         return; // Stop here in debug mode to examine the UI
       }
       
-      // Normal progress animation
-      setTimeout(() => setProgressPercent(20), 100);
-      setTimeout(() => setProgressPercent(40), 400);
-      setTimeout(() => setProgressPercent(60), 700);
-      setTimeout(() => setProgressPercent(80), 1000);
-      setTimeout(() => setProgressPercent(100), 1300);
+      // Normal progress animation - faster with fewer steps
+      setTimeout(() => setProgressPercent(25), 100);
+      setTimeout(() => setProgressPercent(50), 300);
+      setTimeout(() => setProgressPercent(75), 500);
+      setTimeout(() => setProgressPercent(100), 700);
       
-      // Complete the transition after progress bar reaches 100%
+      // Complete the transition sooner
       setTimeout(() => {
         if (onLoadComplete) onLoadComplete();
-      }, 1600);
+      }, 900);
     };
     
     // Function to scroll the terminal to the bottom

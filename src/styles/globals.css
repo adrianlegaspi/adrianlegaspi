@@ -25,6 +25,11 @@
   100% { transform: translateY(0); opacity: 1; }
 }
 
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 @keyframes typewriter {
   from { width: 0; }
   to { width: 100%; }
@@ -147,6 +152,11 @@ body {
 
 .animate-slide-up {
   animation: slide-up 0.5s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.7s ease-out forwards;
+  opacity: 0;
 }
 
 .animate-typewriter {

@@ -64,7 +64,7 @@ export default function Home() {
       {/* -----------------------------------------------------------------
          Task bar (Win-95 vibes)
       ------------------------------------------------------------------ */}
-      <header className="sticky top-0 z-50 h-8 shadow-md">
+      <header className="sticky top-0 z-50 h-10 shadow-md">
         <div className="h-full w-full border-b border-ink dark:border-paper bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink">
           <div className="flex h-full items-center">
             {/* Start menu button */}
@@ -73,7 +73,7 @@ export default function Home() {
               onClick={() => setStartMenuOpen(!startMenuOpen)}
               className={`
                 ml-2
-                relative mr-2 flex h-[90%] items-center p-1
+                relative mr-3 flex h-[90%] items-center p-1.5
                 cursor-pointer
                 border border-ink dark:border-paper
                 ${startMenuOpen ? 'bg-paper dark:bg-ink active:shadow-[inset_1px_1px_1px_rgba(0,0,0,0.7)]' : 'bg-paper dark:bg-ink'}
@@ -90,7 +90,7 @@ export default function Home() {
               <img 
                 src={mounted ? `/assets/img/adrianlegaspi-logo-${theme === 'dark' ? 'light' : 'dark'}.png` : '/assets/img/adrianlegaspi-logo.png'} 
                 alt="Adrian Legaspi Logo" 
-                className="h-6 w-auto" 
+                className="h-full w-auto scale-110"
               />
             </button>
             
@@ -121,13 +121,13 @@ export default function Home() {
                 >
                   {/* Start menu header - mobile only */}
                   <div className="sm:hidden flex items-center justify-between p-4 border-b border-ink dark:border-paper">
-                    <span className="text-lg font-bold font-mono">Menu</span>
+                    <span className="text-xl font-bold font-mono">Menu</span>
                     <button 
                       onClick={() => setStartMenuOpen(false)}
                       className="p-2"
                       aria-label="Close menu"
                     >
-                      <span className="text-lg font-mono">×</span>
+                      <span className="text-xl font-mono">×</span>
                     </button>
                   </div>
                   
@@ -150,7 +150,7 @@ export default function Home() {
                         "
                       >
                         <i className={`hn ${icon} text-xs mr-3`} aria-hidden="true" />
-                        <span className="font-mono">{label}</span>
+                        <span className="font-mono text-sm">{label}</span>
                       </a>
                     ))}
                   </div>
@@ -178,14 +178,14 @@ export default function Home() {
               {/* Placeholder for spacing if needed */}
 
               {/* Clock */}
-              <div className="mx-1 hidden h-[80%] items-center justify-center px-3 sm:flex
+              <div className="mx-1 hidden h-[80%] items-center justify-center px-4 sm:flex
                 bg-paper/70 dark:bg-ink/70
               ">
-                <span className="text-[10px] font-mono">{currentTime}</span>
+                <span className="text-xs font-mono">{currentTime}</span>
               </div>
 
               {/* Language + theme */}
-              <div className="mr-1 flex h-full items-center gap-1 py-0.5">
+              <div className="mr-2 flex h-full items-center gap-2 py-0.5">
                 {/* Direct components without wrapping divs to ensure full clickable area */}
                 <LangSwitcher />
                 <ThemeToggle />

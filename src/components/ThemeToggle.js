@@ -18,7 +18,7 @@ function ThemeToggle() {
     <button 
       type="button" 
       className="
-        p-1 w-[26px] h-[26px] flex items-center justify-center 
+        p-1 w-[30px] h-[30px] flex items-center justify-center 
         border border-ink dark:border-paper
         bg-paper dark:bg-ink
         active:shadow-[inset_1px_1px_1px_rgba(0,0,0,0.7)]
@@ -28,7 +28,7 @@ function ThemeToggle() {
       onClick={toggle} 
       aria-label="Toggle theme"
     >
-      <i className={`hn text-base ${theme === 'light' ? 'hn-sun' : 'hn-moon'}`} />
+      <i className={`hn text-lg ${theme === 'light' ? 'hn-sun' : 'hn-moon'}`} />
     </button>
   );
 }

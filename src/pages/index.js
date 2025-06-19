@@ -4,8 +4,7 @@ import { useTheme } from 'next-themes';
 import { useState, useEffect, useCallback } from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
-import Projects from '../components/Projects';
-import Stack from '../components/Stack';
+import Solutions from '../components/Solutions';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import LangSwitcher from '../components/LangSwitcher';
@@ -135,8 +134,7 @@ export default function Home() {
                   <div className="py-2">
                     {[
                       { href: '#about', label: 'About', icon: 'hn-user' },
-                      { href: '#projects', label: 'Projects', icon: 'hn-star' },
-                      { href: '#stack', label: 'Stack', icon: 'hn-sun' },
+                      { href: '#solutions', label: 'Solutions', icon: 'hn-puzzle' },
                       { href: '#contact', label: 'Contact', icon: 'hn-moon' },
                     ].map(({ href, label, icon }) => (
                       <a
@@ -201,8 +199,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <Projects />
-        <Stack />
+        <Solutions />
         <Contact />
       </main>
       <Footer />

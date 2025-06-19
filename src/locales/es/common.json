@@ -16,11 +16,25 @@
     "englishCV": "Inglés",
     "spanishCV": "Español"
   },
-  "projects": {
-    "heading": "Proyectos"
-  },
-  "stack": {
-    "heading": "Tecnologías"
+  "solutions": {
+    "heading": "Lo Que Ofrezco",
+    "subheading": "Me especializo en crear soluciones efectivas, automatizar procesos y resolver problemas técnicos complejos.",
+    "problem-solving": {
+      "title": "Resolución de Problemas",
+      "description": "Identificar desafíos complejos y diseñar soluciones elegantes y eficientes que generen valor comercial.",
+      "code": "function resolverProblema(desafio) { return solucionInnovadora; }"
+    },
+    "automation": {
+      "title": "Automatización",
+      "description": "Crear sistemas que reduzcan el trabajo repetitivo y mejoren la eficiencia mediante flujos de trabajo inteligentes.",
+      "code": "const eficiencia = tareas.map(tarea => automatizar(tarea));"
+    },
+    "solutions": {
+      "title": "Construcción de Soluciones",
+      "description": "Elaborar soluciones integrales que transformen ideas en productos completamente realizados.",
+      "code": "const producto = construirSolucion({ idea, tecnologia, ejecucion });"
+    },
+    "process": "Identificar → Diseñar → Implementar"
   },
   "contact": {
     "heading": "Contacto"

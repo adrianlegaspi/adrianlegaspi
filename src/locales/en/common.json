@@ -16,11 +16,25 @@
     "englishCV": "English",
     "spanishCV": "Spanish"
   },
-  "projects": {
-    "heading": "Projects"
-  },
-  "stack": {
-    "heading": "Tech Stack"
+  "solutions": {
+    "heading": "What I Bring to the Table",
+    "subheading": "I specialize in creating effective solutions, automating processes, and solving complex technical problems.",
+    "problem-solving": {
+      "title": "Problem Solving",
+      "description": "Identifying complex challenges and designing elegant, efficient solutions that drive business value.",
+      "code": "function solveProblem(challenge) { return innovativeSolution; }"
+    },
+    "automation": {
+      "title": "Automation",
+      "description": "Creating systems that reduce repetitive work and improve efficiency through intelligent workflows.",
+      "code": "const efficiency = tasks.map(task => automate(task));"
+    },
+    "solutions": {
+      "title": "Solution Building",
+      "description": "Crafting end-to-end solutions that transform ideas into fully realized products.",
+      "code": "const product = buildSolution({ idea, technology, execution });"
+    },
+    "process": "Identify → Design → Implement"
   },
   "contact": {
     "heading": "Get in Touch"

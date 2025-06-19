@@ -5,7 +5,7 @@ import { SOCIAL_LINKS, AVAILABLE_COMMANDS } from '../constants/social';
 function Contact() {
   const t = useTranslations('contact');
   const [cursorVisible, setCursorVisible] = useState(true);
-  const [commandStatus, setCommandStatus] = useState({ command: '> connecting...', completed: false });
+  const [commandStatus, setCommandStatus] = useState({ command: '> initializing_connection', completed: false });
   const [showEmail, setShowEmail] = useState(false);
   const [inputCommand, setInputCommand] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
@@ -31,7 +31,11 @@ function Contact() {
     
     const timeout2 = setTimeout(() => {
       setCommandStatus({ command: '> connection_established', completed: true });
-    }, 2000);
+    }, 1800);
+    
+    const timeout2b = setTimeout(() => {
+      setCommandStatus({ command: '> authentication_success', completed: true });
+    }, 2200);
     
     const timeout3 = setTimeout(() => {
       setShowEmail(true);
@@ -41,6 +45,7 @@ function Contact() {
     return () => {
       clearTimeout(timeout1);
       clearTimeout(timeout2);
+      clearTimeout(timeout2b);
       clearTimeout(timeout3);
     };
   }, []);
@@ -78,10 +83,19 @@ function Contact() {
     
     if (command === 'copy') {
       navigator.clipboard.writeText(email);
-      response = `Email copied to clipboard: ${email}`;
+      response = `> email_copied_to_clipboard\n> ${email}`;
     } 
     else if (command === 'help') {
-      response = `Available commands:\n${AVAILABLE_COMMANDS.join('\n')}`;
+      response = `> available_commands\n${AVAILABLE_COMMANDS.map(cmd => `  ${cmd}`).join('\n')}`;
+    }
+    else if (command === 'echo $email') {
+      response = `> ${email}`;
+    }
+    else if (command === 'whoami') {
+      response = '> guest@visitorsession';
+    }
+    else if (command === 'date') {
+      response = `> ${new Date().toString()}`;
     }
     else if (command === 'clear') {
       setCommandHistory([]);
@@ -89,10 +103,10 @@ function Contact() {
     }
     else if (SOCIAL_LINKS[command]) {
       window.open(SOCIAL_LINKS[command], '_blank');
-      response = `Opening ${command} profile...`;
+      response = `> opening_${command}_profile`;
     }
     else if (command) {
-      response = `Unknown command: ${command}. Type 'help' for available commands.`;
+      response = `> command_not_found: ${command}\n> type_help_for_available_commands`;
     }
     
     if (command) {
@@ -157,22 +171,21 @@ function Contact() {
           
           {showEmail && (
             <div className="animate-slide-up mb-4">
-              <div className="mb-2 text-comment">{`// Contact Information`}</div>
+              <div className="mb-2">{'> contact_information'}</div>
               <div className="flex gap-2 my-2">
-                <span className="text-blue-600 dark:text-blue-400">{`const`}</span> 
-                <span>{`email =`}</span> 
+                <span className="text-green-600 dark:text-green-400">EMAIL:</span> 
                 <a 
                   href={`mailto:${email}`}
                   className="group relative overflow-hidden inline-block"
                   onMouseEnter={() => setCursorVisible(false)}
                   onMouseLeave={() => setCursorVisible(true)}
                 >
-                  <span className="text-green-600 dark:text-green-400">'{email}'</span>
+                  <span>{email}</span>
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-current group-hover:w-full transition-all duration-300"></span>
                 </a>
               </div>
               
-              <div className="mb-2 mt-4 text-comment">{`// Type a command like 'help' or 'copy' to copy email`}</div>
+              <div className="mb-2 mt-4">{'> type_help_for_available_commands'}</div>
             </div>
           )}
           
@@ -182,14 +195,14 @@ function Contact() {
               <div key={index} className="mb-1">
                 {item.type === 'input' ? (
                   <div className="flex">
-                    <span className="text-green-600 dark:text-green-400">you</span>
+                    <span className="text-green-600 dark:text-green-400">terminal</span>
                     <span className="mx-1">:</span>
                     <span className="text-blue-600 dark:text-blue-400">~</span>
                     <span className="mx-1">$</span>
                     <span>{item.text}</span>
                   </div>
                 ) : (
-                  <div className="text-comment whitespace-pre-wrap pl-4">{item.text}</div>
+                  <div className="text-comment whitespace-pre-wrap">{item.text}</div>
                 )}
               </div>
             ))}
@@ -198,7 +211,7 @@ function Contact() {
           {/* Command input */}
           {showEmail && (
             <div className="flex items-center relative">
-              <span className="text-green-600 dark:text-green-400">you</span>
+              <span className="text-green-600 dark:text-green-400">terminal</span>
               <span className="mx-1">:</span>
               <span className="text-blue-600 dark:text-blue-400">~</span>
               <span className="mx-1">$</span>
@@ -234,7 +247,7 @@ function Contact() {
           {/* ASCII decoration and focus indicator */}
           <div className="absolute bottom-4 right-4 text-xs text-comment flex items-center gap-2">
             {hasTerminalFocus && <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>}
-            {`[type 'help' for commands]`}
+            {'[session_active]'}
           </div>
         </div>
       </div>

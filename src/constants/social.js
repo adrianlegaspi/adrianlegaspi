@@ -10,11 +10,14 @@ export const SOCIAL_LINKS = {
 };
 
 export const AVAILABLE_COMMANDS = [
+  'help',
+  'clear',
   'copy',
+  'echo $email',
+  'whoami',
+  'date',
   'linkedin',
   'github', 
   'twitter',
-  'instagram',
-  'help',
-  'clear'
+  'instagram'
 ];

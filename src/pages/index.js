@@ -134,8 +134,8 @@ export default function Home() {
                   <div className="py-2">
                     {[
                       { href: '#about', label: 'About', icon: 'hn-user' },
-                      { href: '#solutions', label: 'Solutions', icon: 'hn-puzzle' },
-                      { href: '#contact', label: 'Contact', icon: 'hn-moon' },
+                      { href: '#solutions', label: 'Solutions', icon: 'hn-technology' },
+                      { href: '#contact', label: 'Contact', icon: 'hn-envelope' },
                     ].map(({ href, label, icon }) => (
                       <a
                         key={href}

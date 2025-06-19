@@ -11,7 +11,7 @@
     "generate-cv": "node scripts/generate-cv-pdfs.js"
   },
   "dependencies": {
-    "@hackernoon/pixel-icon-library": "^1.0.0",
+    "@hackernoon/pixel-icon-library": "^1.0.6",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.14",
     "classnames": "^2.3.2",

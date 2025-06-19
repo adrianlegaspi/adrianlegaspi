@@ -2,6 +2,8 @@
  * NOTE: The @tailwind directives below are correctly processed by the PostCSS/Tailwind build system,
  * but will show as lint warnings in VS Code CSS linter. This is expected and can be safely ignored.
  */
+@import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

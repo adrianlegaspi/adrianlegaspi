@@ -11,15 +11,15 @@ function Solutions() {
   const capabilities = [
     {
       id: 'problem-solving',
-      icon: 'hn-bulb',
+      icon: 'hn hn-lightbulb',
     },
     {
       id: 'automation',
-      icon: 'hn-zap',
+      icon: 'hn hn-bolt-solid',
     },
     {
       id: 'solutions',
-      icon: 'hn-puzzle',
+      icon: 'hn hn-grid',
     }
   ];
 
@@ -95,7 +95,7 @@ function Solutions() {
         {/* Node Connection System with enhanced scroll dynamics */}
         <div className="relative">
           {/* Main vertical connection line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-0.5 bg-ink/20 dark:bg-paper/20 z-0">
+          <div className="absolute left-1/2 transform -translate-x-1/2 top-0 h-[calc(100%-100px)] w-0.5 bg-ink/20 dark:bg-paper/20 z-0">
             {/* Active fill that grows with scroll */}
             <div 
               className="w-full bg-ink dark:bg-paper transition-all duration-500" 
@@ -119,21 +119,23 @@ function Solutions() {
                   }}
                 >
                   {/* Node connection point */}
-                  <div className={`absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-2 transition-all duration-300
-                    ${isActive ? 'scale-150 border-ink dark:border-paper' : 'border-ink/50 dark:border-paper/50'}
+                  <div className={`absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 w-6 h-6 rounded-full border-2 transition-all duration-300
+                    border-ink dark:border-paper
                     bg-paper dark:bg-ink z-20`}
                   ></div>
                   
+                  {/* Node-to-card connector */}
+                  <div className={`hidden md:block absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 top-6 h-6 w-0.5 bg-ink/40 dark:bg-paper/40 z-10`}></div>
+
                   {/* Content card */}
-                  <div className={`flex items-center justify-center transition-all duration-500 ml-8 md:ml-0
-                    ${isActive ? 'opacity-100 scale-100' : 'opacity-60 scale-95'}
+                  <div className={`flex items-center justify-center transition-all duration-500 ml-8 md:ml-0 opacity-100 scale-100
                     ${index % 2 === 0 ? 'md:mr-[50%]' : 'md:ml-[50%]'}`}
                   >
-                    <div className="border border-ink/30 dark:border-paper/30 p-5 bg-paper dark:bg-ink max-w-xs w-full">
+                    <div className="card shadow-ink dark:shadow-paper p-6 max-w-xs w-full">
                       {/* Icon */}
                       <div className="flex items-center mb-3">
-                        <div className="w-10 h-10 border border-ink dark:border-paper rounded-full flex items-center justify-center mr-3">
-                          <i className={`${capability.icon} text-lg`}></i>
+                        <div className="w-10 h-10 flex items-center justify-center mr-3">
+                          <i className={`${capability.icon} text-2xl`}></i>
                         </div>
                         
                         <h3 className="text-lg font-bold">

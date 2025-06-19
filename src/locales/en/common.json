@@ -38,13 +38,15 @@
   },
     "contact": {
     "title": "Get in Touch",
-    "description": "Available for freelance work and new collaborations. Got something in mind? Let’s talk!",
+    "description": "Available for freelance work and new collaborations. Got something in mind? Let's talk!",
+    "available_freelance": "I'm available for freelance work and collaborations. Let's talk!",
     "intro": "You can reach me by email, or find me on other platforms.",
     "window_title": "Contact Me",
     "intro_text": "You can reach me via email or find me on other platforms.",
     "email_label": "EMAIL:",
     "copy_button": "Copy",
     "copy_button_copied": "Copied!",
+    "copied": "Copied!",
     "find_me_on": "Find me on other platforms",
     "session_status": "[session_active]"
   }

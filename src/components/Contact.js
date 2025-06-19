@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-
 import { useTranslations } from 'next-intl';
-import Button from './Button';
 import { SOCIAL_LINKS } from '../constants/social';
 
 function Contact() {
@@ -13,10 +11,6 @@ function Contact() {
     navigator.clipboard.writeText(email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
-  };
-
-  const handleSocialClick = (url) => {
-    window.open(url, '_blank');
   };
 
   return (
@@ -31,71 +25,59 @@ function Contact() {
         <h2 className="text-4xl font-bold tracking-tight text-ink dark:text-paper sm:text-5xl">
           {t('title')}
         </h2>
-        <p className="mt-4 text-lg text-light-ink dark:text-dark-ink">
-          {t('description')}
-        </p>
-        <p className="mb-4">
-          {t('intro')}
+        <p className="mt-6 text-xl text-ink dark:text-paper">
+          {t('available_freelance')}
         </p>
       </div>
       
-      {/* Windowed App Component */}
-      <div className="bg-paper dark:bg-ink border-2 border-ink dark:border-paper rounded-lg shadow-lg max-w-2xl mx-auto font-mono text-sm text-ink dark:text-paper overflow-hidden">
+      {/* Terminal Window Component */}
+      <div className="bg-paper dark:bg-black border border-ink dark:border-paper shadow-ink dark:shadow-paper max-w-lg mx-auto overflow-hidden">
         {/* Title Bar */}
-        <div className="flex items-center justify-between bg-ink dark:bg-paper px-4 py-2 border-b-2 border-ink dark:border-paper">
-          <div className="flex space-x-1.5">
-            <span className="w-3 h-3 rounded-full bg-red-500"></span>
-            <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
-            <span className="w-3 h-3 rounded-full bg-green-500"></span>
+        <div className="flex items-center px-4 py-2 bg-ink dark:bg-black">
+          <div className="flex space-x-2">
+            <span className="w-3 h-3 bg-red-500"></span>
+            <span className="w-3 h-3 bg-yellow-500"></span>
+            <span className="w-3 h-3 bg-green-500"></span>
           </div>
-          <div className="font-bold text-paper dark:text-ink"></div>
-          <div className="w-12"></div>
         </div>
 
         {/* Window Content */}
-        <div className="p-6">
-          <div className="mb-6">
-            <p className="mb-2">{t('intro_text')}</p>
-            <div className="flex items-center gap-4 bg-light-paper dark:bg-dark-paper p-3 rounded-md pl-0">
-              <span className="text-green-600 dark:text-green-400">{t('email_label')}</span>
-              <a href={`mailto:${email}`} className="hover:underline">{email}</a>
-              <Button
-                onClick={handleCopyEmail}
-                variant="solid"
-                className="ml-auto px-3 py-1 text-xs"
-              >
-                {copied ? t('copy_button_copied') : t('copy_button')}
-              </Button>
+        <div className="p-8 font-mono bg-paper dark:bg-black text-ink dark:text-paper">
+          <div className="mb-8">
+            <div className="flex flex-col items-center justify-center text-center gap-2">
+              <span className="text-green-500 dark:text-green-400 font-bold">{t('email_label')}</span>
+              <div className="flex items-center gap-2">
+                <a 
+                  href={`mailto:${email}`} 
+                  className="text-ink dark:text-paper hover:underline"
+                  onClick={() => handleCopyEmail()}
+                >
+                  {email}
+                </a>
+                {copied && <span className="text-xs text-green-500 dark:text-green-400 opacity-75">{t('copied')}</span>}
+              </div>
             </div>
           </div>
 
-          <div>
-            <p className="mb-4 text-center">{t('find_me_on')}</p>
-            <div className="flex items-center justify-center gap-6">
-              {Object.entries(SOCIAL_LINKS).map(([key, value]) => {
-                if (key !== 'email') {
-                  return (
-                    <a
-                      key={key}
-                      href={value}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-ink dark:text-paper p-2 border-2 border-transparent rounded-md hover:border-ink dark:hover:border-paper transition-all"
-                      aria-label={`Visit my ${key} profile`}
-                    >
-                      <i className={`hn hn-${key} text-3xl`}></i>
-                    </a>
-                  );
-                }
-                return null;
-              })}
-            </div>
+          <div className="flex justify-center items-center gap-8 mt-12">
+            {Object.entries(SOCIAL_LINKS).map(([key, value]) => {
+              if (key !== 'email') {
+                return (
+                  <a
+                    key={key}
+                    href={value}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-ink dark:text-paper hover:opacity-70 transition-colors"
+                    aria-label={`Visit my ${key} profile`}
+                  >
+                    <i className={`hn hn-${key} text-3xl`}></i>
+                  </a>
+                );
+              }
+              return null;
+            })}
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="bg-ink dark:bg-paper px-4 py-2 border-t-2 border-ink dark:border-paper text-right">
-          <span className="text-xs text-paper dark:text-ink opacity-50">{t('session_status')}</span>
         </div>
       </div>
 

@@ -316,8 +316,7 @@ Display configuration complete.`,
               <div className="
                 py-2 px-8 inline-block
                 border border-ink dark:border-paper
-                shadow-[2px_2px_0_rgba(4,0,5,0.5)]
-                dark:shadow-[2px_2px_0_rgba(255,249,239,0.5)]
+                shadow-ink dark:shadow-paper
                 bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink
               ">
                 <p className="font-mono text-ink dark:text-paper text-sm">Welcome to adrianlegaspi.dev</p>

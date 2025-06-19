@@ -103,12 +103,15 @@ function Solutions() {
         
         {/* Node Connection System with enhanced scroll dynamics */}
         <div className="relative">
-          {/* Main vertical connection line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 top-0 h-[calc(100%-100px)] w-0.5 bg-ink/20 dark:bg-paper/20 z-0">
+          {/* Fixed height connection line between only the nodes */}
+          <div className="absolute left-1/2 transform -translate-x-1/2" style={{ top: '3px', height: 'calc(100% - 182px)', width: '2px' }}>
+            {/* Background line */}
+            <div className="absolute h-full w-full bg-ink/20 dark:bg-paper/20"></div>
+            
             {/* Active fill that grows with scroll */}
             <div 
-              className="w-full bg-ink dark:bg-paper transition-all duration-500" 
-              style={{ height: `${scrollProgress * 100}%` }}
+              className="absolute top-0 w-full bg-ink dark:bg-paper transition-all duration-500" 
+              style={{ height: `${Math.min(scrollProgress * 100, 100)}%` }}
             />
           </div>
           

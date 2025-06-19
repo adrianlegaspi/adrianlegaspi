@@ -28,11 +28,21 @@ function MyApp({ Component, pageProps }) {
   const { locale, defaultLocale } = useRouter();
   const [showLoading, setShowLoading] = useState(false);
 
+  const [isReturningUser, setIsReturningUser] = useState(false);
+  
   useEffect(() => {
-    // For dev purposes - always show loading screen on refresh
+    // Check if user has visited before
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('hasVisited');
-      setShowLoading(true);
+      const hasVisited = localStorage.getItem('hasVisited');
+      if (!hasVisited) {
+        // First time visitor - show full loading screen
+        setShowLoading(true);
+        setIsReturningUser(false);
+      } else {
+        // Returning visitor - show welcome message with progress bar only
+        setShowLoading(true);
+        setIsReturningUser(true);
+      }
     }
   }, []);
 
@@ -41,6 +51,8 @@ function MyApp({ Component, pageProps }) {
     
     // Ensure no unwanted scrolling happens when the app loads
     if (typeof window !== 'undefined') {
+      // Save to localStorage that user has seen the loading screen
+      localStorage.setItem('hasVisited', 'true');
       window.scrollTo(0, 0);
     }
   };
@@ -57,7 +69,10 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <GA />
         {showLoading ? (
-          <LoadingScreen onLoadComplete={handleLoadComplete} />
+          <LoadingScreen 
+            onLoadComplete={handleLoadComplete} 
+            simpleMode={isReturningUser} 
+          />
         ) : (
           <Component {...pageProps} />
         )}

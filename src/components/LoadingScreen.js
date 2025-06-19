@@ -41,7 +41,7 @@ const scrollbarHideStyles = `
   }
 `;
 
-const LoadingScreen = ({ onLoadComplete }) => {
+const LoadingScreen = ({ onLoadComplete, simpleMode = false }) => {
   const [messages, setMessages] = useState([]);
   const [cursorVisible, setCursorVisible] = useState(true);
   const [transitioning, setTransitioning] = useState(false);
@@ -149,6 +149,26 @@ Display configuration complete.`,
     const cursorInterval = setInterval(() => {
       setCursorVisible(prev => !prev);
     }, 500);
+    
+    // Function to skip directly to the welcome screen in simple mode
+    const skipToWelcomeScreen = () => {
+      setTimeout(() => setTransitioning(true), 100);
+      setTimeout(() => setProgressPercent(30), 100);
+      setTimeout(() => setProgressPercent(50), 200);
+      setTimeout(() => setProgressPercent(75), 400);
+      setTimeout(() => setProgressPercent(100), 600);
+      
+      // Only complete transition AFTER progress bar is 100%
+      setTimeout(() => {
+        if (onLoadComplete) onLoadComplete();
+      }, 1000);
+    };
+    
+    // Skip terminal animation if in simple mode
+    if (simpleMode) {
+      skipToWelcomeScreen();
+      return;
+    }
     
     // Display messages one by one with randomized typing speed and execution time
     const displayMessages = async () => {
@@ -307,13 +327,14 @@ Display configuration complete.`,
         </div>
       </div>
       
-      {/* Terminal screen */}
-      <div 
-        ref={terminalRef}
-        className={`fixed inset-0 bg-black flex flex-col items-start justify-start overflow-auto z-0 transition-opacity duration-500 ${transitioning ? 'opacity-0' : 'opacity-100'} scrollbar-hide`}
-      >
-        <div className="p-6 pt-10 font-mono text-amber-50 w-full max-w-4xl">
-          <pre className="whitespace-pre-wrap text-left">
+      {/* Terminal screen - only shown when not in simple mode */}
+      {!simpleMode && (
+        <div 
+          ref={terminalRef}
+          className={`fixed inset-0 bg-black flex flex-col items-start justify-start overflow-auto z-0 transition-opacity duration-500 ${transitioning ? 'opacity-0' : 'opacity-100'} scrollbar-hide`}
+        >
+          <div className="p-6 pt-10 font-mono text-amber-50 w-full max-w-4xl">
+            <pre className="whitespace-pre-wrap text-left">
             {messages.map((message, index) => (
               <div key={index} className={
                 message.type === 'command' ? 'text-green-200 font-bold' : 
@@ -334,9 +355,10 @@ Display configuration complete.`,
                 <span className={cursorVisible ? 'opacity-100' : 'opacity-0 ml-1'}>_</span>
               </div>
             )}
-          </pre>
-        </div>
+            </pre>
+          </div>
       </div>
+      )}
     </div>
   );
 };

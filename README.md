@@ -1,31 +1,32 @@
-# Adrián Legaspi Portfolio
+# 👋 Hey, I'm Adrián Legaspi
 
-A single-page responsive portfolio built with **Next.js 14** for Adrián Legaspi.
+**Senior Web Developer** from Mexico 🇲🇽  
+I build fast, scalable web apps — and lately, AI-powered tools and indie games too.
 
-## Features
+---
 
-- Monochrome retro-PC aesthetic.
-- Sections: Hero, About, Projects, Tech Stack, Contact, Footer.
-- Light/Dark mode toggle using `next-themes`.
-- i18n (English & Spanish) via `next-intl` with language switcher.
-- SEO-ready: dynamic meta tags, OpenGraph SVG, robots.txt, sitemap.xml.
-- Tailwind CSS with `@tailwindcss/typography`.
-- Google Analytics v4 ready (`NEXT_PUBLIC_GA_ID`).
+## 🧰 Experience With
 
-## Development
+**Web & UI**  
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black)
+![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js)
+![TailwindCSS](https://img.shields.io/badge/-Tailwind-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 
-```bash
-npm install
-npm run dev
-```
+**Backend & AI**  
+![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat&logo=node.js&logoColor=white)
+![Python](https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white)
+![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)
+![Supabase](https://img.shields.io/badge/-Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)
+![Prisma](https://img.shields.io/badge/-Prisma-2D3748?style=flat&logo=prisma&logoColor=white)
 
-## Build
+**Game Dev**  
+![Unity](https://img.shields.io/badge/-Unity-000000?style=flat&logo=unity&logoColor=white)
+![C#](https://img.shields.io/badge/-C%23-239120?style=flat&logo=c-sharp&logoColor=white)
 
-```bash
-npm run build
-npm start
-```
 
-## Deployment
+## 📬 Contact
 
-Configured for [Vercel](https://vercel.com) with `vercel.json` redirects & headers.
+[LinkedIn](https://linkedin.com/in/adrianlegaspi) · [Twitter](https://twitter.com/adrianlegaspix)
+
+> Open to freelance work & collabs. Let’s build something great.

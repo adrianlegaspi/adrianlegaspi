@@ -50,7 +50,7 @@ function About() {
         
         {/* Bio paragraph with enhanced styling */}
         <div className="prose dark:prose-invert">
-          <p className="leading-relaxed relative">
+          <p className="leading-relaxed relative text-ink">
             <span className="text-xl opacity-20 absolute -left-4">&ldquo;</span>
             {t('bio')}
             <span className="text-xl opacity-20 absolute -right-4">&rdquo;</span>

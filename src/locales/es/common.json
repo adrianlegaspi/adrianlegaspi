@@ -36,7 +36,16 @@
     },
     "process": "Identificar → Diseñar → Implementar"
   },
-  "contact": {
-    "heading": "Contacto"
+    "contact": {
+    "title": "Contacto",
+    "description": "Disponible para freelance y nuevas colaboraciones. ¿Tienes algo en mente? ¡Hablemos!",
+    "intro": "Puedes contactarme por correo electrónico o encontrarme en otras plataformas.",
+    "window_title": "Contacto",
+    "intro_text": "Puedes contactarme por correo o encontrarme en otras plataformas.",
+    "email_label": "EMAIL:",
+    "copy_button": "Copiar",
+    "copy_button_copied": "¡Copiado!",
+    "find_me_on": "Encuéntrame en otras plataformas",
+    "session_status": "[sesión_activa]"
   }
 }

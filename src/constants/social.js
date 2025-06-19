@@ -3,21 +3,7 @@
  */
 export const SOCIAL_LINKS = {
   email: 'contacto@adrianlegaspi.dev',
-  linkedin: 'https://www.linkedin.com/in/adrianlegaspi/',
+  linkedin: 'https://www.linkedin.com/in/adrian-legaspi/',
   github: 'https://github.com/adrianlegaspi',
-  twitter: 'https://twitter.com/adrianlegaspi',
-  instagram: 'https://www.instagram.com/adrianlegaspi/'
+  twitter: 'https://x.com/adrianlegaspi_'
 };
-
-export const AVAILABLE_COMMANDS = [
-  'help',
-  'clear',
-  'copy',
-  'echo $email',
-  'whoami',
-  'date',
-  'linkedin',
-  'github', 
-  'twitter',
-  'instagram'
-];

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import Button from './Button';
 
 function LangSwitcher() {
   const router = useRouter();
@@ -11,22 +12,13 @@ function LangSwitcher() {
   };
 
   return (
-    <button 
-      type="button" 
-      onClick={toggleLocale} 
+    <Button
+      onClick={toggleLocale}
       aria-label="Toggle language"
-      className="
-        p-1 w-[30px] h-[30px] flex items-center justify-center 
-        border border-ink dark:border-paper
-        bg-paper dark:bg-ink
-        active:shadow-[inset_1px_1px_1px_rgba(0,0,0,0.7)]
-        active:translate-y-[1px] active:translate-x-[1px]
-        transition-none
-        text-xs font-mono
-      "
+      className="p-1 w-[30px] h-[30px] flex items-center justify-center text-xs"
     >
       {locale === 'en' ? 'EN' : 'ES'}
-    </button>
+    </Button>
   );
 }
 

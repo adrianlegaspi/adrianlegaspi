@@ -14,7 +14,7 @@ function Footer() {
           <div className="flex items-center gap-2">
             <span className="text-comment inline-block w-2 h-2 bg-current rounded-full opacity-40 animate-pulse"></span>
             <span className="font-mono text-sm text-comment">
-              /* © {currentYear} */ Adrián Legaspi
+              /* © {currentYear} */ Adrian Legaspi
             </span>
           </div>
           

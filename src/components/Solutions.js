@@ -41,22 +41,31 @@ function Solutions() {
       if (!section) return;
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
+
+      // Only run if the section is in the viewport
+      if (rect.top > windowHeight || rect.bottom < 0) {
+        return;
+      }
+
+      // Calculate progress from 0 to 1 as the section moves through the viewport.
+      // 0 = top of section is at bottom of viewport.
+      // 1 = bottom of section is at top of viewport.
+      const totalScrollDistance = windowHeight + rect.height;
+      const currentScroll = windowHeight - rect.top;
       
-      // Calculate how far we've scrolled through the section
-      // 0 = just entered, 1 = fully scrolled through
-      if (rect.top <= windowHeight && rect.bottom >= 0) {
-        const progress = 1 - (rect.bottom / (windowHeight + rect.height));
-        const scrollValue = Math.min(Math.max(progress * 3, 0), 1);
-        setScrollProgress(scrollValue);
-        
-        // Set active node based on scroll position
-        if (scrollValue < 0.33) {
-          setActiveNode(0);
-        } else if (scrollValue < 0.66) {
-          setActiveNode(1);
-        } else {
-          setActiveNode(2);
-        }
+      // Make the animation complete when 85% of the scroll is done to ensure it always finishes.
+      const progress = currentScroll / (totalScrollDistance * 0.85);
+      
+      const scrollValue = Math.min(Math.max(progress, 0), 1);
+      setScrollProgress(scrollValue);
+
+      // Set active node based on scroll position
+      if (scrollValue < 0.33) {
+        setActiveNode(0);
+      } else if (scrollValue < 0.66) {
+        setActiveNode(1);
+      } else {
+        setActiveNode(2);
       }
     };
 
@@ -125,7 +134,7 @@ function Solutions() {
                   ></div>
                   
                   {/* Node-to-card connector */}
-                  <div className={`hidden md:block absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 top-6 h-6 w-0.5 bg-ink/40 dark:bg-paper/40 z-10`}></div>
+                  <div className={`hidden absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 top-6 h-6 w-0.5 bg-ink/40 dark:bg-paper/40 z-10`}></div>
 
                   {/* Content card */}
                   <div className={`flex items-center justify-center transition-all duration-500 ml-8 md:ml-0 opacity-100 scale-100

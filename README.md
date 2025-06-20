@@ -1,4 +1,4 @@
-# ⚡ Hey, I'm Adrián Legaspi
+# ⚡ Hey, I'm Adrian Legaspi
 
 **Senior Web Developer** from Mexico 🇲🇽  
 I build fast, scalable web apps — and lately, AI-powered tools and indie games too.

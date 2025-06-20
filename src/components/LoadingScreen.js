@@ -231,7 +231,7 @@ Display configuration complete.`,
           
           // Add the line to the message array
           setMessages(prev => {
-            const newMessages = [...prev, { type: 'output', text: line }];
+            const newMessages = [...prev, { type: 'output', text: `  ${line}` }];
             setTimeout(() => scrollToBottom(), 50);
             return newMessages;
           });

@@ -2,6 +2,11 @@
   "home": {
     "title": "Adrián Legaspi – Desarrollador de Apps IA & Ingeniero de Software",
     "description": "Portafolio de Adrián Legaspi, desarrollador de apps IA e ingeniero de software.",
+    "keywords": "desarrollo de apps IA, ingeniería de software, desarrollo frontend, React, Next.js, soluciones IA",
+    "ogImageAlt": "Adrian Legaspi - Desarrollador de Apps IA e Ingeniero de Software",
+    "jobTitle": "Desarrollador de Apps IA e Ingeniero de Software",
+    "company": "Freelance",
+    "skills": "Desarrollo IA, React, Next.js, JavaScript, Python, Node.js",
     "cta": "Desplázate hacia abajo"
   },
   "hero": {

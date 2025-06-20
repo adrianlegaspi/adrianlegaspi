@@ -1,0 +1,21 @@
+{
+  "name": "Adrian Legaspi - AI App Developer & Software Engineer",
+  "short_name": "Adrian Legaspi",
+  "description": "Portfolio of Adrian Legaspi, AI app developer & software engineer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
+import { useRouter } from 'next/router';
 import { useState, useEffect, useCallback } from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
@@ -17,6 +18,7 @@ export async function getStaticProps({ locale }) {
 
 export default function Home() {
   const t = useTranslations('home');
+  const { locale } = useRouter();
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
@@ -51,13 +53,49 @@ export default function Home() {
       <Head>
         <title>{t('title')}</title>
         <meta name="description" content={t('description')} />
-        <link rel="canonical" href="https://adrianlegaspi.dev" />
-        <link rel="icon" href="/favicon.png" sizes="any" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        <meta name="author" content="Adrian Legaspi" />
+        <meta name="keywords" content={t('keywords')} />
+        
+        {/* OG Meta Tags with improved image format */}
         <meta property="og:title" content={t('title')} />
         <meta property="og:description" content={t('description')} />
-        <meta property="og:image" content="/og-default.svg" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://adrianlegaspi.dev" />
+        <meta property="og:image" content="https://adrianlegaspi.dev/og-image.png" />
+        <meta property="og:image:alt" content={t('ogImageAlt')} />
+        <meta property="og:site_name" content="Adrian Legaspi" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale:alternate" content="es_ES" />
+        
+        {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={t('title')} />
+        <meta name="twitter:description" content={t('description')} />
+        <meta name="twitter:image" content="https://adrianlegaspi.dev/og-image.png" />
+        
+        {/* JSON-LD structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Adrian Legaspi',
+              url: 'https://adrianlegaspi.dev',
+              image: 'https://adrianlegaspi.dev/assets/img/adrian-legaspi-profile.png',
+              jobTitle: 'AI App Developer & Software Engineer',
+              worksFor: {
+                '@type': 'Organization',
+                name: 'Freelance'
+              },
+              sameAs: [
+                'https://github.com/adrianlegaspi',
+                'https://linkedin.com/in/adrianlegaspi'
+              ],
+              knowsAbout: ['AI Development', 'React', 'Next.js', 'JavaScript', 'Python', 'Node.js']
+            })
+          }}
+        />
       </Head>
 
       {/* -----------------------------------------------------------------

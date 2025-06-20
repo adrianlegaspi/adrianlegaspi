@@ -207,7 +207,7 @@ function Solutions() {
                       points="12,1 23,6 23,18 12,23 1,18 1,6" 
                       className={`${nodeActivated ? 'fill-ink dark:fill-paper' : 'fill-paper dark:fill-ink'} stroke-ink dark:stroke-paper transition-all duration-500`} 
                       strokeWidth="2"
-                      vector-effect="non-scaling-stroke"
+                      vectorEffect="non-scaling-stroke"
                     />
                   </svg>
                   

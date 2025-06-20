@@ -2,6 +2,11 @@
   "home": {
     "title": "Adrián Legaspi – AI App Developer & Software Engineer",
     "description": "Portfolio of Adrián Legaspi, AI app developer & software engineer.",
+    "keywords": "AI app development, software engineering, frontend development, React, Next.js, AI solutions",
+    "ogImageAlt": "Adrian Legaspi - AI App Developer & Software Engineer",
+    "jobTitle": "AI App Developer & Software Engineer",
+    "company": "Freelance",
+    "skills": "AI Development, React, Next.js, JavaScript, Python, Node.js",
     "cta": "Scroll down"
   },
   "hero": {

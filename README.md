@@ -1,11 +1,11 @@
-# ⚡ Hey, I'm Adrian Legaspi
+# I'm Adrian Legaspi
 
 **Senior Web Developer** from Mexico 🇲🇽  
-I build fast, scalable web apps — and lately, AI-powered tools and indie games too.
+I build fast, scalable web apps and lately, AI-powered tools and indie games too.
 
 ---
 
-## 🧰 Experience With
+## Experience With
 
 **Web & UI**  
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
@@ -25,8 +25,8 @@ I build fast, scalable web apps — and lately, AI-powered tools and indie games
 ![C#](https://img.shields.io/badge/-C%23-239120?style=flat&logo=c-sharp&logoColor=white)
 
 
-## 📬 Contact
+## Contact
 
-[LinkedIn](https://linkedin.com/in/adrianlegaspi) · [Twitter](https://twitter.com/adrianlegaspix)
+[LinkedIn](https://linkedin.com/in/adrianlegaspi)
 
-> Open to freelance work & collabs. Let’s build something great.
+> Open to freelance work & collabs. Let's build something great.

@@ -6,23 +6,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
-
-function GA() {
-  if (!process.env.NEXT_PUBLIC_GA_ID) return null;
-  return (
-    <>
-      <script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-      />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');`,
-        }}
-      />
-    </>
-  );
-}
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -80,7 +64,7 @@ function MyApp({ Component, pageProps }) {
           <link rel="alternate" hrefLang="es" href={`https://adrianlegaspi.dev/es${asPath === '/' ? '' : asPath}`} />
           <link rel="alternate" hrefLang="x-default" href={`https://adrianlegaspi.dev${asPath === '/' ? '' : asPath}`} />
         </Head>
-        <GA />
+        <GoogleAnalytics gaId="G-4W5Y3EP1W7" />
         {showLoading ? (
           <LoadingScreen 
             onLoadComplete={handleLoadComplete} 

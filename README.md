@@ -1,7 +1,7 @@
 # I'm Adrian Legaspi
 
-**Senior Web Developer** from Mexico 🇲🇽  
-I build fast, scalable web apps and lately, AI-powered tools and indie games too.
+**Senior Software Engineer** from Mexico 🇲🇽
+I architect and engineer scalable full-stack systems. My work ranges from enterprise web platforms to AI-driven tools and indie game development.
 
 ---
 

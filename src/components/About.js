@@ -67,20 +67,12 @@ function About() {
           </h3>
           <div className="flex flex-wrap gap-4">
             <a 
-              href="/cv/ADRIAN_LEGASPI_CV_v8_en.pdf" 
+              href="/cv/Adrian_Legaspi_CV_v9.pdf" 
               download
               className="btn-retro shadow-ink dark:shadow-paper border-2 border-current px-4 py-2 flex items-center text-sm hover:bg-ink hover:text-paper dark:hover:bg-paper dark:hover:text-ink transition-colors"
             >
               <span className="font-mono mr-2">[ EN ]</span>
               <span>{t('englishCV') || 'English'}</span>
-            </a>
-            <a 
-              href="/cv/ADRIAN_LEGASPI_CV_v8_es.pdf" 
-              download
-              className="btn-retro shadow-ink dark:shadow-paper border-2 border-current px-4 py-2 flex items-center text-sm hover:bg-ink hover:text-paper dark:hover:bg-paper dark:hover:text-ink transition-colors"
-            >
-              <span className="font-mono mr-2">[ ES ]</span>
-              <span>{t('spanishCV') || 'Spanish'}</span>
             </a>
           </div>
         </div>

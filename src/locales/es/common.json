@@ -18,8 +18,7 @@
     "heading": "Sobre mí",
     "bio": "Desarrollo apps rápidas, sistemas que escalan y herramientas con IA — con arquitectura pensada para crecer y durar",
     "downloadCV": "Descargar CV",
-    "englishCV": "Inglés",
-    "spanishCV": "Español"
+    "englishCV": "Inglés"
   },
   "solutions": {
     "heading": "Lo Que Ofrezco",
@@ -44,7 +43,7 @@
     "contact": {
     "title": "Contacto",
     "description": "Disponible para freelance y nuevas colaboraciones. ¿Tienes algo en mente? ¡Hablemos!",
-    "available_freelance": "Estoy disponible para freelance y colaboraciones. ¡Hablemos!",
+    "available_freelance": "Estoy disponible. ¡Hablemos!",
     "intro": "Puedes contactarme por correo electrónico o encontrarme en otras plataformas.",
     "window_title": "Contacto",
     "intro_text": "Puedes contactarme por correo o encontrarme en otras plataformas.",

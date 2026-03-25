@@ -1,25 +1,24 @@
 {
   "home": {
-"title": "Adrian Legaspi – AI Developer & Web Engineer",
+"title": "Adrian Legaspi – Software Engineer",
 "description": "Creative software engineer crafting AI-powered apps, modern UIs, and web experiences.",
     "keywords": "AI app development, software engineering, frontend development, React, Next.js, AI solutions",
-    "ogImageAlt": "Adrian Legaspi - AI App Developer & Software Engineer",
-    "jobTitle": "AI App Developer & Software Engineer",
+    "ogImageAlt": "Adrian Legaspi - Software Engineer",
+    "jobTitle": "Software Engineer",
     "company": "Freelance",
     "skills": "AI Development, React, Next.js, JavaScript, Python, Node.js",
     "cta": "Scroll down"
   },
   "hero": {
     "greeting": "Hi, I'm Adrian Legaspi",
-    "subtitle": "AI App Developer & Software Engineer",
+    "subtitle": "Software Engineer",
     "cta": "Scroll to about"
   },
   "about": {
     "heading": "About Me",
     "bio": "I build fast apps, scalable systems, and AI-powered tools — built with architecture that scales, and lasts",
     "downloadCV": "Download CV",
-    "englishCV": "English",
-    "spanishCV": "Spanish"
+    "englishCV": "English"
   },
   "solutions": {
     "heading": "What I Bring to the Table",
@@ -44,7 +43,7 @@
     "contact": {
     "title": "Get in Touch",
     "description": "Available for freelance work and new collaborations. Got something in mind? Let's talk!",
-    "available_freelance": "I'm available for freelance work and collaborations. Let's talk!",
+    "available_freelance": "I'm available. Let's talk!",
     "intro": "You can reach me by email, or find me on other platforms.",
     "window_title": "Contact Me",
     "intro_text": "You can reach me via email or find me on other platforms.",

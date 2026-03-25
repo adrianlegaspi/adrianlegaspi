@@ -83,7 +83,7 @@ export default function Home() {
               name: 'Adrian Legaspi',
               url: 'https://adrianlegaspi.dev',
               image: 'https://adrianlegaspi.dev/assets/img/adrian-legaspi-profile.png',
-              jobTitle: 'AI App Developer & Software Engineer',
+              jobTitle: 'Software Engineer',
               worksFor: {
                 '@type': 'Organization',
                 name: 'Freelance'

@@ -184,7 +184,7 @@ Display configuration complete.`,
         });
         
         // Simulate "Enter" key press with slightly varied timing
-        const typingDelay = 50 + Math.floor(Math.random() * 50);
+        const typingDelay = 30 + Math.floor(Math.random() * 30);
         await new Promise(resolve => setTimeout(resolve, typingDelay));
         
         // Execute command with its specified time
@@ -204,7 +204,7 @@ Display configuration complete.`,
               }
               return newMessages;
             });
-          }, 200);
+          }, 150);
           
           await new Promise(resolve => setTimeout(resolve, execTime));
           clearInterval(dotsInterval);
@@ -226,7 +226,7 @@ Display configuration complete.`,
         
         for (let line of outputLines) {
           // Add a small random delay between each line to simulate realistic printing
-          const lineDelay = 20 + Math.floor(Math.random() * 40);
+          const lineDelay = 10 + Math.floor(Math.random() * 20);
           await new Promise(resolve => setTimeout(resolve, lineDelay));
           
           // Add the line to the message array
@@ -238,13 +238,13 @@ Display configuration complete.`,
         }
         
         // Wait before next command (varied delay between commands)
-        const commandDelay = 100 + Math.floor(Math.random() * 100);
+        const commandDelay = 50 + Math.floor(Math.random() * 50);
         await new Promise(resolve => setTimeout(resolve, commandDelay));
       }
       
       // Calculate elapsed time and wait remaining time to ensure minimum 3 seconds
       const elapsedTime = Date.now() - startTime;
-      const remainingTime = Math.max(2500 - elapsedTime, 0);
+      const remainingTime = Math.max(1500 - elapsedTime, 0);
       
       await new Promise(resolve => setTimeout(resolve, remainingTime));
       

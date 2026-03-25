@@ -90,7 +90,7 @@ function Hero() {
         
         animationTimers.push(timer1);
       }
-    }, 100);
+    }, 50);
 
     return () => {
       clearInterval(typingInterval);

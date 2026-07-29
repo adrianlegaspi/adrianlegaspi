@@ -1,0 +1,6 @@
+# Dev-only dependency for generating the CV PDF.
+# https://github.com/rendercv/rendercv
+#
+# The [full] extra is required: without it the CLI refuses to start.
+# Pinned so the rendered PDF stays byte-stable across machines.
+rendercv[full]==2.8

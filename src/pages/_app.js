@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
     }
   };
 
-  const canonicalUrl = `https://adrianlegaspi.dev${asPath === '/' ? '' : asPath}`;
+  const canonicalUrl = `https://legaspi.dev${asPath === '/' ? '' : asPath}`;
 
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
@@ -60,9 +60,9 @@ function MyApp({ Component, pageProps }) {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="canonical" href={canonicalUrl} />
-          <link rel="alternate" hrefLang="en" href={`https://adrianlegaspi.dev${asPath === '/' ? '' : asPath}`} />
-          <link rel="alternate" hrefLang="es" href={`https://adrianlegaspi.dev/es${asPath === '/' ? '' : asPath}`} />
-          <link rel="alternate" hrefLang="x-default" href={`https://adrianlegaspi.dev${asPath === '/' ? '' : asPath}`} />
+          <link rel="alternate" hrefLang="en" href={`https://legaspi.dev${asPath === '/' ? '' : asPath}`} />
+          <link rel="alternate" hrefLang="es" href={`https://legaspi.dev/es${asPath === '/' ? '' : asPath}`} />
+          <link rel="alternate" hrefLang="x-default" href={`https://legaspi.dev${asPath === '/' ? '' : asPath}`} />
         </Head>
         <GoogleAnalytics gaId="G-4W5Y3EP1W7" />
         {showLoading ? (

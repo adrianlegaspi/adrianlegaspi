@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/router';
+// Written by `npm run generate-cv`, so the download always points at the
+// newest versioned PDF without this filename being edited by hand.
+import cvVersion from '../constants/cvVersion.json';
 
 function About() {
   const t = useTranslations('about');
@@ -67,7 +70,7 @@ function About() {
           </h3>
           <div className="flex flex-wrap gap-4">
             <a 
-              href="/cv/Adrian_Legaspi_CV_v9.pdf" 
+              href={`/cv/${cvVersion.pdf}`}
               download
               className="btn-retro shadow-ink dark:shadow-paper border-2 border-current px-4 py-2 flex items-center text-sm hover:bg-ink hover:text-paper dark:hover:bg-paper dark:hover:text-ink transition-colors"
             >

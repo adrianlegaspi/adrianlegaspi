@@ -1,0 +1,270 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
+cv:
+  name: Adrian Legaspi
+  location: Monterrey, Mexico
+  email: adrian.luball@gmail.com
+  phone: '+526647809152'
+  website: https://legaspi.dev
+  social_networks:
+    - network: LinkedIn
+      username: adrian-legaspi
+    - network: GitHub
+      username: adrianlegaspi
+
+  sections:
+    profile:
+      - 'Senior Software Engineer with 9+ years building production React/TypeScript applications, from fintech platforms to enterprise security dashboards, with hands-on AI integration experience.'
+
+    experience:
+      - company: JointechAI
+        position: Software Engineer
+        location: Tijuana, Mexico
+        start_date: 2022-08
+        end_date: present
+        highlights:
+          - '**Viasat Internal Security Application (via Borderux):** Architected and developed a centralized React and TypeScript dashboard aggregating findings across a platform used by 4,000+ internal users, serving as the sole frontend engineer embedded within a backend-heavy team of 15 engineers.'
+          - '**Jointech & Borderux Internal Projects:** Acted as Tech Lead for AI wrapper application across a team of 5 engineers, guiding technical architecture and implementation. Built and maintained an internal Employee Management System handling 30 employees alongside primary enterprise deliverables.'
+
+      - company: Arte Digital
+        position: Software Engineer
+        location: Tijuana, Mexico
+        start_date: 2020-01
+        end_date: 2022-08
+        highlights:
+          - '**Captira:** Engineered full-stack legal software solutions, developing complex Angular data dashboards and secure Laravel APIs serving 3,000+ legal professionals.'
+          - '**SMB Client Projects:** Managed end-to-end development of 10+ custom WordPress websites, handling server configuration, PHP plugins, and complete frontend design.'
+          - '**Crediverso:** Architected and built full-stack fintech features for a platform serving 10,000 users, utilizing React and a Headless WordPress backend. Reduced deployment time by establishing CI/CD pipelines using Codeship.'
+
+      - company: LuballSoftware (Freelance)
+        position: Web Designer & Developer
+        location: Tijuana, Mexico
+        start_date: 2016-03
+        end_date: 2020-01
+        highlights:
+          - 'Developed and managed FireApp, a digital logging application for the Tijuana Fire Department used by 180+ field firefighters and paramedics across 18 stations for pre-hospital incident reports.'
+          - 'Delivered 25+ web solutions for local businesses over 4 years, ranging from custom e-commerce platforms to landing pages.'
+
+    education:
+      - institution: Universidad Tecnológica de Tijuana
+        area: Tecnologías de la Información
+        degree: BS
+        location: Tijuana, Mexico
+        end_date: 2015-05
+
+    skills:
+      - label: Frontend
+        details: TypeScript, React, JavaScript (vanilla / jQuery), SCSS, Pixel-perfect design implementation
+      - label: Backend & Databases
+        details: NodeJs, PostgreSQL, Firebase, Laravel, Angular
+      - label: Cloud & DevOps
+        details: Amazon Web Services, CI/CD (Github Actions), Software Architecture
+      - label: AI & Emerging
+        details: AI Models RAG, Fine Tuning, AIops
+      - label: Other
+        details: Git, Hybrid development apps, Product Requirements Analysis
+
+    languages:
+      - label: English
+        details: Professional proficiency
+      - label: Spanish
+        details: Native
+
+    Recent projects:
+      - name: '[Cardom](https://play.google.com/store/apps/details?id=cardom.procreations.dev)'
+        date: '2026'
+        highlights:
+          - 'Independently developed and released Cardom, a web-based videogame, showcasing full-stack product ownership from concept to launch.'
+
+      - name: '[Shroom Merge](https://play.google.com/store/apps/details?id=dev.procreations.shroommerge)'
+        date: 'July 2026'
+        highlights:
+          - 'Independently developed and released Shroom Merge, a mobile merge game for Android, taking the project from concept to Play Store launch.'
+
+design:
+  theme: engineeringresumes
+  page:
+    # us-letter is ~18mm shorter than a4, so this fits on one page only because
+    # the header/section whitespace below is tightened. Loosening those values
+    # (or adding content) pushes the last project onto a second page.
+    size: us-letter
+    top_margin: 0.6in
+    bottom_margin: 0.6in
+    left_margin: 0.6in
+    right_margin: 0.6in
+    show_footer: false
+    show_top_note: true
+  colors:
+    body: rgb(0, 0, 0)
+    name: rgb(0, 0, 0)
+    headline: rgb(0, 0, 0)
+    connections: rgb(0, 0, 0)
+    section_titles: rgb(0, 0, 0)
+    links: rgb(0, 0, 0)
+    footer: rgb(128, 128, 128)
+    top_note: rgb(128, 128, 128)
+  typography:
+    line_spacing: 0.6em
+    alignment: justified
+    date_and_location_column_alignment: right
+    font_family:
+      body: XCharter
+      name: XCharter
+      headline: XCharter
+      connections: XCharter
+      section_titles: XCharter
+    font_size:
+      body: 9.5pt
+      name: 21pt
+      headline: 10pt
+      connections: 10pt
+      section_titles: 1.2em
+    small_caps:
+      name: false
+      headline: false
+      connections: false
+      section_titles: false
+    bold:
+      name: false
+      headline: false
+      connections: false
+      section_titles: true
+  links:
+    underline: true
+    show_external_link_icon: false
+  header:
+    alignment: center
+    photo_width: 3.5cm
+    photo_position: left
+    photo_space_left: 0.4cm
+    photo_space_right: 0.4cm
+    space_below_name: 0.35cm
+    space_below_headline: 0.35cm
+    space_below_connections: 0.35cm
+    connections:
+      phone_number_format: national
+      hyperlink: true
+      show_icons: false
+      display_urls_instead_of_usernames: true
+      separator: '|'
+      space_between_connections: 0.5cm
+  section_titles:
+    type: with_full_line
+    line_thickness: 0.5pt
+    space_above: 0.35cm
+    space_below: 0.25cm
+  sections:
+    allow_page_break: true
+    space_between_regular_entries: 0.32cm
+    space_between_text_based_entries: 0.15cm
+    show_time_spans_in: []
+  entries:
+    date_and_location_width: 4.15cm
+    side_space: 0cm
+    space_between_columns: 0.1cm
+    allow_page_break: false
+    short_second_row: false
+    degree_width: 1cm
+    summary:
+      space_above: 0.08cm
+      space_left: 0cm
+    highlights:
+      bullet: ●
+      nested_bullet: ●
+      space_left: 0cm
+      space_above: 0.08cm
+      space_between_items: 0.08cm
+      space_between_bullet_and_text: 0.3em
+  templates:
+    footer: '*NAME -- PAGE_NUMBER/TOTAL_PAGES*'
+    top_note: '*LAST_UPDATED CURRENT_DATE*'
+    single_date: MONTH_ABBREVIATION YEAR
+    date_range: START_DATE – END_DATE
+    time_span: HOW_MANY_YEARS YEARS HOW_MANY_MONTHS MONTHS
+    one_line_entry:
+      main_column: '**LABEL:** DETAILS'
+    education_entry:
+      main_column: |-
+        **INSTITUTION**, DEGREE_WITH_AREA -- LOCATION
+        SUMMARY
+        HIGHLIGHTS
+      degree_column:
+      date_and_location_column: DATE
+    normal_entry:
+      main_column: |-
+        **NAME** -- **LOCATION**
+        SUMMARY
+        HIGHLIGHTS
+      date_and_location_column: DATE
+    experience_entry:
+      main_column: |-
+        **POSITION**, COMPANY -- LOCATION
+        SUMMARY
+        HIGHLIGHTS
+      date_and_location_column: DATE
+    publication_entry:
+      main_column: |-
+        **TITLE**
+        SUMMARY
+        AUTHORS
+        URL (JOURNAL)
+      date_and_location_column: DATE
+
+locale:
+  language: english
+  last_updated: Last updated in
+  month: month
+  months: months
+  year: year
+  years: years
+  present: present
+  phrases:
+    degree_with_area: DEGREE in AREA
+  month_abbreviations:
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - June
+    - July
+    - Aug
+    - Sept
+    - Oct
+    - Nov
+    - Dec
+  month_names:
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+
+settings:
+  current_date: today
+  bold_keywords: []
+  pdf_title: NAME - CV
+  render_command:
+    # Paths below are resolved relative to THIS file's directory (public/cv/),
+    # not the directory rendercv is invoked from.
+    output_folder: .
+    # These two are only the fallback for a bare `rendercv render`. The real
+    # filenames are versioned (Adrian_Legaspi_CV_v10.pdf) and are passed in by
+    # scripts/generate-cv.js via --pdf-path / --markdown-path, so the version
+    # number lives in one place instead of being hand-edited here every release.
+    # Use `npm run generate-cv`, not the rendercv CLI directly.
+    pdf_path: Adrian_Legaspi_CV.pdf
+    # Generated output, not a source file. Edit the .yaml, never the .md.
+    markdown_path: Adrian_Legaspi_CV.md
+    dont_generate_markdown: false
+    dont_generate_html: true
+    dont_generate_png: true
+    # Keep Typst enabled: the PDF is compiled from the .typ file, so disabling
+    # it silently produces no PDF at all.
+    dont_generate_typst: false

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://adrianlegaspi.dev/sitemap.xml
+Sitemap: https://legaspi.dev/sitemap.xml

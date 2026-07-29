@@ -3,12 +3,13 @@
 - Phone: +52 664 780 9152
 - Email: [adrian.luball@gmail.com](mailto:adrian.luball@gmail.com)
 - Location: Monterrey, Mexico
+- Website: [legaspi.dev](https://legaspi.dev/)
 - LinkedIn: [adrian-legaspi](https://linkedin.com/in/adrian-legaspi)
 - GitHub: [adrianlegaspi](https://github.com/adrianlegaspi)
 
 
 # Profile
-Senior Frontend Engineer with 9+ years building production React/TypeScript applications, from fintech platforms to enterprise security dashboards, with hands-on AI integration experience.
+Senior Software Engineer with 9+ years building production React/TypeScript applications, from fintech platforms to enterprise security dashboards, with hands-on AI integration experience.
 
 # Experience
 ## **Software Engineer**, JointechAI -- Tijuana, Mexico
@@ -65,11 +66,19 @@ May 2015
 
 **Spanish:** Native
 
-# Projects
-## **Cardom**
+# Recent projects
+## **[Cardom](https://play.google.com/store/apps/details?id=cardom.procreations.dev)**
 
 Jan 2026
 
-- Independently developed and released Cardom, a web-based videogame, showcasing full-stack product ownership from concept to launch. [Play Store](https://play.google.com/store/apps/details?id=cardom.procreations.dev)
+- Independently developed and released Cardom, a web-based videogame, showcasing full-stack product ownership from concept to launch.
+
+
+
+## **[Shroom Merge](https://play.google.com/store/apps/details?id=dev.procreations.shroommerge)**
+
+July 2026
+
+- Independently developed and released Shroom Merge, a mobile merge game for Android, taking the project from concept to Play Store launch.
 
 

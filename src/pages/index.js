@@ -60,8 +60,8 @@ export default function Home() {
         <meta property="og:title" content={t('title')} />
         <meta property="og:description" content={t('description')} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://adrianlegaspi.dev" />
-        <meta property="og:image" content="https://adrianlegaspi.dev/og-image.png" />
+        <meta property="og:url" content="https://legaspi.dev" />
+        <meta property="og:image" content="https://legaspi.dev/og-image.png" />
         <meta property="og:image:alt" content={t('ogImageAlt')} />
         <meta property="og:site_name" content="Adrian Legaspi" />
         <meta property="og:locale" content="en_US" />
@@ -71,7 +71,7 @@ export default function Home() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t('title')} />
         <meta name="twitter:description" content={t('description')} />
-        <meta name="twitter:image" content="https://adrianlegaspi.dev/og-image.png" />
+        <meta name="twitter:image" content="https://legaspi.dev/og-image.png" />
         
         {/* JSON-LD structured data */}
         <script
@@ -81,8 +81,8 @@ export default function Home() {
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Adrian Legaspi',
-              url: 'https://adrianlegaspi.dev',
-              image: 'https://adrianlegaspi.dev/assets/img/adrian-legaspi-profile.png',
+              url: 'https://legaspi.dev',
+              image: 'https://legaspi.dev/assets/img/adrian-legaspi-profile.png',
               jobTitle: 'Software Engineer',
               worksFor: {
                 '@type': 'Organization',

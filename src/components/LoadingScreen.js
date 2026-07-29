@@ -319,7 +319,7 @@ Display configuration complete.`,
                 shadow-ink dark:shadow-paper
                 bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink
               ">
-                <p className="font-mono text-ink dark:text-paper text-sm">Welcome to adrianlegaspi.dev</p>
+                <p className="font-mono text-ink dark:text-paper text-sm">Welcome to legaspi.dev</p>
               </div>
             </div>
           </div>

@@ -30,3 +30,12 @@ I architect and engineer scalable full-stack systems. My work ranges from enterp
 [LinkedIn](https://linkedin.com/in/adrianlegaspi)
 
 > Open to freelance work & collabs. Let's build something great.
+
+## Recent projects
+- ### Depguard
+  - Security vulnerability scanner for software dependencies; multi-ecosystem, privacy-first.
+  https://depguard-io.vercel.app/
+- ### Cardom
+  - Rouge like, deck builder, role play android game. My first videogame ever released!
+  https://play.google.com/store/apps/details?id=cardom.procreations.dev&hl=en
+  

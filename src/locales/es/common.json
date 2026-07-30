@@ -1,6 +1,5 @@
 {
   "ui": {
-    "ready": "Listo",
     "oneDocument": "1 documento"
   },
   "home": {
@@ -8,21 +7,22 @@
     "description": "Ingeniero de software creativo que construye aplicaciones con IA, interfaces modernas y experiencias web sólidas.",
     "keywords": "desarrollo de apps IA, ingeniería de software, desarrollo frontend, React, Next.js, soluciones IA",
     "ogImageAlt": "Adrian Legaspi - Desarrollador de Apps IA e Ingeniero de Software",
-    "jobTitle": "Desarrollador de Apps IA e Ingeniero de Software",
+    "jobTitle": "Ingeniero de Software",
     "company": "Freelance",
     "skills": "Desarrollo IA, React, Next.js, JavaScript, Python, Node.js",
     "cta": "Desplázate hacia abajo"
   },
   "hero": {
     "greeting": "Hola, soy Adrian Legaspi",
-    "subtitle": "Desarrollador de Apps IA & Ingeniero de Software",
+    "subtitle": "Ingeniero de Software",
     "cta": "Ir a sobre mí"
   },
   "about": {
     "heading": "Sobre mí",
-    "bio": "Desarrollo apps rápidas, sistemas que escalan y herramientas con IA — con arquitectura pensada para crecer y durar",
+    "bio": "Desarrollo apps rápidas, sistemas que escalan y herramientas con IA: con arquitectura pensada para crecer y durar",
     "downloadCV": "Descargar CV",
-    "englishCV": "Inglés"
+    "englishCV": "Inglés",
+    "wordCount": "{count} palabras"
   },
   "solutions": {
     "heading": "Lo Que Ofrezco",
@@ -52,6 +52,7 @@
     "copy_button": "Copiar",
     "copy_button_copied": "¡Copiado!",
     "copied": "¡Copiado!",
-    "find_me_on": "Encuéntrame en otras plataformas"
+    "find_me_on": "Encuéntrame en otras plataformas",
+    "oneRecipient": "1 destinatario"
   }
 }

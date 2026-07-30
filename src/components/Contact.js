@@ -5,7 +5,6 @@ import Window from './Window';
 
 function Contact() {
   const t = useTranslations('contact');
-  const tUi = useTranslations('ui');
   const [copied, setCopied] = useState(false);
   const email = SOCIAL_LINKS.email;
 
@@ -17,12 +16,6 @@ function Contact() {
 
   return (
     <section id="contact" className="py-16 px-4 relative">
-      {/* Desktop dither, replacing the undefined `bg-grid-pattern` class */}
-      <div
-        className="desktop-dither absolute inset-0 pointer-events-none text-ink opacity-[0.06]"
-        aria-hidden="true"
-      />
-
       <div className="max-w-3xl mx-auto text-center mb-12 relative">
         <h2 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl">
           {t('title')}
@@ -35,7 +28,7 @@ function Contact() {
       <Window
         title={t('window_title')}
         icon="hn-envelope"
-        status={[copied ? t('copied') : tUi('ready')]}
+        status={[copied ? t('copied') : t('oneRecipient')]}
         className="max-w-lg mx-auto relative"
         bodyClassName="p-6"
       >
@@ -46,10 +39,10 @@ function Contact() {
 
           {/* Sunken read-only field + push button, the era-correct pairing */}
           <div className="flex w-full items-stretch gap-2">
-            <div className="bevel-sunken flex flex-1 items-center bg-desktop px-2 py-1.5">
+            <div className="bevel-sunken flex flex-1 items-center px-2 py-1.5">
               <a
                 href={`mailto:${email}`}
-                className="font-mono text-sm text-ink hover:underline"
+                className="font-chrome text-sm text-ink hover:underline"
               >
                 {email}
               </a>

@@ -305,7 +305,7 @@ Display configuration complete.`,
           <div className="bevel-raised p-[3px]">
             {/* Title bar */}
             <div className="flex items-center gap-2 bg-titlebar px-1.5 py-1">
-              {/* Brand only — this dialog renders outside any locale-loaded
+              {/* Brand only: this dialog renders outside any locale-loaded
                   page, so it must not depend on translations. */}
               <span className="font-chrome text-titlebar-text text-xs font-bold tracking-wide">
                 legaspi.dev
@@ -315,9 +315,9 @@ Display configuration complete.`,
             <div className="flex flex-col items-center gap-3 px-8 py-6">
               <p className="font-chrome text-ink text-sm">Welcome to legaspi.dev</p>
 
-              {/* Segmented progress bar — Win9x drew this as discrete blocks,
+              {/* Segmented progress bar: Win9x drew this as discrete blocks,
                   not a continuous fill. */}
-              <div className="bevel-sunken h-5 w-64 bg-desktop p-[2px]">
+              <div className="bevel-sunken h-5 w-64 p-[2px]">
                 <div
                   className="h-full overflow-hidden transition-all duration-300 ease-linear"
                   style={{ width: `${progressPercent}%` }}

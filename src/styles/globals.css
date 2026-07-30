@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 /* ===================================================================
-   RETRO OS THEME — "Solar" beige-plastic workstation
+   RETRO OS THEME: "Solar" beige-plastic workstation
    -------------------------------------------------------------------
    The whole page is one desktop. Sections are windows. Chrome (title
    bars, taskbar, buttons, status bars) is drawn with a 4-value bevel
@@ -22,15 +22,15 @@
 :root {
   /* Surfaces */
   --desktop-c: 255 249 239; /* wallpaper / document client area */
-  --chrome-face-c: 232 224 206; /* panel face — the "plastic" */
+  --chrome-face-c: 232 224 206; /* panel face (the "plastic") */
   --chrome-light-c: 255 253 246; /* top-left bevel highlight */
   --chrome-shadow-c: 168 159 138; /* bottom-right bevel */
   --chrome-dark-c: 92 86 72; /* outer 1px edge */
   --chrome-text-c: 92 86 72; /* secondary / de-emphasised chrome text */
 
-  /* Title bars — this green was formerly the "code comment" colour.
-     Same hue, new meaning: it now marks a focused window. */
-  --titlebar-c: 46 71 48;
+  /* Title bars: brand accent, a burnt-orange/rust tone. Dark enough
+     that the cream titlebar text keeps AA contrast on top of it. */
+  --titlebar-c: 154 75 20;
   --titlebar-text-c: 255 249 239;
   --titlebar-inactive-c: 168 159 138;
 
@@ -38,7 +38,15 @@
   --color-ink-c: 4 0 5;
   --color-paper-c: 255 249 239;
 
-  --font-chrome: 'Tahoma', 'Geneva', 'Verdana', 'DejaVu Sans', 'Helvetica Neue', sans-serif;
+  /* Every component reaches fonts only through `font-chrome` / `font-mono`
+     (mapped to these two vars in tailwind.config.js) — never a hardcoded
+     family name. To swap either font app-wide:
+       1. Change the Google Fonts <link> in src/pages/_document.js to load
+          the new family.
+       2. Put its name first in the matching variable below, keeping the
+          old family as a fallback (or dropping it once nothing needs it).
+     No component file needs to change. */
+  --font-chrome: 'Share Tech Mono', 'Tahoma', 'Geneva', 'Verdana', 'DejaVu Sans', 'Helvetica Neue', sans-serif;
   --font-terminal: 'IBM Plex Mono', 'Courier New', monospace;
 }
 
@@ -48,9 +56,9 @@
   --chrome-light-c: 74 74 80;
   --chrome-shadow-c: 20 20 22;
   --chrome-dark-c: 0 0 0;
-  --chrome-text-c: 143 187 150;
+  --chrome-text-c: 228 148 68;
 
-  --titlebar-c: 143 187 150;
+  --titlebar-c: 228 148 68;
   --titlebar-text-c: 4 0 5;
   --titlebar-inactive-c: 74 74 80;
 
@@ -85,7 +93,7 @@
   }
 }
 
-/* Stepped nudge — no easing, so it reads as a redraw rather than a
+/* Stepped nudge: no easing, so it reads as a redraw rather than a
    modern spring animation. */
 @keyframes nudge-down {
   0%,
@@ -102,26 +110,34 @@ body {
   font-family: var(--font-chrome);
   background-color: var(--desktop);
   color: var(--color-ink);
+  position: relative;
 }
 
-/* ===================================================================
-   Everything below lives in @layer components so that Tailwind utility
-   classes still win when they land on the same element — otherwise
-   `.btn-retro`'s box-shadow would silently beat utilities like `ring-1`.
-   =================================================================== */
-@layer components {
-
-/* Classic 50% dither wallpaper — a 2px checkerboard, which is what an
-   era-correct desktop pattern actually was (no gradients, no blur). */
-.desktop-dither {
+/* Desktop wallpaper, drawn once for the whole page rather than re-declared
+   inside every section. Fixed + behind everything, so the gaps between
+   sections read as more of the same desktop instead of a seam. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.15;
   background-image:
-    linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%),
-    linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%);
+    linear-gradient(45deg, var(--color-ink) 25%, transparent 25%, transparent 75%, var(--color-ink) 75%),
+    linear-gradient(45deg, var(--color-ink) 25%, transparent 25%, transparent 75%, var(--color-ink) 75%);
   background-position:
     0 0,
     2px 2px;
   background-size: 4px 4px;
 }
+
+/* ===================================================================
+   Everything below lives in @layer components so that Tailwind utility
+   classes still win when they land on the same element, otherwise
+   `.btn-retro`'s box-shadow would silently beat utilities like `ring-1`.
+   =================================================================== */
+@layer components {
 
 /* ===================================================================
    BEVEL SYSTEM
@@ -130,7 +146,7 @@ body {
    this, which is why the old rgba() fakes were invisible on cream.
    =================================================================== */
 
-/* Raised — panels, buttons, taskbar, window frames */
+/* Raised: panels, buttons, taskbar, window frames */
 .bevel-raised {
   background-color: var(--chrome-face);
   border: 1px solid;
@@ -143,7 +159,7 @@ body {
     inset -1px -1px 0 0 var(--chrome-shadow);
 }
 
-/* Pressed — the same bevel inverted. Used for :active button states. */
+/* Pressed: the same bevel inverted. Used for :active button states. */
 .bevel-pressed {
   background-color: var(--chrome-face);
   border: 1px solid;
@@ -154,8 +170,11 @@ body {
   box-shadow: inset 1px 1px 0 0 var(--chrome-shadow);
 }
 
-/* Sunken — text fields, status-bar cells, client areas */
+/* Sunken: text fields, status-bar cells, client areas. Background is baked
+   in here (unlike bevel-raised's chrome-face) so every sunken well reads as
+   the desktop colour without each call site re-declaring `bg-desktop`. */
 .bevel-sunken {
+  background-color: var(--desktop);
   border: 1px solid;
   border-top-color: var(--chrome-dark);
   border-left-color: var(--chrome-dark);
@@ -164,7 +183,7 @@ body {
   box-shadow: inset 1px 1px 0 0 var(--chrome-shadow);
 }
 
-/* Groove — a 2px etched divider, the era-correct replacement for a
+/* Groove: a 2px etched divider, the era-correct replacement for a
    dashed rule. */
 .bevel-groove {
   border: 0;
@@ -188,6 +207,13 @@ body {
     var(--chrome-light) 1px,
     var(--chrome-light) 2px
   );
+}
+
+/* Hexagon clip, used for the timeline node markers. A real border can't
+   follow this shape, so the bevel is faked with stacked hex layers
+   (see Solutions.js) instead of border-color tricks. */
+.hex-clip {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
 }
 
 /* ===================================================================
@@ -241,7 +267,7 @@ body {
   outline-offset: -4px;
 }
 
-/* Decorative window control boxes (_ □ ×). Non-interactive by design —
+/* Decorative window control boxes (_ □ ×). Non-interactive by design:
    they are chrome, not fake buttons, so they stay out of the a11y tree. */
 .window-control {
   width: 14px;
@@ -261,7 +287,7 @@ body {
   border-bottom-color: var(--chrome-dark);
 }
 
-/* Menu row highlight — inverse video on hover, the Win9x selection idiom */
+/* Menu row highlight: inverse video on hover, the Win9x selection idiom */
 .menu-item:hover,
 .menu-item:focus-visible {
   background-color: var(--titlebar);
@@ -269,12 +295,14 @@ body {
   outline: none;
 }
 
-/* Status LED — a beveled square, not a pulsing circle */
+/* Status LED: a hexagon (matching the .hex-clip node markers in
+   Solutions.js), not a pulsing circle. Too small for the layered bevel
+   those use, so it's a flat filled hex instead. */
 .led {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   background-color: var(--titlebar);
-  box-shadow: inset -1px -1px 0 0 var(--chrome-shadow);
   animation: blink 2s steps(1, end) infinite;
 }
 
@@ -283,6 +311,21 @@ body {
   background-color: var(--titlebar);
   color: var(--titlebar-text);
   padding: 0 0.35em;
+}
+
+/* Accent badge: a filled tag for short labels (job title, status).
+   Raised with the same two-ring bevel as .bevel-raised/.btn-retro
+   (outer border + inset highlight/shadow), just faked with white/black
+   alpha overlays instead of dedicated light/dark vars, since those
+   only exist for the neutral chrome ramp, not the accent colour. */
+/* A flat color plate, not a chip: no border/bevel, so it doesn't read as
+   a pushable button, but the solid fill gives it real contrast against
+   the dithered wallpaper that plain colored text was losing. */
+.badge-accent {
+  display: inline-block;
+  background-color: var(--titlebar);
+  color: var(--titlebar-text);
+  padding: 0.1em 0.45em;
 }
 
 /* Terminal caret. Replaces the previously-undefined `.cursor-blink`, so
@@ -332,7 +375,7 @@ body {
   color: var(--titlebar-text);
 }
 
-/* ===== Scrollbar — beveled, with a sunken dithered trough ===== */
+/* ===== Scrollbar: beveled, with a sunken dithered trough ===== */
 ::-webkit-scrollbar {
   width: 16px;
   height: 16px;
@@ -377,7 +420,7 @@ body {
   background-color: var(--chrome-face);
 }
 
-/* Reduced motion — kill the decorative blinkers */
+/* Reduced motion: kill the decorative blinkers */
 @media (prefers-reduced-motion: reduce) {
   .cursor-blink,
   .animate-nudge,

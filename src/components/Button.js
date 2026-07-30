@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * Win9x push button. The bevel comes from the shared `.btn-retro` /
- * `.bevel-*` system rather than the rgba() shadows this used to fake —
+ * `.bevel-*` system rather than the rgba() shadows this used to fake:
  * those were tuned for a dark surface and were nearly invisible against
  * the cream panel face.
  */

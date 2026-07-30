@@ -39,14 +39,17 @@ function About() {
 
   return (
     <section id="about" className="mx-auto px-4 py-8 max-w-3xl relative">
-      {/* The title bar carries the filename, not the section heading — that
+      {/* The title bar carries the filename, not the section heading: that
           way the real <h2> keeps its full size inside the client area and the
           text isn't duplicated. A document window worked exactly this way. */}
       <Window
         title="about.txt"
         titleClassName="font-mono"
         icon="hn-user"
-        status={[tUi('ready'), tUi('oneDocument')]}
+        status={[
+          t('wordCount', { count: t('bio').trim().split(/\s+/).filter(Boolean).length }),
+          tUi('oneDocument'),
+        ]}
         className={`transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}
         bodyClassName="p-6"
       >
@@ -72,12 +75,6 @@ function About() {
           </a>
         </div>
       </Window>
-
-      {/* Desktop dither behind the window */}
-      <div
-        className="desktop-dither absolute inset-0 pointer-events-none -z-10 text-ink opacity-[0.06]"
-        aria-hidden="true"
-      />
     </section>
   );
 }

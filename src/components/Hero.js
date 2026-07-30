@@ -111,15 +111,11 @@ function Hero() {
       ref={heroRef}
       id="hero" 
       className="min-h-screen flex flex-col justify-center items-center text-center gap-6 px-4 relative overflow-hidden">
-      {/* Desktop wallpaper — a 50% dither checkerboard, the era-correct
-          pattern. Replaces the previous hairline grid. */}
-      <div className="desktop-dither absolute inset-0 text-ink opacity-[0.07]" aria-hidden="true" />
-
       <div className="relative z-10">
-        {/* The one heading that stays monospace: it types out behind a block
-            caret, which is diegetically terminal output. It also keeps the
-            glyph advance constant, so the line doesn't jitter while typing. */}
-        <h1 className="font-mono text-4xl md:text-6xl lg:text-7xl font-bold mb-2">
+        {/* DotGothic16 is itself fixed-width, so it types out behind the
+            block caret without the glyph-advance jitter a proportional
+            font would cause. */}
+        <h1 className="font-chrome text-4xl md:text-6xl lg:text-7xl font-bold mb-2">
           <span className="inline-block">
             {displayText}
             <span className={`${isTypingComplete ? 'cursor-blink' : ''} text-current`}>_</span>
@@ -129,14 +125,14 @@ function Hero() {
         {/* Hidden element reserving the final height so the layout doesn't
             jump when the typing animation finishes. */}
         <div aria-hidden="true" style={{visibility: 'hidden', position: 'absolute', pointerEvents: 'none'}}>
-          <p className="text-xl md:text-2xl">{t('subtitle')}</p>
+          <p className="text-base md:text-lg">{t('subtitle')}</p>
         </div>
 
         {/* Revealed after typing via CSS transition rather than conditional render */}
         <div className={`transition-opacity duration-500 ${isTypingComplete ? 'opacity-100' : 'opacity-0'}`}>
           <div className="h-[3rem] mt-4">
-            <p className="text-xl md:text-2xl">
-              <span className="selected-text">{t('subtitle')}</span>
+            <p className="text-base md:text-lg">
+              <span className="badge-accent font-chrome font-bold tracking-wide">{t('subtitle')}</span>
             </p>
           </div>
 
@@ -155,7 +151,7 @@ function Hero() {
         </div>
       </div>
 
-      {/* CRT scanlines — monitor artefact, part of the old-PC story */}
+      {/* CRT scanlines: monitor artefact, part of the old-PC story */}
       <div className="scanlines absolute inset-0 pointer-events-none"></div>
     </section>
   );

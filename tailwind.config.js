@@ -4,8 +4,8 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
-      // Colours resolve through RGB channel triplets defined in globals.css so
-      // Tailwind can inject an alpha channel — `bg-ink/20` works, which a bare
+      // Colours resolve through RGB channel triplets defined in globals.css, so
+      // Tailwind can inject an alpha channel: `bg-ink/20` works, which a bare
       // `var(--color-ink)` would silently ignore.
       colors: {
         ink: "rgb(var(--color-ink-c) / <alpha-value>)",
@@ -25,7 +25,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        // Chrome and body copy are PROPORTIONAL — monospace everywhere is
+        // Chrome and body copy are PROPORTIONAL: monospace everywhere is
         // itself a code metaphor, and it was what kept reading as "editor".
         sans: ["var(--font-chrome)"],
         chrome: ["var(--font-chrome)"],

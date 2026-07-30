@@ -4,7 +4,7 @@ import Window from './Window';
 
 const stack = ['Next.js', 'React', 'TailwindCSS', 'Node.js', 'Express', 'MongoDB'];
 
-// NOTE: Not currently rendered — nothing imports Stack, and the `stack`
+// NOTE: Not currently rendered: nothing imports Stack, and the `stack`
 // translation namespace it reads does not exist in either locale file. Kept
 // in sync with the chrome system so there are no dangling class references,
 // but it is a deletion candidate.

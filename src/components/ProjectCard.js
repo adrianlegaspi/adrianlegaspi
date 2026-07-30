@@ -1,7 +1,7 @@
 import React from 'react';
 import Window from './Window';
 
-// NOTE: Not currently rendered — nothing imports Projects/ProjectCard. Kept
+// NOTE: Not currently rendered: nothing imports Projects/ProjectCard. Kept
 // in sync with the chrome system so there are no dangling class references,
 // but it is a deletion candidate.
 function ProjectCard({ name, description, live, repo }) {

@@ -144,13 +144,6 @@ function Solutions() {
   
   return (
     <section id="solutions" className="px-4 py-24 relative min-h-[80vh]" ref={sectionRef}>
-      {/* Desktop dither. Replaces the two blurred gradient blobs, which were
-          the section's most anachronistic element — no blur, no radii. */}
-      <div
-        className="desktop-dither absolute inset-0 pointer-events-none text-ink opacity-[0.06]"
-        aria-hidden="true"
-      />
-
       <div className="max-w-4xl mx-auto relative">
         <h2 className="text-center text-3xl md:text-4xl mb-4 font-bold">
           <span className={`transition-transform duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
@@ -172,7 +165,7 @@ function Solutions() {
             {/* Empty track */}
             <div className="bevel-groove-v absolute h-full w-full" />
 
-            {/* Filled portion — stepped, so it advances like a redraw */}
+            {/* Filled portion: stepped, so it advances like a redraw */}
             <div
               className="absolute top-0 w-full bg-titlebar transition-all duration-500 ease-linear"
               style={{ height: `${Math.min(scrollProgress * 100, 100)}%` }}
@@ -199,14 +192,18 @@ function Solutions() {
                     transform: `translateY(${isActive ? '0' : nodeActivated ? '-10px' : '10px'})`,
                   }}
                 >
-                  {/* Node marker — a beveled square checkbox, filled when reached */}
+                  {/* Node marker: a beveled hexagon, filled when reached */}
                   <div
                     ref={setNodeRef}
-                    className={`absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 z-20 flex h-5 w-5 items-center justify-center
-                      ${nodeActivated ? 'bevel-pressed' : 'bevel-raised'}`}
+                    className="absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 z-20 h-8 w-8"
                     aria-hidden="true"
                   >
-                    {nodeActivated && <span className="h-2.5 w-2.5 bg-titlebar" />}
+                    <div
+                      className={`hex-clip absolute inset-0 bg-gradient-to-br
+                        ${nodeActivated ? 'from-chrome-dark to-chrome-light' : 'from-chrome-light to-chrome-dark'}`}
+                    />
+                    <div className="hex-clip absolute inset-[3px] bg-chrome" />
+                    {nodeActivated && <div className="hex-clip absolute inset-[10px] bg-titlebar" />}
                   </div>
 
                   {/* Content card, as a small window */}

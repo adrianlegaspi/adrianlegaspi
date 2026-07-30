@@ -8,7 +8,7 @@ function LangSwitcher() {
 
   const toggleLocale = () => {
     const nextLocale = locale === 'en' ? 'es' : 'en';
-    router.push({ pathname, query }, asPath, { locale: nextLocale });
+    router.push({ pathname, query }, asPath, { locale: nextLocale, scroll: false });
   };
 
   return (

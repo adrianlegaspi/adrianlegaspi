@@ -30,7 +30,7 @@ export default function Home() {
   }, []);
 
   /* ------------------------------------------------------------------ */
-  /*  Clock — stable callback + cleanup                                 */
+  /*  Clock: stable callback + cleanup                                  */
   /* ------------------------------------------------------------------ */
   const updateTime = useCallback(() => {
     setCurrentTime(
@@ -99,7 +99,7 @@ export default function Home() {
       </Head>
 
       {/* -----------------------------------------------------------------
-         Taskbar. Top-docked, which Win95 genuinely supported — the bar
+         Taskbar. Top-docked, which Win95 genuinely supported: the bar
          could be dragged to any screen edge.
       ------------------------------------------------------------------ */}
       <header className="sticky top-0 z-50 h-10">
@@ -110,17 +110,17 @@ export default function Home() {
               type="button"
               onClick={() => setStartMenuOpen(!startMenuOpen)}
               className={`
-                relative mr-1 flex h-[85%] shrink-0 items-center px-1.5
+                relative mr-1 flex h-[85%] shrink-0 items-center p-1.5
                 cursor-pointer font-chrome
                 ${startMenuOpen ? 'bevel-pressed' : 'btn-retro'}
               `}
               aria-expanded={startMenuOpen}
               aria-controls="start-menu"
             >
-              <img 
-                src={mounted ? `/assets/img/adrianlegaspi-logo-${theme === 'dark' ? 'light' : 'dark'}.png` : '/assets/img/adrianlegaspi-logo.png'} 
-                alt="Adrian Legaspi Logo" 
-                className="h-full w-auto scale-110"
+              <img
+                src={mounted ? `/assets/img/adrianlegaspi-logo-${theme === 'dark' ? 'light' : 'dark'}.png` : '/assets/img/adrianlegaspi-logo.png'}
+                alt="Adrian Legaspi Logo"
+                className="h-full w-auto"
               />
             </button>
             
@@ -200,7 +200,7 @@ export default function Home() {
             {/* Spacer to push the tray right */}
             <div className="flex-1" />
 
-            {/* System tray — a sunken well holding the indicators */}
+            {/* System tray: a sunken well holding the indicators */}
             <div className="flex h-full shrink-0 items-center gap-[3px] py-[3px]">
               <div className="bevel-groove-v mx-0.5 h-[70%]" aria-hidden="true" />
 

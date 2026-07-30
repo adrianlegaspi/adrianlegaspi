@@ -6,7 +6,7 @@ import React from 'react';
  *
  * This is the piece that replaces the old source-code framing. Labels that
  * used to be rendered as `/* COMMENTS *\/` are now window titles, and the
- * `EOF` marker is now a status bar — the chrome carries the decoration, so
+ * `EOF` marker is now a status bar: the chrome carries the decoration, so
  * the copy doesn't have to.
  *
  * The `_ □ ×` controls are decorative: they are real chrome, not fake
@@ -57,7 +57,7 @@ function Window({
       </div>
 
       {/* Client area */}
-      <div className={`bevel-sunken mt-[3px] bg-desktop text-ink ${bodyClassName}`}>
+      <div className={`bevel-sunken mt-[3px] text-ink ${bodyClassName}`}>
         {children}
       </div>
 

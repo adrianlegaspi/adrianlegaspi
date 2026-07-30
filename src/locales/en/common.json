@@ -1,6 +1,5 @@
 {
   "ui": {
-    "ready": "Ready",
     "oneDocument": "1 document"
   },
   "home": {
@@ -20,9 +19,10 @@
   },
   "about": {
     "heading": "About Me",
-    "bio": "I build fast apps, scalable systems, and AI-powered tools — built with architecture that scales, and lasts",
+    "bio": "I build fast apps, scalable systems, and AI-powered tools: built with architecture that scales, and lasts",
     "downloadCV": "Download CV",
-    "englishCV": "English"
+    "englishCV": "English",
+    "wordCount": "{count} words"
   },
   "solutions": {
     "heading": "What I Bring to the Table",
@@ -52,6 +52,7 @@
     "copy_button": "Copy",
     "copy_button_copied": "Copied!",
     "copied": "Copied!",
-    "find_me_on": "Find me on other platforms"
+    "find_me_on": "Find me on other platforms",
+    "oneRecipient": "1 recipient"
   }
 }

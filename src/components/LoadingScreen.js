@@ -107,13 +107,13 @@ Network connectivity established.`,
       cmd: 'load ui_components', 
       output: `Loading graphical subsystem...
 Initializing windowing system...
-Loading theme: modern-dark
+Loading theme: SOLAR.THM
 Registering UI components:
   - navigation.component [LOADED]
   - content.framework [LOADED]
   - animation.engine [LOADED]
   - interaction.handlers [LOADED]
-Application framwork initialized.`,
+Application framework initialized.`,
       execTime: 650 
     },
     { 
@@ -298,28 +298,38 @@ Display configuration complete.`,
     <div className="fixed inset-0 z-50">
       {/* Add inline styles for hiding scrollbars */}
       <style>{scrollbarHideStyles}</style>
-      {/* Windows 95-style transition overlay */}
-      <div className={`fixed inset-0 bg-paper dark:bg-ink z-10 transition-opacity duration-1500 ${transitioning ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      {/* Boot-complete dialog. `duration-1500` was not on Tailwind's scale, so
+          this overlay previously had no transition at all. */}
+      <div className={`fixed inset-0 bg-desktop z-10 transition-opacity duration-[1500ms] ${transitioning ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className={`w-full h-full flex items-center justify-center transition-transform duration-1000 ${transitioning ? 'scale-100' : 'scale-75'}`}>
-          <div className="text-center transform transition-all duration-1000">
-            <div className="flex flex-col items-center justify-center">
-                            {/* Windows 95 style progress bar */}
-              <div className="w-64 h-5 mb-4 relative border border-ink dark:border-paper bg-paper dark:bg-ink shadow-[inset_1px_1px_2px_rgba(0,0,0,0.3)] overflow-hidden">
-                {/* Progress bar with consistent padding and no overflow */}
-                <div 
-                  className="absolute inset-0 transition-all duration-300 ease-linear bg-ink dark:bg-paper m-[2px]" 
-                  style={{ width: `calc(${progressPercent}% - 4px)` }}
+          <div className="bevel-raised p-[3px]">
+            {/* Title bar */}
+            <div className="flex items-center gap-2 bg-titlebar px-1.5 py-1">
+              {/* Brand only — this dialog renders outside any locale-loaded
+                  page, so it must not depend on translations. */}
+              <span className="font-chrome text-titlebar-text text-xs font-bold tracking-wide">
+                legaspi.dev
+              </span>
+            </div>
+
+            <div className="flex flex-col items-center gap-3 px-8 py-6">
+              <p className="font-chrome text-ink text-sm">Welcome to legaspi.dev</p>
+
+              {/* Segmented progress bar — Win9x drew this as discrete blocks,
+                  not a continuous fill. */}
+              <div className="bevel-sunken h-5 w-64 bg-desktop p-[2px]">
+                <div
+                  className="h-full overflow-hidden transition-all duration-300 ease-linear"
+                  style={{ width: `${progressPercent}%` }}
                 >
-                  {/* Solid color progress bar */}
+                  <div
+                    className="h-full"
+                    style={{
+                      backgroundImage:
+                        'repeating-linear-gradient(90deg, var(--titlebar) 0 8px, transparent 8px 10px)',
+                    }}
+                  />
                 </div>
-              </div>
-              <div className="
-                py-2 px-8 inline-block
-                border border-ink dark:border-paper
-                shadow-ink dark:shadow-paper
-                bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink
-              ">
-                <p className="font-mono text-ink dark:text-paper text-sm">Welcome to legaspi.dev</p>
               </div>
             </div>
           </div>

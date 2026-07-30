@@ -1,4 +1,8 @@
 {
+  "ui": {
+    "ready": "Ready",
+    "oneDocument": "1 document"
+  },
   "home": {
 "title": "Adrian Legaspi – Software Engineer",
 "description": "Creative software engineer crafting AI-powered apps, modern UIs, and web experiences.",
@@ -25,18 +29,15 @@
     "subheading": "I specialize in creating effective solutions, automating processes, and solving complex technical problems using software.",
     "problem-solving": {
       "title": "Problem Solving",
-      "description": "Identifying complex challenges and designing elegant, efficient solutions that drive business value.",
-      "code": "function solveProblem(challenge) { return innovativeSolution; }"
+      "description": "Identifying complex challenges and designing elegant, efficient solutions that drive business value."
     },
     "automation": {
       "title": "Automation",
-      "description": "Creating systems that reduce repetitive work and improve efficiency through intelligent workflows.",
-      "code": "const efficiency = tasks.map(task => automate(task));"
+      "description": "Creating systems that reduce repetitive work and improve efficiency through intelligent workflows."
     },
     "solutions": {
       "title": "Solution Building",
-      "description": "Crafting end-to-end solutions that transform ideas into fully realized products.",
-      "code": "const product = buildSolution({ idea, technology, execution });"
+      "description": "Crafting end-to-end solutions that transform ideas into fully realized products."
     },
     "process": "Identify → Design → Implement"
   },
@@ -51,7 +52,6 @@
     "copy_button": "Copy",
     "copy_button_copied": "Copied!",
     "copied": "Copied!",
-    "find_me_on": "Find me on other platforms",
-    "session_status": "[session_active]"
+    "find_me_on": "Find me on other platforms"
   }
 }

@@ -92,7 +92,7 @@ design:
     left_margin: 0.6in
     right_margin: 0.6in
     show_footer: false
-    show_top_note: true
+    show_top_note: false
   colors:
     body: rgb(0, 0, 0)
     name: rgb(0, 0, 0)

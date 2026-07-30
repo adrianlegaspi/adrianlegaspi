@@ -4,9 +4,11 @@ import { useRouter } from 'next/router';
 // Written by `npm run generate-cv`, so the download always points at the
 // newest versioned PDF without this filename being edited by hand.
 import cvVersion from '../constants/cvVersion.json';
+import Window from './Window';
 
 function About() {
   const t = useTranslations('about');
+  const tUi = useTranslations('ui');
   const router = useRouter();
   const { locale } = router;
   const [isVisible, setIsVisible] = useState(false);
@@ -37,66 +39,45 @@ function About() {
 
   return (
     <section id="about" className="mx-auto px-4 py-8 max-w-3xl relative">
-      {/* Decorative ASCII frame */}
-      <div className="text-xs text-comment font-mono hidden lg:block pb-6">
-        /* ABOUT */
-      </div>
-      
-      <div className={`card relative overflow-hidden transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}>
-        {/* Retro header with underline */}
-        <h2 className="text-3xl font-bold mb-6 relative inline-flex items-center">
-          <span className="mr-3 text-comment">/*</span>
-          {t('heading')}
-          <span className="ml-3 text-comment">*/</span>
-          <span className="absolute bottom-0 left-0 w-full h-1 bg-current opacity-20"></span>
-        </h2>
-        
-        {/* Bio paragraph with enhanced styling */}
-        <div className="prose dark:prose-invert">
-          <p className="leading-relaxed relative">
-            <span className="text-xl opacity-20 absolute -left-4">&ldquo;</span>
-            {t('bio')}
-            <span className="text-xl opacity-20 absolute -right-4">&rdquo;</span>
-          </p>
+      {/* The title bar carries the filename, not the section heading — that
+          way the real <h2> keeps its full size inside the client area and the
+          text isn't duplicated. A document window worked exactly this way. */}
+      <Window
+        title="about.txt"
+        titleClassName="font-mono"
+        icon="hn-user"
+        status={[tUi('ready'), tUi('oneDocument')]}
+        className={`transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}
+        bodyClassName="p-6"
+      >
+        <h2 className="mb-4 text-2xl font-bold tracking-tight">{t('heading')}</h2>
+
+        <p className="leading-relaxed">{t('bio')}</p>
+
+        {/* Etched divider replaces the old dashed rule */}
+        <div className="bevel-groove my-6" />
+
+        <h3 className="text-base font-bold mb-3">{t('downloadCV') || 'Download CV'}</h3>
+
+        <div className="flex flex-wrap gap-3">
+          <a
+            href={`/cv/${cvVersion.pdf}`}
+            download
+            className="btn-retro px-3 py-2 gap-2 text-sm"
+          >
+            {/* A file on a disk, not a code token */}
+            <i className="hn hn-save text-xs" aria-hidden="true" />
+            <span className="font-mono text-xs">{cvVersion.pdf}</span>
+            <span className="text-chrome-text">({t('englishCV') || 'English'})</span>
+          </a>
         </div>
-        
-        {/* Retro decorative elements */}
-        {/* CV Download Section */}
-        <div className="mt-8 border-t border-dashed border-ink dark:border-paper pt-5">
-          <h3 className="text-xl font-bold mb-3 relative inline-flex items-center">
-            <span className="mr-3 text-comment">/*</span>
-            {t('downloadCV') || 'Download CV'}
-            <span className="ml-3 text-comment">*/</span>
-          </h3>
-          <div className="flex flex-wrap gap-4">
-            <a 
-              href={`/cv/${cvVersion.pdf}`}
-              download
-              className="btn-retro shadow-ink dark:shadow-paper border-2 border-current px-4 py-2 flex items-center text-sm hover:bg-ink hover:text-paper dark:hover:bg-paper dark:hover:text-ink transition-colors"
-            >
-              <span className="font-mono mr-2">[ EN ]</span>
-              <span>{t('englishCV') || 'English'}</span>
-            </a>
-          </div>
-        </div>
-        
-        <div className="mt-8 flex justify-end">
-          <div className="flex gap-2 items-center opacity-40 text-sm">
-            <span className="inline-block h-px w-6 bg-current"></span>
-            <span>EOF</span>
-          </div>
-        </div>
-      </div>
-      
-      {/* Grid background */}
-      <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="h-full w-full opacity-5" 
-          style={{
-            backgroundImage: 'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)',
-            backgroundSize: '20px 20px'
-          }}
-        ></div>
-      </div>
+      </Window>
+
+      {/* Desktop dither behind the window */}
+      <div
+        className="desktop-dither absolute inset-0 pointer-events-none -z-10 text-ink opacity-[0.06]"
+        aria-hidden="true"
+      />
     </section>
   );
 }

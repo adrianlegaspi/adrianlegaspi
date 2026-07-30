@@ -111,73 +111,51 @@ function Hero() {
       ref={heroRef}
       id="hero" 
       className="min-h-screen flex flex-col justify-center items-center text-center gap-6 px-4 relative overflow-hidden">
-      {/* Animated background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 40px, currentColor 40px, currentColor 41px),
-                           repeating-linear-gradient(90deg, transparent, transparent 40px, currentColor 40px, currentColor 41px)`
-        }}></div>
-      </div>
-
-      {/* Decorative comment elements */}
-      <div className="absolute top-10 left-10 text-xs text-comment font-mono hidden lg:block">
-        {'/* PORTFOLIO */'}
-      </div>
-      
-      <div className="absolute bottom-10 right-10 text-xs text-comment font-mono hidden lg:block">
-        {'/* v1.0.0 */'}
-      </div>
+      {/* Desktop wallpaper — a 50% dither checkerboard, the era-correct
+          pattern. Replaces the previous hairline grid. */}
+      <div className="desktop-dither absolute inset-0 text-ink opacity-[0.07]" aria-hidden="true" />
 
       <div className="relative z-10">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2">
+        {/* The one heading that stays monospace: it types out behind a block
+            caret, which is diegetically terminal output. It also keeps the
+            glyph advance constant, so the line doesn't jitter while typing. */}
+        <h1 className="font-mono text-4xl md:text-6xl lg:text-7xl font-bold mb-2">
           <span className="inline-block">
             {displayText}
             <span className={`${isTypingComplete ? 'cursor-blink' : ''} text-current`}>_</span>
           </span>
         </h1>
-        
-        {/* Hidden elements that define the final height but don't affect layout */}
+
+        {/* Hidden element reserving the final height so the layout doesn't
+            jump when the typing animation finishes. */}
         <div aria-hidden="true" style={{visibility: 'hidden', position: 'absolute', pointerEvents: 'none'}}>
           <p className="text-xl md:text-2xl">{t('subtitle')}</p>
-          <div className="flex justify-center gap-4 mt-8">
-            <span className="text-sm text-comment">[</span>
-            <span className="text-sm uppercase tracking-widest">Creative Developer</span>
-            <span className="text-sm text-comment">]</span>
-          </div>
         </div>
-        
-        {/* Only show after typing with CSS transitions instead of React conditional rendering */}
+
+        {/* Revealed after typing via CSS transition rather than conditional render */}
         <div className={`transition-opacity duration-500 ${isTypingComplete ? 'opacity-100' : 'opacity-0'}`}>
           <div className="h-[3rem] mt-4">
             <p className="text-xl md:text-2xl">
-              {t('subtitle')}
+              <span className="selected-text">{t('subtitle')}</span>
             </p>
           </div>
-          
-          <div className="h-[2.5rem] mt-8">
-            <div className="flex justify-center gap-4">
-              <span className="text-sm text-comment">[</span>
-              <span className="text-sm uppercase tracking-widest">Creative Developer</span>
-              <span className="text-sm text-comment">]</span>
-            </div>
-          </div>
-          
+
           <div className="h-[4rem] mt-10 transition-opacity duration-500 delay-500">
             <button
               type="button"
-              className="p-2 border-2 border-current btn-retro shadow-ink dark:shadow-paper animate-bounce"
+              className="btn-retro animate-nudge h-10 w-10"
               aria-label={t('cta')}
               onClick={handleScroll}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 9l-7 7-7-7" />
               </svg>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Scanline effect overlay */}
+      {/* CRT scanlines — monitor artefact, part of the old-PC story */}
       <div className="scanlines absolute inset-0 pointer-events-none"></div>
     </section>
   );

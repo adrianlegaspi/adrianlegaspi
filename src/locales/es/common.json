@@ -1,4 +1,8 @@
 {
+  "ui": {
+    "ready": "Listo",
+    "oneDocument": "1 documento"
+  },
   "home": {
     "title": "Adrian Legaspi – Desarrollador de IA y Software Web",
     "description": "Ingeniero de software creativo que construye aplicaciones con IA, interfaces modernas y experiencias web sólidas.",
@@ -25,18 +29,15 @@
     "subheading": "Me especializo en crear soluciones efectivas, automatizar procesos y resolver problemas técnicos complejos con software.",
     "problem-solving": {
       "title": "Resolución de Problemas",
-      "description": "Identificar desafíos complejos y diseñar soluciones elegantes y eficientes que generen valor comercial.",
-      "code": "function resolverProblema(desafio) { return solucionInnovadora; }"
+      "description": "Identificar desafíos complejos y diseñar soluciones elegantes y eficientes que generen valor comercial."
     },
     "automation": {
       "title": "Automatización",
-      "description": "Crear sistemas que reduzcan el trabajo repetitivo y mejoren la eficiencia mediante flujos de trabajo inteligentes.",
-      "code": "const eficiencia = tareas.map(tarea => automatizar(tarea));"
+      "description": "Crear sistemas que reduzcan el trabajo repetitivo y mejoren la eficiencia mediante flujos de trabajo inteligentes."
     },
     "solutions": {
       "title": "Construcción de Soluciones",
-      "description": "Elaborar soluciones integrales que transformen ideas en productos completamente realizados.",
-      "code": "const producto = construirSolucion({ idea, tecnologia, ejecucion });"
+      "description": "Elaborar soluciones integrales que transformen ideas en productos completamente realizados."
     },
     "process": "Identificar → Diseñar → Implementar"
   },
@@ -51,7 +52,6 @@
     "copy_button": "Copiar",
     "copy_button_copied": "¡Copiado!",
     "copied": "¡Copiado!",
-    "find_me_on": "Encuéntrame en otras plataformas",
-    "session_status": "[sesión_activa]"
+    "find_me_on": "Encuéntrame en otras plataformas"
   }
 }

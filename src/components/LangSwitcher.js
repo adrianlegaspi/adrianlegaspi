@@ -15,7 +15,7 @@ function LangSwitcher() {
     <Button
       onClick={toggleLocale}
       aria-label="Toggle language"
-      className="p-1 w-[30px] h-[30px] flex items-center justify-center text-xs"
+      className="h-[26px] w-[26px] text-[10px] font-bold"
     >
       {locale === 'en' ? 'EN' : 'ES'}
     </Button>

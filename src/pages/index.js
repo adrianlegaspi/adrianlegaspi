@@ -99,27 +99,20 @@ export default function Home() {
       </Head>
 
       {/* -----------------------------------------------------------------
-         Task bar (Win-95 vibes)
+         Taskbar. Top-docked, which Win95 genuinely supported — the bar
+         could be dragged to any screen edge.
       ------------------------------------------------------------------ */}
-      <header className="sticky top-0 z-50 h-10 shadow-md">
-        <div className="h-full w-full border-b border-ink dark:border-paper bg-gradient-to-b from-paper/90 to-paper dark:from-ink/90 dark:to-ink">
-          <div className="flex h-full items-center">
-            {/* Start menu button */}
+      <header className="sticky top-0 z-50 h-10">
+        <div className="bevel-raised h-full w-full">
+          <div className="flex h-full items-center gap-[3px] px-[3px]">
+            {/* Start button */}
             <button
               type="button"
               onClick={() => setStartMenuOpen(!startMenuOpen)}
               className={`
-                ml-2
-                relative mr-3 flex h-[90%] items-center p-1.5
-                cursor-pointer
-                border border-ink dark:border-paper
-                ${startMenuOpen ? 'bg-paper dark:bg-ink active:shadow-[inset_1px_1px_1px_rgba(0,0,0,0.7)]' : 'bg-paper dark:bg-ink'}
-                ${!startMenuOpen ? 'shadow-[1px_1px_0_rgba(255,255,255,0.7),_-1px_-1px_0_rgba(0,0,0,0.4)]' : ''}
-                dark:shadow-[1px_1px_0_rgba(255,255,255,0.3),_-1px_-1px_0_rgba(0,0,0,0.6)]
-                hover:bg-ink/10 dark:hover:bg-paper/10
-                active:translate-y-[1px] active:translate-x-[1px] active:shadow-[inset_1px_1px_1px_rgba(0,0,0,0.7)]
-                transition-none
-                ${startMenuOpen ? 'after:absolute after:left-0 after:right-0 after:bottom-[-1px] after:h-[1px] after:bg-paper dark:after:bg-ink' : ''}
+                relative mr-1 flex h-[85%] shrink-0 items-center px-1.5
+                cursor-pointer font-chrome
+                ${startMenuOpen ? 'bevel-pressed' : 'btn-retro'}
               `}
               aria-expanded={startMenuOpen}
               aria-controls="start-menu"
@@ -142,34 +135,33 @@ export default function Home() {
                 />
                 
                 {/* Start menu */}
-                <div 
+                <div
                   id="start-menu"
                   className="
-                    fixed left-0 sm:absolute sm:left-1 z-50 
-                    w-full sm:w-64 
+                    bevel-raised
+                    fixed left-0 sm:absolute sm:left-1 z-50
+                    w-full sm:w-64
                     top-9 sm:top-full sm:-mt-1
-                    bg-paper dark:bg-ink
-                    border border-ink dark:border-paper
-                    shadow-[2px_2px_10px_rgba(4,0,5,0.2)]
+                    p-[3px]
                     flex flex-col
                     overflow-y-auto
                     max-h-[calc(100vh-9px)] sm:max-h-[500px]
                   "
                 >
                   {/* Start menu header - mobile only */}
-                  <div className="sm:hidden flex items-center justify-between p-4 border-b border-ink dark:border-paper">
-                    <span className="text-xl font-bold font-mono">Menu</span>
-                    <button 
+                  <div className="sm:hidden flex items-center justify-between bg-titlebar px-2 py-1">
+                    <span className="font-chrome text-titlebar-text text-xs font-bold">Menu</span>
+                    <button
                       onClick={() => setStartMenuOpen(false)}
-                      className="p-2"
+                      className="window-control"
                       aria-label="Close menu"
                     >
-                      <span className="text-xl font-mono">×</span>
+                      <span className="font-bold">×</span>
                     </button>
                   </div>
-                  
+
                   {/* Menu items */}
-                  <div className="py-2">
+                  <div className="py-[3px]">
                     {[
                       { href: '#about', label: 'About', icon: 'hn-user' },
                       { href: '#solutions', label: 'Solutions', icon: 'hn-technology' },
@@ -179,24 +171,23 @@ export default function Home() {
                         key={href}
                         href={href}
                         onClick={() => setStartMenuOpen(false)}
-                        className="
-                          flex items-center px-4 py-3 hover:bg-ink/10 dark:hover:bg-paper/10
-                          border-l-[3px] border-transparent hover:border-l-[3px] hover:border-accent
-                          transition-colors
-                        "
+                        className="menu-item flex items-center px-3 py-2 text-ink"
                       >
                         <i className={`hn ${icon} text-xs mr-3`} aria-hidden="true" />
-                        <span className="font-mono text-sm">{label}</span>
+                        <span className="font-chrome text-sm">{label}</span>
                       </a>
                     ))}
                   </div>
-                  
-                  {/* Footer items */}
-                  <div className="mt-auto border-t border-ink dark:border-paper/20 py-2">
-                    <div className="flex items-center justify-between px-4 py-2">
-                      <span className="text-xs font-mono opacity-70">Adrian Legaspi © {new Date().getFullYear()}</span>
-                      
-                      <div className="flex space-x-3">
+
+                  {/* Tray strip */}
+                  <div className="mt-auto pt-[3px]">
+                    <div className="bevel-groove mb-[3px]" />
+                    <div className="flex items-center justify-between px-2 py-1">
+                      <span className="font-chrome text-chrome-text text-[10px]">
+                        Adrian Legaspi © {new Date().getFullYear()}
+                      </span>
+
+                      <div className="flex gap-[3px]">
                         <LangSwitcher />
                         <ThemeToggle />
                       </div>
@@ -206,25 +197,21 @@ export default function Home() {
               </>
             )}
 
-            {/* Spacer to push items to right */}
-            <div className="flex-1"></div>
+            {/* Spacer to push the tray right */}
+            <div className="flex-1" />
 
-            {/* Right-side tray */}
-            <div className="absolute right-0 top-0 flex h-full items-center">
-              {/* Placeholder for spacing if needed */}
+            {/* System tray — a sunken well holding the indicators */}
+            <div className="flex h-full shrink-0 items-center gap-[3px] py-[3px]">
+              <div className="bevel-groove-v mx-0.5 h-[70%]" aria-hidden="true" />
+
+              <LangSwitcher />
+              <ThemeToggle />
 
               {/* Clock */}
-              <div className="mx-1 hidden h-[80%] items-center justify-center px-4 sm:flex
-                bg-paper/70 dark:bg-ink/70
-              ">
-                <span className="text-xs font-mono">{currentTime}</span>
-              </div>
-
-              {/* Language + theme */}
-              <div className="mr-2 flex h-full items-center gap-2 py-0.5">
-                {/* Direct components without wrapping divs to ensure full clickable area */}
-                <LangSwitcher />
-                <ThemeToggle />
+              <div className="bevel-sunken hidden h-[26px] items-center px-2 sm:flex">
+                <span className="font-chrome text-ink text-[11px] leading-none tabular-nums">
+                  {currentTime}
+                </span>
               </div>
             </div>
           </div>

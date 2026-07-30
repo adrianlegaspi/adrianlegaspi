@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import playClickSound from '../utils/playClickSound';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -21,6 +22,18 @@ function MyApp({ Component, pageProps }) {
     }
   }, [locale, defaultLocale]);
   
+  useEffect(() => {
+    // Classic UI click, delegated so every current and future .btn-retro
+    // gets it for free instead of wiring an onClick into each component.
+    const handleClick = (event) => {
+      if (event.target.closest('.btn-retro')) {
+        playClickSound();
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
+
   useEffect(() => {
     // Check if user has visited before
     if (typeof window !== 'undefined') {

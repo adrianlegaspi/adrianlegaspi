@@ -1,31 +1,34 @@
 import React from 'react';
 
-const Button = ({ children, onClick, className = '', type = 'button', variant = 'outline', ...props }) => {
-  const baseClasses = `
-    active:shadow-[inset_1px_1px_1px_rgba(0,0,0,0.7)]
-    active:translate-y-[1px] active:translate-x-[1px]
-    transition-none
-    font-mono
-  `;
-
+/**
+ * Win9x push button. The bevel comes from the shared `.btn-retro` /
+ * `.bevel-*` system rather than the rgba() shadows this used to fake —
+ * those were tuned for a dark surface and were nearly invisible against
+ * the cream panel face.
+ */
+const Button = ({
+  children,
+  onClick,
+  className = '',
+  type = 'button',
+  variant = 'outline',
+  ...props
+}) => {
   const variants = {
-    outline: 'bg-paper dark:bg-ink text-ink dark:text-paper border border-ink dark:border-paper',
-    solid: 'bg-ink dark:bg-paper text-paper dark:text-ink border border-ink dark:border-paper',
+    // Standard raised button
+    outline: 'btn-retro',
+    // Default/affirmative button: raised, but with the heavy outer ring
+    // Win9x used to mark the dialog's default action.
+    solid: 'btn-retro ring-1 ring-ink',
   };
 
   const variantClasses = variants[variant] || variants.outline;
-
-  const combinedClasses = [
-    baseClasses.trim().replace(/\s+/g, ' '),
-    variantClasses,
-    className
-  ].join(' ').trim();
 
   return (
     <button
       type={type}
       onClick={onClick}
-      className={combinedClasses}
+      className={`font-chrome ${variantClasses} ${className}`.trim()}
       {...props}
     >
       {children}

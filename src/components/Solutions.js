@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import Window from './Window';
 
 function Solutions() {
   const t = useTranslations('solutions');
@@ -142,37 +143,38 @@ function Solutions() {
   const line2Progress = scrollProgress > 0.33 ? Math.min((scrollProgress - 0.33) * 3, 1) : 0;
   
   return (
-    <section id="solutions" className="px-4 py-24 relative retro-grid min-h-[80vh]" ref={sectionRef}>
-      {/* Background elements */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-ink/20 dark:bg-paper/20 blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-ink/20 dark:bg-paper/20 blur-3xl"></div>
-      </div>
-      
+    <section id="solutions" className="px-4 py-24 relative min-h-[80vh]" ref={sectionRef}>
+      {/* Desktop dither. Replaces the two blurred gradient blobs, which were
+          the section's most anachronistic element — no blur, no radii. */}
+      <div
+        className="desktop-dither absolute inset-0 pointer-events-none text-ink opacity-[0.06]"
+        aria-hidden="true"
+      />
+
       <div className="max-w-4xl mx-auto relative">
         <h2 className="text-center text-3xl md:text-4xl mb-4 font-bold">
           <span className={`transition-transform duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
             {t('heading')}
           </span>
         </h2>
-        
+
         <p className={`text-center text-lg mb-20 max-w-2xl mx-auto opacity-80 transition-opacity duration-1000 delay-300 ${isVisible ? 'opacity-80' : 'opacity-0'}`}>
           {t('subheading')}
         </p>
         
         {/* Node Connection System with enhanced scroll dynamics */}
         <div className="relative">
-          {/* Dynamic connection line between nodes */}
-          <div 
+          {/* Connection line, drawn as an etched groove rather than a hairline */}
+          <div
             ref={connectionLineRef}
-            className="absolute left-1/2 transform -translate-x-1/2" 
+            className="absolute left-1/2 transform -translate-x-1/2"
             style={{ top: '12px', height: `${lineHeight}px`, width: '2px' }}>
-            {/* Background line */}
-            <div className="absolute h-full w-full bg-ink/20 dark:bg-paper/20"></div>
-            
-            {/* Active fill that grows with scroll */}
-            <div 
-              className="absolute top-0 w-full bg-ink dark:bg-paper transition-all duration-500" 
+            {/* Empty track */}
+            <div className="bevel-groove-v absolute h-full w-full" />
+
+            {/* Filled portion — stepped, so it advances like a redraw */}
+            <div
+              className="absolute top-0 w-full bg-titlebar transition-all duration-500 ease-linear"
               style={{ height: `${Math.min(scrollProgress * 100, 100)}%` }}
             />
           </div>
@@ -197,48 +199,37 @@ function Solutions() {
                     transform: `translateY(${isActive ? '0' : nodeActivated ? '-10px' : '10px'})`,
                   }}
                 >
-                  {/* Node connection point */}
-                  <svg 
+                  {/* Node marker — a beveled square checkbox, filled when reached */}
+                  <div
                     ref={setNodeRef}
-                    viewBox="0 0 24 24"
-                    className="absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 w-6 h-6 z-20 transition-all duration-300"
+                    className={`absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 z-20 flex h-5 w-5 items-center justify-center
+                      ${nodeActivated ? 'bevel-pressed' : 'bevel-raised'}`}
+                    aria-hidden="true"
                   >
-                    <polygon 
-                      points="12,1 23,6 23,18 12,23 1,18 1,6" 
-                      className={`${nodeActivated ? 'fill-ink dark:fill-paper' : 'fill-paper dark:fill-ink'} stroke-ink dark:stroke-paper transition-all duration-500`} 
-                      strokeWidth="2"
-                      vectorEffect="non-scaling-stroke"
-                    />
-                  </svg>
-                  
-                  {/* Node-to-card connector */}
-                  <div className={`hidden absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 top-6 h-6 w-0.5 bg-ink/40 dark:bg-paper/40 z-10`}></div>
+                    {nodeActivated && <span className="h-2.5 w-2.5 bg-titlebar" />}
+                  </div>
 
-                  {/* Content card */}
-                  <div className={`flex items-center justify-center transition-all duration-500 ml-8 md:ml-0 opacity-100 scale-100
+                  {/* Content card, as a small window */}
+                  <div className={`flex items-center justify-center transition-all duration-500 ml-8 md:ml-0
                     ${index % 2 === 0 ? 'md:mr-[50%]' : 'md:ml-[50%]'}`}
                   >
-                    <div className="card shadow-ink dark:shadow-paper p-6 max-w-xs w-full">
-                      {/* Icon */}
-                      <div className="flex items-center mb-3">
-                        <div className="w-10 h-10 flex items-center justify-center mr-3">
-                          <i className={`${capability.icon} text-2xl`}></i>
-                        </div>
-                        
-                        <h3 className="text-lg font-bold">
-                          {capability.id === 'problem-solving' && t('problem-solving.title')}
-                          {capability.id === 'automation' && t('automation.title')}
-                          {capability.id === 'solutions' && t('solutions.title')}
-                        </h3>
-                      </div>
-                      
-                      {/* Just the description - simplified */}
-                      <p className="text-sm opacity-80">
+                    <Window
+                      title={
+                        capability.id === 'problem-solving' ? t('problem-solving.title')
+                          : capability.id === 'automation' ? t('automation.title')
+                          : t('solutions.title')
+                      }
+                      titleAs="h3"
+                      icon={capability.icon.replace('hn ', '')}
+                      className="w-full max-w-xs"
+                      bodyClassName="p-4"
+                    >
+                      <p className="text-sm">
                         {capability.id === 'problem-solving' && t('problem-solving.description')}
                         {capability.id === 'automation' && t('automation.description')}
                         {capability.id === 'solutions' && t('solutions.description')}
                       </p>
-                    </div>
+                    </Window>
                   </div>
                 </div>
               );

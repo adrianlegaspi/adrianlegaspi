@@ -70,15 +70,15 @@ cv:
         details: Native
 
     Recent projects:
-      - name: '[Cardom](https://play.google.com/store/apps/details?id=cardom.procreations.dev)'
+      - name: 'Cardom ([Play Store](https://play.google.com/store/apps/details?id=cardom.procreations.dev))'
         date: '2026'
         highlights:
           - 'Independently developed and released Cardom, a web-based videogame, showcasing full-stack product ownership from concept to launch.'
 
-      - name: '[Shroom Merge](https://play.google.com/store/apps/details?id=dev.procreations.shroommerge)'
+      - name: 'Shroom Merge ([Play Store](https://play.google.com/store/apps/details?id=dev.procreations.shroommerge), [App Store](https://apps.apple.com/us/app/kinoko-merge/id6785820123))'
         date: 'July 2026'
         highlights:
-          - 'Independently developed and released Shroom Merge, a mobile merge game for Android, taking the project from concept to Play Store launch.'
+          - 'Independently developed and released Shroom Merge (Kinoko Merge on iOS), a mobile merge game, taking the project from concept to Play Store and App Store launch.'
 
 design:
   theme: engineeringresumes

@@ -67,7 +67,7 @@ May 2015
 **Spanish:** Native
 
 # Recent projects
-## **[Cardom](https://play.google.com/store/apps/details?id=cardom.procreations.dev)**
+## **Cardom ([Play Store](https://play.google.com/store/apps/details?id=cardom.procreations.dev))**
 
 Jan 2026
 
@@ -75,10 +75,10 @@ Jan 2026
 
 
 
-## **[Shroom Merge](https://play.google.com/store/apps/details?id=dev.procreations.shroommerge)**
+## **Shroom Merge ([Play Store](https://play.google.com/store/apps/details?id=dev.procreations.shroommerge), [App Store](https://apps.apple.com/us/app/kinoko-merge/id6785820123))**
 
 July 2026
 
-- Independently developed and released Shroom Merge, a mobile merge game for Android, taking the project from concept to Play Store launch.
+- Independently developed and released Shroom Merge (Kinoko Merge on iOS), a mobile merge game, taking the project from concept to Play Store and App Store launch.
 
 

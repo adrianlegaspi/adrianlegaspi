@@ -22,7 +22,7 @@
     "bio": "I build fast apps, scalable systems, and AI-powered tools: built with architecture that scales, and lasts",
     "downloadCV": "Download CV",
     "englishCV": "English",
-    "wordCount": "{count} words"
+    "fileSize": "{size} KB"
   },
   "solutions": {
     "heading": "What I Bring to the Table",

@@ -1,0 +1,121 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
+#
+# Companion to Adrian_Legaspi_CV.yaml. RenderCV has no dedicated cover-letter
+# document type, so the letter is a single text-entry section -- the header
+# (name, contact, links) and the design block below are kept in sync with the
+# CV by hand so both documents share one letterhead.
+#
+# Rendered by `npm run generate-cv cover-letter` (see scripts/generate-cv.js).
+cv:
+  name: Adrian Legaspi
+  location: Monterrey, Mexico
+  email: adrian.luball@gmail.com
+  phone: '+526647809152'
+  website: https://legaspi.dev
+  social_networks:
+    - network: LinkedIn
+      username: adrian-legaspi
+    - network: GitHub
+      username: adrianlegaspi
+
+  sections:
+    Cover Letter:
+      - 'Hello,'
+      - 'With more than nine years of experience, I build and own production software across frontend and backend systems. Most recently, I was the sole frontend engineer on a 15-person team, building a React and TypeScript dashboard that consolidates security findings across a Viasat platform used by 4,000+ internal users.'
+      - 'In 2025, I led a five-engineer team building an AI-enabled ERP product. I developed its Node.js and Express backend, Model Context Protocol integration, React client, and RAG and fine-tuning workflows.'
+      - 'Earlier, I shipped fintech features for 10,000 users at Crediverso, built Angular dashboards and secure Laravel APIs for 3,000+ legal professionals at Captira, and delivered a pre-hospital logging app used by 180+ firefighters and paramedics across 18 stations in Tijuana. I take work from requirements through production, whether I own a full product or one layer of it.'
+      - 'Outside work, I ship games. Shroom Merge is live on the App Store and Google Play, and Cardom is available on Google Play. These projects keep me close to the full product cycle, from concept through store review. I value teams where senior engineers help shape product decisions and deliver reliable software. I would welcome the opportunity to discuss how I could contribute.'
+      - 'Adrian Legaspi'
+
+design:
+  theme: engineeringresumes
+  page:
+    size: us-letter
+    top_margin: 0.6in
+    bottom_margin: 0.6in
+    left_margin: 0.6in
+    right_margin: 0.6in
+    show_footer: false
+    show_top_note: false
+  colors:
+    body: rgb(0, 0, 0)
+    name: rgb(0, 0, 0)
+    headline: rgb(0, 0, 0)
+    connections: rgb(0, 0, 0)
+    section_titles: rgb(0, 0, 0)
+    links: rgb(0, 0, 0)
+    footer: rgb(128, 128, 128)
+    top_note: rgb(128, 128, 128)
+  typography:
+    # 10pt rather than the CV's 9.5pt: the letter has a page to spare, and prose
+    # reads worse than bullets at the tighter size.
+    line_spacing: 0.6em
+    alignment: justified
+    date_and_location_column_alignment: right
+    font_family:
+      body: XCharter
+      name: XCharter
+      headline: XCharter
+      connections: XCharter
+      section_titles: XCharter
+    font_size:
+      body: 10pt
+      name: 21pt
+      headline: 10pt
+      connections: 10pt
+      section_titles: 1.2em
+    small_caps:
+      name: false
+      headline: false
+      connections: false
+      section_titles: false
+    bold:
+      name: false
+      headline: false
+      connections: false
+      section_titles: true
+  links:
+    underline: true
+    show_external_link_icon: false
+  header:
+    alignment: center
+    space_below_name: 0.35cm
+    space_below_headline: 0.35cm
+    space_below_connections: 0.35cm
+    connections:
+      phone_number_format: national
+      hyperlink: true
+      show_icons: false
+      display_urls_instead_of_usernames: true
+      separator: '|'
+      space_between_connections: 0.5cm
+  section_titles:
+    type: with_full_line
+    line_thickness: 0.5pt
+    space_above: 0.35cm
+    space_below: 0.25cm
+  sections:
+    allow_page_break: true
+    # Paragraph gap. Wider than the CV's 0.15cm because these are prose blocks,
+    # not list items.
+    space_between_text_based_entries: 0.3cm
+
+locale:
+  language: english
+
+settings:
+  current_date: today
+  bold_keywords: []
+  pdf_title: NAME - Cover Letter
+  render_command:
+    # Paths are resolved relative to THIS file's directory (public/cv/).
+    output_folder: .
+    # Fallbacks for a bare `rendercv render`. The real filenames are versioned
+    # and passed in by scripts/generate-cv.js via --pdf-path / --markdown-path.
+    pdf_path: Adrian_Legaspi_Cover_Letter.pdf
+    # Generated output, not a source file. Edit the .yaml, never the .md.
+    markdown_path: Adrian_Legaspi_Cover_Letter.md
+    dont_generate_markdown: false
+    dont_generate_html: true
+    dont_generate_png: true
+    dont_generate_typst: false

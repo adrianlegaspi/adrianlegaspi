@@ -22,7 +22,7 @@
     "bio": "Desarrollo apps rápidas, sistemas que escalan y herramientas con IA: con arquitectura pensada para crecer y durar",
     "downloadCV": "Descargar CV",
     "englishCV": "Inglés",
-    "wordCount": "{count} palabras"
+    "fileSize": "{size} KB"
   },
   "solutions": {
     "heading": "Lo Que Ofrezco",

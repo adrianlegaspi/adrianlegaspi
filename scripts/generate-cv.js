@@ -1,6 +1,15 @@
 /**
- * Generates the CV PDF + Markdown from public/cv/Adrian_Legaspi_CV.yaml using
- * RenderCV. https://github.com/rendercv/rendercv
+ * Generates the PDF + Markdown for each document under public/ using RenderCV.
+ * https://github.com/rendercv/rendercv
+ *
+ * Two documents are defined below, each in its own folder with its own source
+ * YAML and its own version manifest:
+ *   cv            public/cv/            -> src/constants/cvVersion.json
+ *   cover-letter  public/cover-letter/  -> src/constants/coverLetterVersion.json
+ *
+ * RenderCV has no cover-letter document type, so the letter is a CV whose only
+ * section holds the paragraphs. Its design block mirrors the CV's so both share
+ * one letterhead; the two files are kept in sync by hand.
  *
  * RenderCV is a Python tool, so this script keeps a throwaway virtualenv in
  * .venv-cv/ and bootstraps it on first run. It is a dev-only utility: the
@@ -8,26 +17,30 @@
  *
  * Versioning
  * ----------
- * Output is versioned in the filename: Adrian_Legaspi_CV_v10.pdf. The version
- * is NOT hardcoded in the YAML -- this script computes it and passes it to
- * RenderCV via --pdf-path / --markdown-path.
+ * Output is versioned major.minor in the filename: Adrian_Legaspi_CV_v5.2.pdf.
+ * The version is NOT hardcoded in the YAML -- this script computes it and
+ * passes it to RenderCV via --pdf-path / --markdown-path.
  *
  * The version only increments when the YAML actually changes: the number and a
- * hash of the source live in src/constants/cvVersion.json, and a render whose
- * hash matches the manifest reuses the current version instead of inflating it.
- * So re-running this command is idempotent.
+ * hash of the source live in that document's manifest, and a render whose hash
+ * matches the manifest is skipped entirely rather than rewriting identical
+ * output. So re-running this command is idempotent. A content change bumps the
+ * minor version by default (5.1 -> 5.2); pass --major for a substantial
+ * rewrite, which bumps the major and resets minor to 0 (5.2 -> 6.0).
  *
  * Older versioned files are deliberately left in place rather than cleaned up.
- * Because the version is in the public URL, a CV link already shared with
- * someone would 404 the moment it stopped being the newest build.
+ * Because the version is in the public URL, a link already shared with someone
+ * would 404 the moment it stopped being the newest build.
  *
- * The download button reads the filename from that same manifest (see
+ * The download button reads the filename from the manifest (see
  * src/components/About.js), so nothing has to be renamed by hand.
  *
- * Usage: npm run generate-cv
+ * Usage: npm run generate-cv [-- <document>... ] [-- --major]
+ *        npm run generate-cv                  both documents
+ *        npm run generate-cv cover-letter     just the cover letter
  */
 const { spawnSync } = require('child_process');
-const { existsSync, readFileSync, writeFileSync } = require('fs');
+const { existsSync, readFileSync, writeFileSync, statSync } = require('fs');
 const crypto = require('crypto');
 const path = require('path');
 
@@ -35,12 +48,43 @@ const root = path.resolve(__dirname, '..');
 const venvDir = path.join(root, '.venv-cv');
 const requirementsFile = path.join(root, 'scripts', 'cv-requirements.txt');
 const cvDir = path.join(root, 'public', 'cv');
-const cvFile = path.join(cvDir, 'Adrian_Legaspi_CV.yaml');
-const baseName = 'Adrian_Legaspi_CV';
+const coverLetterDir = path.join(root, 'public', 'cover-letter');
+const confizCoverLetterDir = path.join(
+  coverLetterDir,
+  'confiz-software-engineer-level-iii-react-js'
+);
 
-// Imported by the download button, so it must live under src/ where Next.js can
-// bundle it -- not in public/, which is served as-is rather than compiled.
-const manifestFile = path.join(root, 'src', 'constants', 'cvVersion.json');
+// Each document lives in its own public/ folder and versions itself
+// independently, so editing the cover letter does not bump the CV. Manifests
+// live under src/ where Next.js can bundle them -- not in public/, which is
+// served as-is rather than compiled.
+const documents = {
+  cv: {
+    baseName: 'Adrian_Legaspi_CV',
+    dir: cvDir,
+    source: path.join(cvDir, 'Adrian_Legaspi_CV.yaml'),
+    manifest: path.join(root, 'src', 'constants', 'cvVersion.json')
+  },
+  'cover-letter': {
+    baseName: 'Adrian_Legaspi_Cover_Letter',
+    dir: coverLetterDir,
+    source: path.join(coverLetterDir, 'Adrian_Legaspi_Cover_Letter.yaml'),
+    manifest: path.join(root, 'src', 'constants', 'coverLetterVersion.json'),
+    coverLetter: true
+  },
+  'cover-letter-confiz-react-iii': {
+    baseName: 'Adrian_Legaspi_Cover_Letter_Confiz_React_III',
+    dir: confizCoverLetterDir,
+    source: path.join(confizCoverLetterDir, 'Adrian_Legaspi_Cover_Letter_Confiz_React_III.yaml'),
+    manifest: path.join(confizCoverLetterDir, 'version.json'),
+    coverLetter: true
+  }
+};
+
+/** public/cv -> "public/cv", for messages that name a path. */
+function publicPath(doc) {
+  return path.relative(root, doc.dir).replace(/\\/g, '/');
+}
 
 const isWindows = process.platform === 'win32';
 const venvBin = path.join(venvDir, isWindows ? 'Scripts' : 'bin');
@@ -104,90 +148,145 @@ function ensureVirtualenv() {
   writeFileSync(stampFile, requirements);
 }
 
-/** Identifies the CV content, so an unchanged render does not bump the version. */
-function fingerprintSource() {
-  return crypto.createHash('sha256').update(readFileSync(cvFile)).digest('hex');
+/** Identifies the source content, so an unchanged render does not bump the version. */
+function fingerprintSource(doc) {
+  return crypto.createHash('sha256').update(readFileSync(doc.source)).digest('hex');
 }
 
-function resolveVersion(fingerprint) {
-  let manifest = { version: 0, sourceHash: null };
-
-  if (existsSync(manifestFile)) {
-    try {
-      manifest = JSON.parse(readFileSync(manifestFile, 'utf8'));
-    } catch (error) {
-      fail(
-        `${path.relative(root, manifestFile)} is not valid JSON: ${error.message}\n` +
-          '   Fix or delete it, then retry.'
-      );
-    }
+/** Parses "5" or "5.2" into { major, minor }, tolerating the old integer-only manifests. */
+function parseVersion(doc, raw) {
+  const parts = String(raw).split('.');
+  const major = Number(parts[0]);
+  const minor = parts.length > 1 ? Number(parts[1]) : 0;
+  if (!Number.isInteger(major) || major < 0 || !Number.isInteger(minor) || minor < 0) {
+    fail(`${path.relative(root, doc.manifest)} has an invalid "version": ${raw}`);
   }
-
-  if (!Number.isInteger(manifest.version) || manifest.version < 0) {
-    fail(`${path.relative(root, manifestFile)} has a non-integer "version".`);
-  }
-
-  const unchanged = manifest.sourceHash === fingerprint;
-  return { version: unchanged ? manifest.version : manifest.version + 1, unchanged };
+  return { major, minor };
 }
 
 /**
- * --pdf-path and --markdown-path are resolved relative to the input YAML, which
- * already lives in public/cv/, so bare filenames land next to it.
+ * Version is major.minor (e.g. 5.2). A content change bumps the minor version
+ * by default; pass --major to bump the major version and reset minor to 0
+ * (reserved for a substantial rewrite, not routine edits). A document with no
+ * manifest yet starts at 1.0.
  */
-function render(pdfName, markdownName) {
-  console.log('Rendering CV ...');
+function resolveVersion(doc, fingerprint) {
+  if (!existsSync(doc.manifest)) return { version: '1.0', unchanged: false };
+
+  let manifest;
+  try {
+    manifest = JSON.parse(readFileSync(doc.manifest, 'utf8'));
+  } catch (error) {
+    fail(
+      `${path.relative(root, doc.manifest)} is not valid JSON: ${error.message}\n` +
+        '   Fix or delete it, then retry.'
+    );
+  }
+
+  const { major, minor } = parseVersion(doc, manifest.version);
+  const unchanged = manifest.sourceHash === fingerprint;
+  const bumpMajor = process.argv.includes('--major');
+
+  let version;
+  if (unchanged) {
+    version = `${major}.${minor}`;
+  } else if (bumpMajor) {
+    version = `${major + 1}.0`;
+  } else {
+    version = `${major}.${minor + 1}`;
+  }
+
+  return { version, unchanged };
+}
+
+/**
+ * --pdf-path and --markdown-path are resolved relative to the input YAML, so
+ * bare filenames land next to it in that document's own folder.
+ */
+function render(doc, pdfName, markdownName) {
+  console.log(`Rendering ${doc.baseName} ...`);
   const rendered = spawnSync(
     venvPython,
     [
-      '-m', 'rendercv', 'render', cvFile,
+      '-m', 'rendercv', 'render', doc.source,
       '--pdf-path', pdfName,
       '--markdown-path', markdownName
     ],
     { stdio: 'inherit', cwd: root }
   );
-  if (rendered.status !== 0) fail('RenderCV failed to render the CV.');
+  if (rendered.status !== 0) fail(`RenderCV failed to render ${doc.baseName}.`);
 
   for (const name of [pdfName, markdownName]) {
-    if (!existsSync(path.join(cvDir, name))) {
+    if (!existsSync(path.join(doc.dir, name))) {
       fail(
-        `RenderCV reported success but did not write public/cv/${name}.\n` +
+        `RenderCV reported success but did not write ${publicPath(doc)}/${name}.\n` +
           '   Check settings.render_command in the YAML: dont_generate_typst must\n' +
           '   stay false, since the PDF is compiled from the .typ file.'
       );
     }
   }
+
+  // RenderCV labels every Markdown document as a CV, even when used for a letter.
+  if (doc.coverLetter) {
+    const markdownPath = path.join(doc.dir, markdownName);
+    const markdown = readFileSync(markdownPath, 'utf8');
+    writeFileSync(markdownPath, markdown.replace(/^# (.+)'s CV$/m, '# $1'));
+  }
 }
 
-if (!existsSync(cvFile)) fail(`CV source not found: ${path.relative(root, cvFile)}`);
+function generate(name, doc) {
+  if (!existsSync(doc.source)) {
+    fail(`Source not found: ${path.relative(root, doc.source)}`);
+  }
+
+  const fingerprint = fingerprintSource(doc);
+  const { version, unchanged } = resolveVersion(doc, fingerprint);
+  const pdfName = `${doc.baseName}_v${version}.pdf`;
+  const markdownName = `${doc.baseName}_v${version}.md`;
+  const pdfPath = path.join(doc.dir, pdfName);
+
+  // Re-rendering identical source still rewrites the PDF bytes, which would show
+  // up as a spurious diff on the document that did not change.
+  if (unchanged && existsSync(pdfPath) && existsSync(path.join(doc.dir, markdownName))) {
+    console.log(`${name}: v${version} already up to date, skipping.`);
+    return;
+  }
+
+  render(doc, pdfName, markdownName);
+
+  writeFileSync(
+    doc.manifest,
+    `${JSON.stringify(
+      {
+        version,
+        pdf: pdfName,
+        markdown: markdownName,
+        pdfSizeBytes: statSync(pdfPath).size,
+        sourceHash: fingerprint,
+        generatedAt: new Date().toISOString().slice(0, 10)
+      },
+      null,
+      2
+    )}\n`
+  );
+
+  console.log(
+    `\n✅ ${name} v${version} generated:\n` +
+      `   ${publicPath(doc)}/${pdfName}\n` +
+      `   ${publicPath(doc)}/${markdownName}   (generated -- edit the .yaml, not this)\n` +
+      `   Filename is published in ${path.relative(root, doc.manifest).replace(/\\/g, '/')}.`
+  );
+}
+
+const requested = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
+for (const name of requested) {
+  if (!documents[name]) {
+    fail(`Unknown document "${name}". Choose from: ${Object.keys(documents).join(', ')}.`);
+  }
+}
+
+const selected = requested.length > 0 ? requested : ['cv', 'cover-letter'];
 
 ensureVirtualenv();
 
-const fingerprint = fingerprintSource();
-const { version, unchanged } = resolveVersion(fingerprint);
-const pdfName = `${baseName}_v${version}.pdf`;
-const markdownName = `${baseName}_v${version}.md`;
-
-render(pdfName, markdownName);
-
-writeFileSync(
-  manifestFile,
-  `${JSON.stringify(
-    {
-      version,
-      pdf: pdfName,
-      markdown: markdownName,
-      sourceHash: fingerprint,
-      generatedAt: new Date().toISOString().slice(0, 10)
-    },
-    null,
-    2
-  )}\n`
-);
-
-console.log(
-  `\n✅ CV v${version} generated${unchanged ? ' (source unchanged, version kept)' : ''}:\n` +
-    `   public/cv/${pdfName}\n` +
-    `   public/cv/${markdownName}   (generated -- edit the .yaml, not this)\n` +
-    '   The download button picks this up from src/constants/cvVersion.json.'
-);
+for (const name of selected) generate(name, documents[name]);

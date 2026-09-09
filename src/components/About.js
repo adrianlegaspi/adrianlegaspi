@@ -47,7 +47,7 @@ function About() {
         titleClassName="font-mono"
         icon="hn-user"
         status={[
-          t('wordCount', { count: t('bio').trim().split(/\s+/).filter(Boolean).length }),
+          t('fileSize', { size: Math.round(cvVersion.pdfSizeBytes / 1024) }),
           tUi('oneDocument'),
         ]}
         className={`transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}

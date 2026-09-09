@@ -1,0 +1,54 @@
+#!/bin/sh
+# legaspi commit-msg — enforce Conventional Commits.
+#
+# Format:  <type>(<optional scope>)<optional !>: <subject>
+# Example: feat(city): frame selected building on selection
+#
+# Commit messages are generated with the caveman-commit skill (see AGENTS.md).
+
+header=$(head -n1 "$1")
+
+# Let auto-generated merge/revert/fixup commits through untouched.
+case "$header" in
+	"Merge "*|"Revert "*|"fixup! "*|"squash! "*) exit 0 ;;
+esac
+
+types='feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert'
+pattern="^($types)(\([a-z0-9._-]+\))?(!)?: .+"
+
+if ! printf '%s' "$header" | grep -Eq "$pattern"; then
+	echo "[commit-msg] Rejected: message must follow Conventional Commits."
+	echo ""
+	echo "    <type>(<scope>): <subject>"
+	echo "    types: feat fix docs style refactor perf test build ci chore revert"
+	echo ""
+	echo "    e.g.  feat(city): add construction site landmark"
+	echo "          fix(camera): clamp pan to city bounds"
+	echo "          docs(spec): split master spec into topic files"
+	echo ""
+	echo "    your message: $header"
+	exit 1
+fi
+
+# Subject style: lowercase start, no trailing period, keep the header short.
+subject=${header#*: }
+
+case "$subject" in
+	[A-Z]*)
+		echo "[commit-msg] Rejected: subject should start lowercase."
+		echo "    your message: $header"
+		exit 1
+		;;
+esac
+
+case "$subject" in
+	*.)
+		echo "[commit-msg] Rejected: subject should not end with a period."
+		echo "    your message: $header"
+		exit 1
+		;;
+esac
+
+if [ "${#header}" -gt 72 ]; then
+	echo "[commit-msg] Warning: header is ${#header} chars (over 72). Consider trimming."
+fi

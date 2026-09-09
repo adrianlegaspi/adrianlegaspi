@@ -1,0 +1,86 @@
+#!/bin/sh
+# legaspi pre-commit — fast gate on staged files.
+#
+# Cheap, universal checks run first, then the Node toolchain if it is installed.
+# Every toolchain step is skipped (not failed) when the tool is absent, so this
+# hook works before `npm install` and keeps working after.
+
+fail=0
+
+# Staged, added/copied/modified files.
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+# --- 1. Merge conflict markers ------------------------------------------------
+if printf '%s\n' "$staged" | xargs -d '\n' -r grep -InE '^(<{7}|={7}|>{7})( |$)' 2>/dev/null; then
+	echo "[pre-commit] FAILED: merge conflict markers in staged files (above)."
+	fail=1
+fi
+
+# --- 2. Accidentally large files ---------------------------------------------
+# 3D assets live under public/ or src/assets/ and are expected to be big.
+limit=1048576 # 1 MB
+printf '%s\n' "$staged" | while IFS= read -r f; do
+	case "$f" in
+		public/*|src/assets/*|*.glb|*.gltf|*.png|*.jpg|*.jpeg|*.webp|*.pdf) continue ;;
+	esac
+	[ -f "$f" ] || continue
+	size=$(wc -c < "$f")
+	if [ "$size" -gt "$limit" ]; then
+		echo "[pre-commit] Large file staged: $f ($((size / 1024)) KB)"
+	fi
+done
+
+# --- 3. Secrets in .env -------------------------------------------------------
+if printf '%s\n' "$staged" | grep -qE '(^|/)\.env$|(^|/)\.env\.(local|production)$'; then
+	echo "[pre-commit] FAILED: refusing to commit a .env file. Commit .env.example instead."
+	fail=1
+fi
+
+[ "$fail" -ne 0 ] && exit 1
+
+# --- 4. Node toolchain --------------------------------------------------------
+[ -f package.json ] || { echo "[pre-commit] OK (no package.json yet)"; exit 0; }
+
+run() { # run <label> <bin> <args...> ; skips when the binary is not installed
+	label=$1
+	bin=node_modules/.bin/$2
+	shift 2
+	if [ ! -e "$bin" ]; then
+		echo "[pre-commit] $label skipped (not installed)"
+		return
+	fi
+	if out=$("$bin" "$@" 2>&1 </dev/null); then
+		echo "[pre-commit] $label OK"
+	else
+		echo "[pre-commit] $label FAILED:"
+		printf '%s\n' "$out"
+		fail=1
+	fi
+}
+
+web=$(printf '%s\n' "$staged" | grep -E '\.(ts|tsx|js|jsx|mjs|cjs)$')
+fmt=$(printf '%s\n' "$staged" | grep -E '\.(ts|tsx|js|jsx|mjs|cjs|json|css|md|html)$')
+
+if [ -n "$fmt" ]; then
+	# shellcheck disable=SC2086
+	run "prettier" prettier --check $fmt
+fi
+
+if [ -n "$web" ]; then
+	# shellcheck disable=SC2086
+	run "eslint" eslint --max-warnings=0 $web
+fi
+
+if [ -n "$web" ] && [ -f tsconfig.json ]; then
+	run "tsc" tsc --noEmit
+fi
+
+if [ "$fail" -ne 0 ]; then
+	echo ""
+	echo "[pre-commit] Commit aborted. Auto-fix formatting with:  npx prettier --write ."
+	echo "             Then re-stage the files and commit again."
+	exit 1
+fi
+
+echo "[pre-commit] OK"

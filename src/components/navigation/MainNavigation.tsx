@@ -62,9 +62,9 @@ export function MainNavigation() {
         <AtSign {...icon} />
         {t.nav.contact}
       </Link>
-      <ActionLink variant="nav" href={profile.resume} className="gap-1.5">
+      <ActionLink variant="nav" href={profile.cv} className="gap-1.5">
         <FileText {...icon} />
-        {t.nav.resume}
+        {t.nav.cv}
       </ActionLink>
     </nav>
   )

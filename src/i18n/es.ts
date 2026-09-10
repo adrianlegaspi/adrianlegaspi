@@ -8,7 +8,7 @@ export const es: Strings = {
     projects: 'Proyectos',
     about: 'Sobre mí',
     contact: 'Contacto',
-    resume: 'CV',
+    cv: 'CV',
     menu: 'Menú',
     home: 'Reiniciar vista',
   },
@@ -56,7 +56,7 @@ export const es: Strings = {
     email: 'Correo',
     linkedin: 'LinkedIn',
     github: 'GitHub',
-    resume: 'CV',
+    cv: 'CV',
   },
 
   time: {

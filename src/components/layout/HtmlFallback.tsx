@@ -35,6 +35,14 @@ export function HtmlFallback() {
     { href: '#contact', label: t.nav.contact },
   ]
 
+  const contactLinks: { label: string; href: string; newTab?: boolean }[] = [
+    { label: t.contact.email, href: `mailto:${profile.email}` },
+    { label: t.contact.linkedin, href: profile.linkedin },
+    { label: t.contact.github, href: profile.github },
+    // A PDF, not a route — a new tab leaves this page where it is.
+    { label: t.contact.cv, href: profile.cv, newTab: true },
+  ]
+
   return (
     <div className="mx-auto max-w-2xl px-5 py-10">
       <header className="flex items-start justify-between gap-4">
@@ -96,14 +104,13 @@ export function HtmlFallback() {
         </Text>
         <Text className="mt-2">{contact.summary || t.contact.cta}</Text>
         <ul className="mt-4 flex flex-wrap gap-3 text-sm">
-          {[
-            { label: t.contact.email, href: `mailto:${profile.email}` },
-            { label: t.contact.linkedin, href: profile.linkedin },
-            { label: t.contact.github, href: profile.github },
-            { label: t.contact.resume, href: profile.resume },
-          ].map((item) => (
+          {contactLinks.map((item) => (
             <li key={item.href}>
-              <a className={link} href={item.href}>
+              <a
+                className={link}
+                href={item.href}
+                {...(item.newTab ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+              >
                 {item.label}
               </a>
             </li>

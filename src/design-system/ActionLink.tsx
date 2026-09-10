@@ -6,14 +6,15 @@ type ActionLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string
 }
 
-/** An `<a>` wearing a control. External links open in a new tab safely. */
+/** An `<a>` wearing a control. Links that leave the app open in a new tab safely. */
 export function ActionLink({ variant = 'outline', className, href, ...props }: ActionLinkProps) {
-  const external = href.startsWith('http')
+  // A PDF is an asset, not a route: opening it in place would tear down the city.
+  const leavesApp = href.startsWith('http') || href.endsWith('.pdf')
   return (
     <a
       href={href}
       className={cx(control(variant), className)}
-      {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+      {...(leavesApp ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
       {...props}
     />
   )

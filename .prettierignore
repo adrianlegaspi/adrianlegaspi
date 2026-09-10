@@ -1,3 +1,5 @@
 pnpm-lock.yaml
 dist
 public/models
+public/cv
+public/cover-letter

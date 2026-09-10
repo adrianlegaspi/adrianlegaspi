@@ -22,7 +22,7 @@ const icons: Record<LinkKind, LucideIcon> = {
   demo: MonitorPlay,
   email: Mail,
   linkedin: Contact,
-  resume: FileText,
+  cv: FileText,
 }
 
 export function ProjectLinks({ content }: { content: PanelContent }) {
@@ -34,7 +34,7 @@ export function ProjectLinks({ content }: { content: PanelContent }) {
         { kind: 'email', label: t.contact.email, href: `mailto:${profile.email}` },
         { kind: 'linkedin', label: t.contact.linkedin, href: profile.linkedin },
         { kind: 'github', label: t.contact.github, href: profile.github },
-        { kind: 'resume', label: t.contact.resume, href: profile.resume },
+        { kind: 'cv', label: t.contact.cv, href: profile.cv },
       ]
     : content.links
 

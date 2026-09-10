@@ -5,7 +5,7 @@ import type { Selection } from './selection'
 
 /** What a panel link points at, so the UI can give it the right icon. */
 export type LinkKind =
-  'website' | 'appStore' | 'playStore' | 'github' | 'demo' | 'email' | 'linkedin' | 'resume'
+  'website' | 'appStore' | 'playStore' | 'github' | 'demo' | 'email' | 'linkedin' | 'cv'
 
 export interface PanelContent {
   id: string

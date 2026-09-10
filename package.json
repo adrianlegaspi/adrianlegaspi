@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "lint": "eslint src",
     "format": "prettier --write .",
-    "assets:convert": "node tools/fbx-to-glb.mjs"
+    "assets:convert": "node tools/fbx-to-glb.mjs",
+    "cv:generate": "node tools/generate-cv.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",

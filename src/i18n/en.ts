@@ -7,7 +7,7 @@ export const en = {
     projects: 'Projects',
     about: 'About',
     contact: 'Contact',
-    resume: 'Résumé',
+    cv: 'CV',
     menu: 'Menu',
     home: 'Reset view',
   },
@@ -55,7 +55,7 @@ export const en = {
     email: 'Email',
     linkedin: 'LinkedIn',
     github: 'GitHub',
-    resume: 'Résumé',
+    cv: 'CV',
   },
 
   time: {

@@ -36,3 +36,9 @@ coverage/
 tmp/
 temp/
 *.log
+
+# RenderCV (dev-only CV tooling, see tools/generate-cv.mjs)
+.venv-cv/
+rendercv_output/
+public/cv/*.typ
+public/cover-letter/*.typ

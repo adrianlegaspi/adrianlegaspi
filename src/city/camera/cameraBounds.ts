@@ -11,9 +11,8 @@ export const MIN_DISTANCE = 7
 /** Far enough to see the whole base and no further: past this the diorama is a speck in the haze. */
 export const MAX_DISTANCE = 40
 export const INITIAL_DISTANCE = 32
-/** How close the camera settles when a project is selected. */
+/** Stable framing distance for every selected building. */
 export const FOCUS_DISTANCE = 15
-
 /** How far the target may travel past the base before the pan stops. */
 const PAN_MARGIN = 1
 
@@ -72,11 +71,17 @@ export const groundUp = new Vector3(-CAMERA_DIRECTION.x, 0, -CAMERA_DIRECTION.z)
  * Where the camera should look so a selected building stays clear of the
  * case-study UI: pushed left on desktop, pushed up on mobile.
  */
-export function focusTarget(center: [number, number], layout: 'desktop' | 'mobile'): Vector3 {
+export function focusTarget(
+  center: [number, number],
+  layout: 'desktop' | 'mobile',
+  distance: number,
+): Vector3 {
   const target = new Vector3(center[0], 0, center[1])
+  // Keep the building at the same screen anchor regardless of the visitor's zoom.
+  const biasScale = distance / 15
   const bias =
     layout === 'desktop'
-      ? groundRight.clone().multiplyScalar(3.2)
-      : groundUp.clone().multiplyScalar(-2.6)
+      ? groundRight.clone().multiplyScalar(3.2 * biasScale)
+      : groundUp.clone().multiplyScalar(-2.6 * biasScale)
   return clampTarget(target.add(bias))
 }

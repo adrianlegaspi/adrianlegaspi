@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { MathUtils, type PerspectiveCamera } from 'three'
+import { MathUtils, type PerspectiveCamera, type Vector3 } from 'three'
 import {
   CAMERA_DIRECTION,
   FOCUS_DISTANCE,
@@ -14,6 +14,7 @@ import {
   groundUp,
   panInset,
 } from './cameraBounds'
+import { tweenCamera } from './cameraTween'
 
 /** Panning keys, by physical position, mapped to how they move the view. */
 const PAN_KEYS: Record<string, [number, number]> = {
@@ -31,9 +32,10 @@ const PAN_KEYS: Record<string, [number, number]> = {
 const KEY_SPEED = 0.3
 /** Wheel deltas are coarse, so the exponent stays small. */
 const WHEEL_ZOOM = 0.0012
-/** How fast the view catches up: briskly when driven, gently when gliding. */
+/** How fast the view catches up with direct visitor input. */
 const SETTLE = 14
-const GLIDE = 3.2
+/** A focus move has zero velocity at both ends, so it never snaps into motion. */
+const FOCUS_DURATION = 1.2
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 
@@ -67,7 +69,12 @@ export function CityCamera({
   // the second, which is what makes damping and the focus glide the same code.
   const want = useRef({ target: cityCenter(), distance: INITIAL_DISTANCE })
   const view = useRef({ target: cityCenter(), distance: INITIAL_DISTANCE })
-  const gliding = useRef(false)
+  const glide = useRef<{
+    fromTarget: Vector3
+    fromDistance: number
+    elapsed: number
+  } | null>(null)
+  const focused = useRef(false)
   const keys = useRef(new Set<string>())
   const pointers = useRef(new Map<number, { x: number; y: number }>())
 
@@ -80,12 +87,14 @@ export function CityCamera({
 
     // Clamping is left to the frame loop, which knows the current pan box.
     const pan = (dx: number, dy: number) => {
-      gliding.current = false
+      glide.current = null
+      focused.current = false
       want.current.target.addScaledVector(groundRight, -dx).addScaledVector(groundUp, dy)
     }
 
     const zoom = (factor: number) => {
-      gliding.current = false
+      glide.current = null
+      focused.current = false
       want.current.distance = clamp(want.current.distance * factor, MIN_DISTANCE, MAX_DISTANCE)
     }
 
@@ -111,7 +120,6 @@ export function CityCamera({
       // The right button dismisses the case study, so it must not drag the city.
       if (event.button === 2) return
       pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY })
-      gliding.current = false
     }
 
     const onPointerMove = (event: PointerEvent) => {
@@ -172,16 +180,24 @@ export function CityCamera({
   // Depending on the tuple identity would re-run this on every parent render.
   const focusX = focus?.[0]
   const focusZ = focus?.[1]
-  useEffect(() => {
+  // Start focus before the panel's first paint; a passive effect leaves one
+  // unfocused frame visible only when opening the first project.
+  useLayoutEffect(() => {
     if (focusX === undefined || focusZ === undefined) return
-    const goal = focusTarget([focusX, focusZ], layout)
+    const goal = focusTarget([focusX, focusZ], layout, FOCUS_DISTANCE)
     want.current.target.copy(goal)
-    // Selecting a project settles the zoom too, so the building reads as focused.
-    want.current.distance = Math.min(want.current.distance, FOCUS_DISTANCE)
-    gliding.current = !instant
+    want.current.distance = FOCUS_DISTANCE
+    focused.current = true
     if (instant) {
+      glide.current = null
       view.current.target.copy(goal)
       view.current.distance = want.current.distance
+    } else {
+      glide.current = {
+        fromTarget: view.current.target.clone(),
+        fromDistance: view.current.distance,
+        elapsed: 0,
+      }
     }
   }, [focusX, focusZ, layout, instant])
 
@@ -198,20 +214,33 @@ export function CityCamera({
     }
     if (kx || ky) {
       const reach = (KEY_SPEED * want.current.distance * step) / Math.hypot(kx, ky)
-      gliding.current = false
+      glide.current = null
+      focused.current = false
       want.current.target
         .addScaledVector(groundRight, kx * reach)
         .addScaledVector(groundUp, ky * reach)
     }
 
-    // Zooming out narrows the pan box, which draws a corner view back to the city.
-    clampTarget(want.current.target, panInset(want.current.distance))
+    // Zooming out narrows free panning; focused views may use the full base.
+    clampTarget(want.current.target, focused.current ? 0 : panInset(want.current.distance))
 
-    const rate = 1 - Math.exp(-(gliding.current ? GLIDE : SETTLE) * step)
-    view.current.target.lerp(want.current.target, rate)
-    view.current.distance += (want.current.distance - view.current.distance) * rate
-    if (gliding.current && view.current.target.distanceTo(want.current.target) < 0.02) {
-      gliding.current = false
+    const motion = glide.current
+    if (motion) {
+      motion.elapsed += step
+      const t = Math.min(motion.elapsed / FOCUS_DURATION, 1)
+      view.current.distance = tweenCamera(
+        view.current.target,
+        motion.fromTarget,
+        want.current.target,
+        motion.fromDistance,
+        want.current.distance,
+        t,
+      )
+      if (t === 1) glide.current = null
+    } else {
+      const rate = 1 - Math.exp(-SETTLE * step)
+      view.current.target.lerp(want.current.target, rate)
+      view.current.distance += (want.current.distance - view.current.distance) * rate
     }
 
     camera.position

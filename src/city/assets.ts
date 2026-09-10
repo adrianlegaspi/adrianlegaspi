@@ -54,17 +54,13 @@ export const roadAssets = {
   tee: '/models/roads/road-intersection.glb',
 } as const
 
-/** The rail line along the western belt, and the commuter train that runs it. */
+/** The rail line along the western belt, and the modern commuter train that runs it. */
 export const railAssets = {
   track: '/models/rail/track.glb',
   'track-detailed': '/models/rail/track-detailed.glb',
-  /**
-   * A modern diesel-electric and two container flats: unlike an electric unit it
-   * needs no overhead wire, so it belongs on the plain sleeper track.
-   */
-  locomotive: '/models/rail/train-diesel-box-a.glb',
-  'wagon-front': '/models/rail/train-carriage-container-blue.glb',
-  'wagon-back': '/models/rail/train-carriage-container-red.glb',
+  front: '/models/rail/train-electric-bullet-a.glb',
+  middle: '/models/rail/train-electric-bullet-c.glb',
+  rear: '/models/rail/train-electric-bullet-b.glb',
 } as const
 
 /**

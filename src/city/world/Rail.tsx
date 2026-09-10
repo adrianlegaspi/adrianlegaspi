@@ -22,7 +22,7 @@ const FIRST_Z = baseBounds.minZ + 0.5
 const LAST_Z = baseBounds.maxZ - 0.5
 
 /** Train kit cars are modelled nose-to-tail along Z, nose towards +Z. */
-const CARS = [railAssets.locomotive, railAssets['wagon-front'], railAssets['wagon-back']]
+const CARS = [railAssets.front, railAssets.middle, railAssets.rear]
 /** A shade longer than the 2.7-unit models, which leaves a coupling gap. */
 const CAR_LENGTH = 2.8 * TRAIN_SCALE
 const TRAIN_LENGTH = CARS.length * CAR_LENGTH
@@ -45,8 +45,8 @@ const PARKED_Z = baseBounds.minZ + (baseBounds.maxZ - baseBounds.minZ) * 0.42
 
 /**
  * Which service is running and how far into it we are. Services alternate
- * direction, so the locomotive always leads and the line looks worked from both
- * ends rather than shuttling back and forth.
+ * direction, so the front cab leads and the line looks worked from both ends
+ * rather than shuttling back and forth.
  */
 function service(elapsed: number) {
   const pass = Math.floor(elapsed / CYCLE)
@@ -112,7 +112,7 @@ export function Rail({ moving = true }: { moving?: boolean }) {
   return (
     <group>
       <InstancedModel url={railAssets.track} instances={ties} castShadow={false} />
-      {/* Centred on the group, locomotive first, so the consist reads as one train. */}
+      {/* Centred on the group, front cab first, so the consist reads as one train. */}
       <group ref={train} position={[RAIL_X, 0, 0]}>
         {CARS.map((url, i) => (
           <Model

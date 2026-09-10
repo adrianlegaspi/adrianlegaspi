@@ -1,11 +1,14 @@
-import { useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import type { Group } from 'three'
+import { useMemo } from 'react'
 import { siteAssets } from '@/city/assets'
 import { wasClick } from '@/city/camera/dragGuard'
 import { Model } from '@/city/models/Model'
 import { deg, InstancedModel, type Instance } from '@/city/models/InstancedModel'
-import { HoverLabel, LotMarker, type BuildingPreview, type BuildingState } from './CityBuilding'
+import {
+  HoverLabel,
+  InteractionMarker,
+  type BuildingPreview,
+  type BuildingState,
+} from './CityBuilding'
 
 /**
  * The "next project" lot: a fenced, prepared plot standing in for work that
@@ -66,9 +69,8 @@ const equipment: { url: string; position: [number, number]; rotation?: number }[
   { url: siteAssets.cone, position: [0.5, 0.84] },
 ]
 
-const SELECTED_LIFT = 1.05
-/** Top of the hoarding and equipment, for the marker and the preview card. */
-const SITE_HEIGHT = 1.1
+/** Crane is 2.22 units tall; clear it with both marker and preview. */
+const SITE_HEIGHT = 2.3
 
 export function ConstructionSite({
   center,
@@ -85,18 +87,10 @@ export function ConstructionSite({
   onSelect: () => void
   onHoverChange: (hovered: boolean) => void
 }) {
-  const group = useRef<Group>(null)
   const { fence, gate } = useMemo(() => perimeter(footprint[0], footprint[1]), [footprint])
 
-  useFrame((_, delta) => {
-    const node = group.current
-    if (!node) return
-    const target = state === 'selected' ? SELECTED_LIFT : 1
-    node.scale.setScalar(node.scale.x + (target - node.scale.x) * Math.min(1, delta * 10))
-  })
-
   return (
-    <group ref={group} position={[center[0], 0, center[1]]}>
+    <group position={[center[0], 0, center[1]]}>
       {/* One collider for the whole site, so the small props stay non-interactive. */}
       <mesh
         position={[0, 0.45, 0]}
@@ -129,7 +123,7 @@ export function ConstructionSite({
           raycast={() => null}
         />
       ))}
-      <LotMarker footprint={footprint} height={SITE_HEIGHT} state={state} />
+      <InteractionMarker height={SITE_HEIGHT} state={state} />
       <HoverLabel visible={state === 'hovered'} height={SITE_HEIGHT} preview={preview} />
     </group>
   )

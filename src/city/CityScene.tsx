@@ -65,7 +65,6 @@ export function CityScene() {
             center={footprintCenter(project.building.grid, project.building.footprint)}
             rotation={project.building.rotation}
             scale={project.building.scale}
-            footprint={project.building.footprint}
             state={stateOf(project.id)}
             glow={preset.windowGlow}
             preview={{ title: content.title, summary: content.summary }}
@@ -84,7 +83,6 @@ export function CityScene() {
             url={buildingAssets[landmark.model]}
             center={footprintCenter(landmark.grid, landmark.footprint)}
             rotation={landmark.rotation}
-            footprint={landmark.footprint}
             state={stateOf(landmark.id)}
             glow={preset.windowGlow}
             preview={preview}

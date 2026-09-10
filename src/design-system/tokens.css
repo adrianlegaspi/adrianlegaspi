@@ -1,0 +1,81 @@
+/**
+ * Design tokens. Every UI surface, text tone and control state resolves to a
+ * token here — components never reach for a raw palette value, so the whole
+ * UI restyles from this file (spec §21: quiet UI, one accent).
+ */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Surfaces. The UI floats over the city, so surfaces are translucent. */
+  --color-surface: rgba(255, 255, 255, 0.92);
+  --color-surface-bare: #ffffff;
+  --color-surface-veil: rgba(255, 255, 255, 0.78);
+  --color-surface-sunk: #f1f5f9;
+  --color-surface-hover: #f8fafc;
+  --color-surface-page: #eef2f6;
+
+  /* Text tones, strongest to faintest. */
+  --color-ink: #0f172a;
+  --color-ink-muted: #475569;
+  --color-ink-subtle: #55637a;
+  --color-ink-faint: #64748b;
+  --color-ink-inverse: #ffffff;
+
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+  --color-line-veil: rgba(255, 255, 255, 0.6);
+
+  /* One accent, used for links and focus only. */
+  --color-accent: #0369a1;
+  --color-accent-ring: #0284c7;
+
+  /* Selected control (language, time of day). */
+  --color-selected: #0f172a;
+  --color-selected-ink: #ffffff;
+
+  /* Notices: confidentiality (spec §25) and the DEV-only placeholder warning. */
+  --color-notice: #fffbeb;
+  --color-notice-line: rgba(252, 211, 77, 0.6);
+  --color-notice-ink: #78350f;
+  --color-flag-line: #fda4af;
+  --color-flag-ink: #be123c;
+
+  --radius-control: 0.5rem;
+  --radius-panel: 1rem;
+}
+
+/**
+ * The chrome floats over the city, so it follows the time of day. Only the
+ * tokens change — no component knows a theme exists (spec §19).
+ */
+:root[data-theme='night'],
+:root[data-theme='sunset'] {
+  --color-surface: rgba(17, 26, 43, 0.93);
+  --color-surface-bare: #111a2b;
+  --color-surface-veil: rgba(17, 26, 43, 0.82);
+  --color-surface-sunk: #1c2740;
+  --color-surface-hover: #23304d;
+  --color-surface-page: #0d1523;
+
+  --color-ink: #f1f5f9;
+  --color-ink-muted: #cbd5e1;
+  --color-ink-subtle: #aab8cc;
+  --color-ink-faint: #8e9db4;
+  --color-ink-inverse: #0f172a;
+
+  --color-line: #2c3853;
+  --color-line-strong: #465573;
+  --color-line-veil: rgba(148, 163, 184, 0.22);
+
+  --color-accent: #7dd3fc;
+  --color-accent-ring: #38bdf8;
+
+  --color-selected: #e2e8f0;
+  --color-selected-ink: #0f172a;
+
+  --color-notice: rgba(120, 53, 15, 0.4);
+  --color-notice-line: rgba(252, 211, 77, 0.35);
+  --color-notice-ink: #fde68a;
+  --color-flag-line: #9f1239;
+  --color-flag-ink: #fda4af;
+}

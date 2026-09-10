@@ -1,0 +1,17 @@
+{
+  "id": "depguard",
+  "status": "published",
+  "type": "personal",
+  "featured": true,
+  "confidential": false,
+  "dates": { "start": "2026", "end": null },
+  "building": {
+    "model": "office-l",
+    "grid": [9, 11],
+    "footprint": [2, 2],
+    "rotation": 90,
+    "scale": 1
+  },
+  "technologies": ["React", "TypeScript", "Node.js", "PostgreSQL"],
+  "links": { "website": null, "github": null }
+}

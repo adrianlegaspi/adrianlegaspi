@@ -1,0 +1,73 @@
+{
+  "comment": "Decorative fill. Never focusable. grid = north-west lot of the footprint, rotation in degrees.",
+  "buildings": [
+    { "model": "house-a", "grid": [0, 0], "footprint": [2, 1], "rotation": 0 },
+    { "model": "house-e", "grid": [2, 0], "footprint": [1, 1], "rotation": 90 },
+    { "model": "house-c", "grid": [0, 1], "footprint": [2, 1], "rotation": 0 },
+    { "model": "house-e", "grid": [2, 1], "footprint": [1, 1], "rotation": 90 },
+    { "model": "house-f", "grid": [0, 2], "footprint": [2, 1], "rotation": 180 },
+    { "model": "house-e", "grid": [2, 2], "footprint": [1, 1], "rotation": 90 },
+
+    { "model": "office-a", "grid": [4, 0], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-b", "grid": [5, 0], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-c", "grid": [6, 0], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-d", "grid": [7, 0], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-f", "grid": [4, 1], "footprint": [1, 1], "rotation": 0 },
+    { "model": "office-g", "grid": [5, 1], "footprint": [1, 1], "rotation": 0 },
+    { "model": "tower-m", "grid": [6, 1], "footprint": [2, 2], "rotation": 0 },
+    { "model": "office-i", "grid": [4, 2], "footprint": [2, 1], "rotation": 0 },
+
+    { "model": "office-j", "grid": [9, 0], "footprint": [2, 1], "rotation": 180 },
+    { "model": "office-k", "grid": [11, 0], "footprint": [2, 1], "rotation": 180 },
+    { "model": "tower-s", "grid": [9, 1], "footprint": [2, 2], "rotation": 0 },
+    { "model": "office-n", "grid": [11, 1], "footprint": [2, 2], "rotation": 0 },
+
+    { "model": "house-b", "grid": [0, 4], "footprint": [2, 2], "rotation": 0 },
+    { "model": "house-e", "grid": [2, 4], "footprint": [1, 1], "rotation": 90 },
+    { "model": "house-e", "grid": [2, 5], "footprint": [1, 1], "rotation": 90 },
+    { "model": "house-a", "grid": [0, 6], "footprint": [2, 1], "rotation": 0 },
+    { "model": "house-e", "grid": [2, 6], "footprint": [1, 1], "rotation": 90 },
+    { "model": "house-c", "grid": [0, 7], "footprint": [2, 1], "rotation": 180 },
+    { "model": "house-e", "grid": [2, 7], "footprint": [1, 1], "rotation": 90 },
+
+    { "model": "office-c", "grid": [9, 4], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-d", "grid": [10, 4], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-b", "grid": [11, 4], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-a", "grid": [12, 4], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-e", "grid": [9, 7], "footprint": [2, 1], "rotation": 0 },
+    { "model": "office-h", "grid": [11, 7], "footprint": [1, 1], "rotation": 0 },
+    { "model": "office-f", "grid": [12, 7], "footprint": [1, 1], "rotation": 0 },
+
+    { "model": "office-g", "grid": [15, 4], "footprint": [1, 1], "rotation": 270 },
+    { "model": "office-a", "grid": [14, 6], "footprint": [1, 1], "rotation": 90 },
+    { "model": "office-d", "grid": [15, 6], "footprint": [1, 1], "rotation": 270 },
+    { "model": "office-e", "grid": [14, 7], "footprint": [2, 1], "rotation": 0 },
+
+    { "model": "house-b", "grid": [0, 9], "footprint": [2, 2], "rotation": 180 },
+    { "model": "house-e", "grid": [2, 9], "footprint": [1, 1], "rotation": 90 },
+    { "model": "house-e", "grid": [2, 10], "footprint": [1, 1], "rotation": 90 },
+    { "model": "house-f", "grid": [0, 11], "footprint": [2, 1], "rotation": 0 },
+    { "model": "house-e", "grid": [2, 11], "footprint": [1, 1], "rotation": 90 },
+    { "model": "house-d", "grid": [0, 12], "footprint": [2, 1], "rotation": 180 },
+    { "model": "house-e", "grid": [2, 12], "footprint": [1, 1], "rotation": 90 },
+
+    { "model": "office-b", "grid": [6, 9], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-c", "grid": [7, 9], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-d", "grid": [6, 10], "footprint": [1, 1], "rotation": 0 },
+    { "model": "office-f", "grid": [7, 10], "footprint": [1, 1], "rotation": 0 },
+    { "model": "office-a", "grid": [4, 11], "footprint": [1, 1], "rotation": 0 },
+    { "model": "office-g", "grid": [5, 11], "footprint": [1, 1], "rotation": 0 },
+    { "model": "office-j", "grid": [4, 12], "footprint": [2, 1], "rotation": 0 },
+    { "model": "office-k", "grid": [6, 12], "footprint": [2, 1], "rotation": 0 },
+
+    { "model": "office-h", "grid": [9, 9], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-a", "grid": [12, 9], "footprint": [1, 1], "rotation": 180 },
+    { "model": "office-c", "grid": [12, 10], "footprint": [1, 1], "rotation": 90 },
+    { "model": "office-i", "grid": [11, 11], "footprint": [2, 2], "rotation": 0 },
+
+    { "model": "warehouse", "grid": [14, 9], "footprint": [2, 2], "rotation": 90 },
+    { "model": "water-tower", "grid": [14, 11], "footprint": [1, 1], "rotation": 0 },
+    { "model": "office-f", "grid": [14, 14], "footprint": [1, 1], "rotation": 0 },
+    { "model": "office-g", "grid": [15, 14], "footprint": [1, 1], "rotation": 0 }
+  ]
+}

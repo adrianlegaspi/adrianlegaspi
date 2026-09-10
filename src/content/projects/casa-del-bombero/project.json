@@ -1,0 +1,17 @@
+{
+  "id": "casa-del-bombero",
+  "status": "published",
+  "type": "client",
+  "featured": false,
+  "confidential": false,
+  "dates": { "start": "2024", "end": "2025" },
+  "building": {
+    "model": "office-e",
+    "grid": [6, 11],
+    "footprint": [2, 1],
+    "rotation": 0,
+    "scale": 1
+  },
+  "technologies": ["React", "TypeScript", "Node.js", "PostgreSQL"],
+  "links": { "website": "https://lacasadelbombero.app", "github": null }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "ai-automation",
+  "status": "published",
+  "type": "professional",
+  "featured": false,
+  "confidential": false,
+  "dates": { "start": "2024", "end": null },
+  "building": {
+    "model": "lab",
+    "grid": [9, 14],
+    "footprint": [3, 2],
+    "rotation": 0,
+    "scale": 1
+  },
+  "technologies": ["TypeScript", "Node.js", "MCP", "LLM APIs", "Python"],
+  "links": { "website": null, "github": null }
+}

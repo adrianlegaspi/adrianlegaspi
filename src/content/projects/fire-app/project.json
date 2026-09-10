@@ -1,0 +1,17 @@
+{
+  "id": "fire-app",
+  "status": "published",
+  "type": "professional",
+  "featured": false,
+  "confidential": false,
+  "dates": { "start": "2018", "end": "2018" },
+  "building": {
+    "model": "fire-station",
+    "grid": [4, 9],
+    "footprint": [2, 2],
+    "rotation": 90,
+    "scale": 1
+  },
+  "technologies": ["JavaScript", "Node.js", "MySQL"],
+  "links": { "website": null, "github": null }
+}

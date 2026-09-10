@@ -1,0 +1,19 @@
+{
+  "id": "cardom-quest",
+  "status": "published",
+  "type": "personal",
+  "featured": false,
+  "confidential": false,
+  "dates": { "start": "2025", "end": null },
+  "building": {
+    "model": "office-m",
+    "grid": [12, 5],
+    "footprint": [1, 2],
+    "rotation": 0,
+    "scale": 0.78
+  },
+  "technologies": ["Phaser 3"],
+  "links": {
+    "playStore": "https://play.google.com/store/apps/details?id=cardom.procreations.dev"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "viasat",
+  "status": "published",
+  "type": "professional",
+  "featured": true,
+  "confidential": true,
+  "dates": { "start": "2023", "end": null },
+  "building": {
+    "model": "tower-xl",
+    "grid": [10, 5],
+    "footprint": [2, 2],
+    "rotation": 270,
+    "scale": 1
+  },
+  "technologies": ["TypeScript", "React", "Node.js", "PostgreSQL", "Python"],
+  "links": { "website": null, "github": null }
+}

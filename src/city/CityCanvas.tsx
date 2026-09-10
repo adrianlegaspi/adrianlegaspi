@@ -1,14 +1,12 @@
-import { Suspense, useRef } from 'react'
+import { Suspense } from 'react'
 import { LoaderCircle } from 'lucide-react'
 import { Canvas } from '@react-three/fiber'
 import { useProgress } from '@react-three/drei'
 import { CityScene } from './CityScene'
+import { pressPointer, wasClick } from './camera/dragGuard'
 import { usePortfolio } from '@/app/providers/portfolio'
 import { useSelection } from '@/app/selection'
 import { cx, icon, surface } from '@/design-system'
-
-/** A pointer that travelled further than this between press and release was a camera pan, not a click. */
-const CLICK_DRAG_TOLERANCE = 6
 
 /** One probe at startup decides whether the city can render at all (spec §34). */
 export function hasWebGL() {
@@ -41,7 +39,6 @@ function LoadingLabel() {
 export function CityCanvas() {
   const { layout, t } = usePortfolio()
   const { clear } = useSelection()
-  const pressedAt = useRef<{ x: number; y: number } | null>(null)
 
   /**
    * Only buildings carry pointer handlers, so a "missed" click is any click on
@@ -49,19 +46,17 @@ export function CityCanvas() {
    * dismisses the panel. A pointer that travelled was a camera pan, not a click.
    */
   const onPointerMissed = (event: MouseEvent) => {
-    const start = pressedAt.current
-    pressedAt.current = null
-    if (!start) return
-    const dx = event.clientX - start.x
-    const dy = event.clientY - start.y
-    if (dx * dx + dy * dy <= CLICK_DRAG_TOLERANCE * CLICK_DRAG_TOLERANCE) clear()
+    if (wasClick(event)) clear()
   }
 
   return (
     <div
       className="absolute inset-0"
-      onPointerDown={(event) => {
-        pressedAt.current = { x: event.clientX, y: event.clientY }
+      onPointerDown={pressPointer}
+      // A right-click anywhere on the city dismisses the case study.
+      onContextMenu={(event) => {
+        event.preventDefault()
+        clear()
       }}
     >
       <Canvas
@@ -69,8 +64,10 @@ export function CityCanvas() {
         shadows
         dpr={[1, layout === 'mobile' ? 1.5 : 2]}
         camera={{ fov: 38, near: 0.5, far: 200 }}
-        gl={{ antialias: true, powerPreference: 'high-performance' }}
+        // Local clipping is on for the train, which is cut off at the lips of the base.
+        gl={{ antialias: true, powerPreference: 'high-performance', localClippingEnabled: true }}
         aria-label={t.city.canvasLabel}
+        style={{ touchAction: 'none' }}
         onPointerMissed={onPointerMissed}
       >
         <Suspense fallback={null}>

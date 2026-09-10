@@ -26,6 +26,10 @@ export const buildingAssets = {
   'office-n': '/models/commercial/building-n.glb',
   'civic-hall': '/models/commercial/building-n.glb',
   lab: '/models/industrial/building-q.glb',
+  'plant-large': '/models/industrial/building-l.glb',
+  'plant-hall': '/models/industrial/building-c.glb',
+  depot: '/models/industrial/building-s.glb',
+  works: '/models/industrial/building-p.glb',
   'fire-station': '/models/civic/fire-station.glb',
   warehouse: '/models/industrial/building-h.glb',
   'water-tower': '/models/industrial/water-tower.glb',
@@ -45,6 +49,45 @@ export const roadAssets = {
   crossroad: '/models/roads/road-crossroad.glb',
   crossing: '/models/roads/road-crossing.glb',
   plaza: '/models/roads/road-square.glb',
+  /** Boundary road: the corners and the junctions where an avenue leaves the grid. */
+  bend: '/models/roads/road-bend.glb',
+  tee: '/models/roads/road-intersection.glb',
+} as const
+
+/** The rail line along the western belt, and the commuter train that runs it. */
+export const railAssets = {
+  track: '/models/rail/track.glb',
+  'track-detailed': '/models/rail/track-detailed.glb',
+  /**
+   * A modern diesel-electric and two container flats: unlike an electric unit it
+   * needs no overhead wire, so it belongs on the plain sleeper track.
+   */
+  locomotive: '/models/rail/train-diesel-box-a.glb',
+  'wagon-front': '/models/rail/train-carriage-container-blue.glb',
+  'wagon-back': '/models/rail/train-carriage-container-red.glb',
+} as const
+
+/**
+ * Kenney's nature kit, converted to vertex colours by `tools/fbx-to-glb.mjs`
+ * because it ships one material per colour instead of the city atlas.
+ */
+export const natureAssets = {
+  'pine-tall': '/models/nature/pine-tall.glb',
+  'pine-round': '/models/nature/pine-round.glb',
+  'tree-oak': '/models/nature/tree-oak.glb',
+  'tree-tall': '/models/nature/tree-tall.glb',
+  'tree-thin': '/models/nature/tree-thin.glb',
+  'tree-fall': '/models/nature/tree-fall.glb',
+  'bush-large': '/models/nature/bush-large.glb',
+  bush: '/models/nature/bush.glb',
+  grass: '/models/nature/grass.glb',
+  'flowers-red': '/models/nature/flowers-red.glb',
+  'flowers-yellow': '/models/nature/flowers-yellow.glb',
+  'rock-large': '/models/nature/rock-large.glb',
+  'rock-small': '/models/nature/rock-small.glb',
+  'stone-tall': '/models/nature/stone-tall.glb',
+  log: '/models/nature/log.glb',
+  stump: '/models/nature/stump.glb',
 } as const
 
 export const propAssets = {
@@ -64,6 +107,9 @@ export const propAssets = {
   'solar-panels': '/models/industrial/solar-panel-landscape-group.glb',
   'container-a': '/models/industrial/shipping-container-a.glb',
   'container-b': '/models/industrial/shipping-container-b.glb',
+  'container-c': '/models/industrial/shipping-container-c.glb',
+  tank: '/models/industrial/detail-tank.glb',
+  'chimney-medium': '/models/industrial/chimney-medium.glb',
 } as const
 
 /**
@@ -104,12 +150,22 @@ export const carAssets = {
 } as const
 
 export type BuildingAssetId = keyof typeof buildingAssets
+export type NatureAssetId = keyof typeof natureAssets
 export type PropAssetId = keyof typeof propAssets
 export type SiteAssetId = keyof typeof siteAssets
 export type CarAssetId = keyof typeof carAssets
 
 /** The car kit is modelled at a larger scale than the city kits. */
 export const CAR_SCALE = 0.28
+
+/** So is the train kit, though its track already matches one lot. */
+export const TRAIN_SCALE = 0.72
+
+export const natureAssetIds = Object.keys(natureAssets) as NatureAssetId[]
+export const propAssetIds = Object.keys(propAssets) as PropAssetId[]
+
+export const isNatureAssetId = (id: string): id is NatureAssetId => id in natureAssets
+export const isPropAssetId = (id: string): id is PropAssetId => id in propAssets
 
 export const buildingAssetIds = Object.keys(buildingAssets) as BuildingAssetId[]
 

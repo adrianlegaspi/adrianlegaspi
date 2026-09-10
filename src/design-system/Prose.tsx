@@ -13,7 +13,10 @@ const components = {
   ),
   p: (props: object) => <p className="mt-3 text-sm leading-relaxed text-ink-muted" {...props} />,
   ul: (props: object) => (
-    <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-ink-muted" {...props} />
+    <ul
+      className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-ink-muted"
+      {...props}
+    />
   ),
   ol: (props: object) => (
     <ol

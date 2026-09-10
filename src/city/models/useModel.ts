@@ -1,6 +1,13 @@
 import { useMemo } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { Box3, BufferGeometry, Mesh, Vector3, type MeshStandardMaterial, type Object3D } from 'three'
+import {
+  Box3,
+  BufferGeometry,
+  Mesh,
+  Vector3,
+  type MeshStandardMaterial,
+  type Object3D,
+} from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 
 export interface ModelParts {

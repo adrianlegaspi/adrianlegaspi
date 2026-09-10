@@ -1,0 +1,60 @@
+{
+  "comment": "Hand-placed scenery on lots no building occupies. lot = grid lot, offset/lift in lot units from the lot centre, rotation in degrees.",
+  "props": [
+    {
+      "prop": "container-a",
+      "lot": [9, 10],
+      "offset": [-0.28, -0.06],
+      "rotation": 0
+    },
+    {
+      "prop": "container-c",
+      "lot": [9, 10],
+      "offset": [0.1, -0.06],
+      "rotation": 0
+    },
+    {
+      "prop": "container-a",
+      "lot": [9, 10],
+      "offset": [0.1, -0.06],
+      "lift": 0.35,
+      "rotation": 4
+    },
+    {
+      "prop": "tank",
+      "lot": [9, 10],
+      "offset": [0.02, 0.2],
+      "rotation": 0
+    },
+    {
+      "prop": "container-c",
+      "lot": [7, 14],
+      "offset": [-0.2, -0.2],
+      "rotation": 90
+    },
+    {
+      "prop": "container-a",
+      "lot": [7, 14],
+      "offset": [-0.2, 0.18],
+      "rotation": 90
+    },
+    {
+      "prop": "dumpster",
+      "lot": [7, 15],
+      "offset": [-0.24, 0.18],
+      "rotation": 90
+    },
+    {
+      "prop": "chimney-medium",
+      "lot": [12, 15],
+      "offset": [0.1, 0.05],
+      "rotation": 0
+    },
+    {
+      "prop": "tank",
+      "lot": [12, 14],
+      "offset": [0, 0.1],
+      "rotation": 90
+    }
+  ]
+}

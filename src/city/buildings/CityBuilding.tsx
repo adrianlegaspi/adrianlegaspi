@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import type { Group } from 'three'
+import { wasClick } from '@/city/camera/dragGuard'
 import { useModel } from '@/city/models/useModel'
 import { deg } from '@/city/models/InstancedModel'
 import { cx, surface } from '@/design-system'
@@ -15,51 +16,78 @@ export interface BuildingPreview {
 }
 
 const SELECTED_LIFT = 1.05
+const HOVERED_LIFT = 1.02
 const MARKER_COLOR = '#ffb347'
 /** Clearance between a roof and whatever floats above it, in lot units. */
 const ROOF_GAP = 0.3
 const PIN_HEIGHT = 0.34
 const PIN_RADIUS = 0.17
+/** Ring thickness, kept constant so hovering changes no geometry. */
+const RING_WIDTH = 0.08
 
 /**
- * Selection feedback in the language of city builders: a pin above the roof,
- * which stays readable over a dense skyline, plus a ring around the lot. A
- * material tint was rejected — it washes out the untextured models, and the
- * selection has to read without hover (spec §15).
+ * How loudly the plate speaks per state. Interactive lots are marked even when
+ * idle: with a skyline of look-alike models there is otherwise nothing to say
+ * which buildings answer a click, so the amber plate is the affordance and the
+ * spec's "idle: normal model" (§15) is relaxed to a ground marking only.
  */
-export function SelectionMarker({
+const PLATE: Record<BuildingState, { ring: number; fill: number }> = {
+  idle: { ring: 0.4, fill: 0.09 },
+  hovered: { ring: 0.85, fill: 0.2 },
+  selected: { ring: 1, fill: 0.28 },
+}
+
+/**
+ * Selection feedback in the language of city builders: an amber plate on the
+ * lot that brightens through idle, hover and selection, plus a pin above the
+ * roof once selected, which stays readable over a dense skyline. A material
+ * tint was rejected — it washes out the untextured models.
+ */
+export function LotMarker({
   footprint = [1, 1],
   height,
-  active,
+  state,
 }: {
   footprint?: [number, number]
   /** Height of the thing being marked, in unscaled local units. */
   height: number
-  active: boolean
+  state: BuildingState
 }) {
-  if (!active) return null
   const radius = Math.max(footprint[0], footprint[1]) * 0.62
+  const { ring, fill } = PLATE[state]
 
   return (
     <group>
-      <mesh position={[0, 0.03, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[radius - 0.07, radius, 48]} />
+      <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <circleGeometry args={[radius - RING_WIDTH, 48]} />
         <meshBasicMaterial
           color={MARKER_COLOR}
           transparent
-          opacity={0.85}
+          opacity={fill}
+          depthWrite={false}
+          toneMapped={false}
+        />
+      </mesh>
+      <mesh position={[0, 0.03, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[radius - RING_WIDTH, radius, 48]} />
+        <meshBasicMaterial
+          color={MARKER_COLOR}
+          transparent
+          opacity={ring}
           depthWrite={false}
           toneMapped={false}
         />
       </mesh>
       {/* Four-sided and pointing down, so it reads as a marker rather than scenery. */}
-      <mesh
-        position={[0, height + ROOF_GAP + PIN_HEIGHT / 2, 0]}
-        rotation={[Math.PI, Math.PI / 4, 0]}
-      >
-        <coneGeometry args={[PIN_RADIUS, PIN_HEIGHT, 4]} />
-        <meshBasicMaterial color={MARKER_COLOR} toneMapped={false} />
-      </mesh>
+      {state === 'selected' && (
+        <mesh
+          position={[0, height + ROOF_GAP + PIN_HEIGHT / 2, 0]}
+          rotation={[Math.PI, Math.PI / 4, 0]}
+        >
+          <coneGeometry args={[PIN_RADIUS, PIN_HEIGHT, 4]} />
+          <meshBasicMaterial color={MARKER_COLOR} toneMapped={false} />
+        </mesh>
+      )}
     </group>
   )
 }
@@ -87,9 +115,9 @@ export function HoverLabel({
 }
 
 /**
- * An interactive building. Hover shows the preview card and nothing else — the
- * spec allows one hover treatment. Selection lifts the model slightly and adds
- * the marker, so it reads the same whether the building is textured or not.
+ * An interactive building. Its lot plate is always drawn so the building reads
+ * as clickable; hovering brightens the plate and shows the preview card, and
+ * selecting lifts the model, so the state reads whether or not it is textured.
  *
  * The material is declared here rather than reusing the loaded one: the shared
  * instanced buildings must not inherit the night glow settings.
@@ -126,7 +154,8 @@ export function CityBuilding({
   const hasWindowMap = Boolean(material.map)
 
   useFrame((_, delta) => {
-    const target = selected ? scale * SELECTED_LIFT : scale
+    const lift = selected ? SELECTED_LIFT : hovered ? HOVERED_LIFT : 1
+    const target = scale * lift
     const node = group.current
     if (!node) return
     node.scale.setScalar(node.scale.x + (target - node.scale.x) * Math.min(1, delta * 10))
@@ -141,7 +170,7 @@ export function CityBuilding({
         receiveShadow
         onClick={(event) => {
           event.stopPropagation()
-          onSelect()
+          if (wasClick(event)) onSelect()
         }}
         onPointerOver={(event) => {
           event.stopPropagation()
@@ -159,7 +188,7 @@ export function CityBuilding({
           emissiveIntensity={hasWindowMap ? glow : 0}
         />
       </mesh>
-      <SelectionMarker footprint={footprint} height={size.y} active={selected} />
+      <LotMarker footprint={footprint} height={size.y} state={state} />
       <HoverLabel visible={hovered} height={size.y} preview={preview} />
     </group>
   )

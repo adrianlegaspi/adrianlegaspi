@@ -1,10 +1,12 @@
 /**
- * Converts the non-Kenney FBX packs into city-scale GLBs.
+ * Converts source art that is not city-kit-ready into city-scale GLBs.
  *
- * Those packs colour their meshes with one material per colour and no texture,
- * which would cost a draw call per colour and defeat instancing. The converter
- * bakes each material's base colour into vertex colours, joins everything into
- * a single primitive with one material, and scales the result to city units.
+ * Two kinds go through here: the non-Kenney FBX packs, and Kenney's nature kit,
+ * which ships GLB but colours its meshes with one material per colour and no
+ * texture. Either way that would cost a draw call per colour and defeat
+ * instancing, so the converter bakes each material's base colour into vertex
+ * colours, joins everything into a single primitive with one material, and
+ * scales the result to city units.
  *
  *   pnpm assets:convert            # everything in tools/asset-manifest.mjs
  *   pnpm assets:convert crane      # only outputs whose path contains "crane"
@@ -77,20 +79,21 @@ function bakeVertexColors(document) {
  * Nothing here is ever bigger than a few pixels of a screen-filling crane, so
  * collapse it as far as meshopt can while staying inside a 0.3%-of-size error.
  */
-const decimate = () =>
-  simplify({ simplifier: MeshoptSimplifier, ratio: 0.1, error: 0.003 })
+const decimate = () => simplify({ simplifier: MeshoptSimplifier, ratio: 0.1, error: 0.003 })
 
 /**
- * Scales the model so its longest ground axis measures `width` city units and
- * parks it on the origin with its base at y=0, matching the Kenney convention.
- * Runs on world-space bounds, so the FBX exporter's 100x node scale and Z-up
- * rotation are already accounted for.
+ * Scales the model and parks it on the origin with its base at y=0, matching
+ * the Kenney convention. Runs on world-space bounds, so the FBX exporter's 100x
+ * node scale and Z-up rotation are already accounted for.
+ *
+ * `width` sizes the longest ground axis; `scale` multiplies instead, which is
+ * what a kit that is already modelled to a consistent scale wants.
  */
-function fitToWidth(document, width) {
+function place(document, { width, scale: factor }) {
   const scene = document.getRoot().listScenes()[0]
   const { min, max } = getBounds(scene)
   const span = Math.max(max[0] - min[0], max[2] - min[2])
-  const scale = width / span
+  const scale = factor ?? width / span
   const offset = [
     (-(min[0] + max[0]) / 2) * scale,
     -min[1] * scale,
@@ -106,16 +109,24 @@ function fitToWidth(document, width) {
 async function convert(asset) {
   const source = join(root, 'tmp', sources[asset.from], asset.file)
   const target = join(root, 'public', 'models', asset.out)
-  const staging = join(root, 'tmp', '.staging', asset.out.replace(/\//g, '-'))
-
-  await mkdir(dirname(staging), { recursive: true })
   await mkdir(dirname(target), { recursive: true })
-  await convertFbx(source, staging, ['--binary'])
 
-  const document = await io.read(staging)
+  // Kenney's nature kit is already GLB and already low-poly, so it needs the
+  // colour bake but neither the FBX round-trip nor decimation.
+  const isGlb = source.toLowerCase().endsWith('.glb')
+  let read = source
+  if (!isGlb) {
+    read = join(root, 'tmp', '.staging', asset.out.replace(/\//g, '-'))
+    await mkdir(dirname(read), { recursive: true })
+    await convertFbx(source, read, ['--binary'])
+  }
+
+  const document = await io.read(read)
   bakeVertexColors(document)
-  await document.transform(flatten(), dedup(), joinPrimitives(), weld(), decimate(), prune())
-  const { size } = fitToWidth(document, asset.width)
+  const steps = [flatten(), dedup(), joinPrimitives(), weld()]
+  if (!isGlb) steps.push(decimate())
+  await document.transform(...steps, prune())
+  const { size } = place(document, asset)
   await io.write(target, document)
 
   const resources = (await io.readAsJSON(target)).resources

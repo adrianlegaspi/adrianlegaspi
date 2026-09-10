@@ -41,6 +41,53 @@ export const cityBounds = {
   centerZ: ((CITY_DEPTH - 1) / 2) * LOT_SIZE,
 }
 
+/**
+ * The district is ringed rather than cut off: a boundary road one lot outside
+ * the grid closes every avenue that would otherwise end in mid-air, a rail line
+ * runs one lot beyond it, and a green belt finishes the base (spec §20 — the
+ * edge of the environment is deliberate).
+ */
+export const RING_RING = 1
+export const RAIL_RING = 2
+const BELT = 0.5
+
+/** Lot index of a ring, per side. `-1` and `16` for the boundary road. */
+export const ringIndex = (ring: number) => ({
+  low: -ring,
+  highX: CITY_WIDTH - 1 + ring,
+  highZ: CITY_DEPTH - 1 + ring,
+})
+
+export type RingLot = { x: number; z: number }
+
+/** The rectangle of lots that makes up one ring, walked in reading order. */
+export function ringLots(ring: number): RingLot[] {
+  const { low, highX, highZ } = ringIndex(ring)
+  const lots: RingLot[] = []
+  for (let z = low; z <= highZ; z++)
+    for (let x = low; x <= highX; x++)
+      if (x === low || x === highX || z === low || z === highZ) lots.push({ x, z })
+  return lots
+}
+
+/** The whole base, including the ring road, the rail line and the green belt. */
+export const baseBounds = {
+  minX: cityBounds.minX - (RAIL_RING + BELT) * LOT_SIZE,
+  maxX: cityBounds.maxX + (RAIL_RING + BELT) * LOT_SIZE,
+  minZ: cityBounds.minZ - (RAIL_RING + BELT) * LOT_SIZE,
+  maxZ: cityBounds.maxZ + (RAIL_RING + BELT) * LOT_SIZE,
+  centerX: cityBounds.centerX,
+  centerZ: cityBounds.centerZ,
+}
+
+/** A city road that runs off the grid edge, and so meets the boundary road. */
+export const isBoundaryExit = (x: number, z: number) => {
+  const { low, highX, highZ } = ringIndex(RING_RING)
+  if (x === low || x === highX) return isRoad(x === low ? 0 : CITY_WIDTH - 1, z)
+  if (z === low || z === highZ) return isRoad(x, z === low ? 0 : CITY_DEPTH - 1)
+  return false
+}
+
 export interface Placement {
   id: string
   grid: [number, number]

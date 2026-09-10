@@ -2,9 +2,10 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import type { Group } from 'three'
 import { siteAssets } from '@/city/assets'
+import { wasClick } from '@/city/camera/dragGuard'
 import { Model } from '@/city/models/Model'
 import { deg, InstancedModel, type Instance } from '@/city/models/InstancedModel'
-import { HoverLabel, SelectionMarker, type BuildingPreview, type BuildingState } from './CityBuilding'
+import { HoverLabel, LotMarker, type BuildingPreview, type BuildingState } from './CityBuilding'
 
 /**
  * The "next project" lot: a fenced, prepared plot standing in for work that
@@ -101,7 +102,7 @@ export function ConstructionSite({
         position={[0, 0.45, 0]}
         onClick={(event) => {
           event.stopPropagation()
-          onSelect()
+          if (wasClick(event)) onSelect()
         }}
         onPointerOver={(event) => {
           event.stopPropagation()
@@ -128,7 +129,7 @@ export function ConstructionSite({
           raycast={() => null}
         />
       ))}
-      <SelectionMarker footprint={footprint} height={SITE_HEIGHT} active={state === 'selected'} />
+      <LotMarker footprint={footprint} height={SITE_HEIGHT} state={state} />
       <HoverLabel visible={state === 'hovered'} height={SITE_HEIGHT} preview={preview} />
     </group>
   )

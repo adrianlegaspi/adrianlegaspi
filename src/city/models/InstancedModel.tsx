@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
-import { Euler, InstancedMesh, Matrix4, Quaternion, Vector3 } from 'three'
+import { Color, Euler, InstancedMesh, Matrix4, Quaternion, Vector3 } from 'three'
 import { useModel } from './useModel'
 
 export interface Instance {
@@ -8,6 +8,8 @@ export interface Instance {
   /** Y rotation in radians. */
   rotation?: number
   scale?: number
+  /** Multiplied into the shared material, so one model can wear several colours. */
+  color?: string
 }
 
 const DEG = Math.PI / 180
@@ -43,13 +45,20 @@ export function InstancedModel({
     })
   }, [instances])
 
+  const tinted = useMemo(() => instances.some((instance) => instance.color), [instances])
+
   useLayoutEffect(() => {
     const mesh = ref.current
     if (!mesh) return
     matrices.forEach((matrix, i) => mesh.setMatrixAt(i, matrix))
     mesh.instanceMatrix.needsUpdate = true
+    if (tinted) {
+      const color = new Color()
+      instances.forEach((instance, i) => mesh.setColorAt(i, color.set(instance.color ?? '#ffffff')))
+      if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true
+    }
     mesh.computeBoundingSphere()
-  }, [matrices])
+  }, [matrices, instances, tinted])
 
   if (!instances.length) return null
   return (

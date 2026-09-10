@@ -5,9 +5,13 @@ import { ConstructionSite } from './buildings/ConstructionSite'
 import { DecorativeBuildings } from './buildings/DecorativeBuildings'
 import { CityCamera } from './camera/CityCamera'
 import { Environment } from './environment/Environment'
+import { Greenery } from './world/Greenery'
 import { Ground } from './world/Ground'
 import { Props } from './world/Props'
+import { Rail } from './world/Rail'
 import { Roads } from './world/Roads'
+import { Scenery } from './world/Scenery'
+import { Traffic } from './world/Traffic'
 import { footprintCenter } from './world/cityGrid'
 import { DebugCity } from './debug/DebugCity'
 import { doc, projects } from '@/content/registry'
@@ -45,8 +49,12 @@ export function CityScene() {
       <Environment preset={preset} />
       <Ground preset={preset} />
       <Roads />
+      <Rail moving={!reducedMotion} />
+      <Greenery />
       <DecorativeBuildings />
       <Props lit={preset.streetlights} />
+      <Scenery />
+      <Traffic layout={layout} moving={!reducedMotion} />
 
       {projects.map((project) => {
         const content = doc(project, locale)

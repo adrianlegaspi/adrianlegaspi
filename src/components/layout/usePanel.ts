@@ -9,7 +9,10 @@ export function usePanel<T extends HTMLElement>(key: string | null, onClose: () 
 
   useEffect(() => {
     if (!key) return
-    ref.current?.focus()
+    // The panel starts translated off-screen, so a scrolling focus would drag
+    // the whole page — header, canvas and roof markers — sideways and back
+    // while the panel slides in.
+    ref.current?.focus({ preventScroll: true })
   }, [key])
 
   useEffect(() => {

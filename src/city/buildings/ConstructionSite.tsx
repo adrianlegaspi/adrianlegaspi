@@ -69,6 +69,15 @@ const equipment: { url: string; position: [number, number]; rotation?: number }[
   { url: siteAssets.cone, position: [0.5, 0.84] },
 ]
 
+/**
+ * The plot has nothing with windows to glow at night, so it is floodlit from the
+ * work lights already standing on it: two lamps, on only when the streetlights
+ * are, which is what makes the site read as lit like the buildings around it.
+ */
+const WORK_LIGHTS = equipment.filter((part) => part.url === siteAssets.light)
+/** Lamp head of the work light model, which is 0.23 units tall. */
+const WORK_LIGHT_Y = 0.2
+
 /** Crane is 2.22 units tall; clear it with both marker and preview. */
 const SITE_HEIGHT = 2.3
 
@@ -76,6 +85,7 @@ export function ConstructionSite({
   center,
   footprint,
   state,
+  lit = false,
   preview,
   onSelect,
   onHoverChange,
@@ -83,6 +93,8 @@ export function ConstructionSite({
   center: [number, number]
   footprint: [number, number]
   state: BuildingState
+  /** Work lights on, from the time-of-day preset. */
+  lit?: boolean
   preview?: BuildingPreview | null
   onSelect: () => void
   onHoverChange: (hovered: boolean) => void
@@ -123,6 +135,17 @@ export function ConstructionSite({
           raycast={() => null}
         />
       ))}
+      {lit &&
+        WORK_LIGHTS.map(({ position }) => (
+          <pointLight
+            key={`${position[0]},${position[1]}`}
+            position={[position[0], SLAB_HEIGHT + WORK_LIGHT_Y, position[1]]}
+            color="#ffe6b8"
+            intensity={1.6}
+            distance={3}
+            decay={2}
+          />
+        ))}
       <InteractionMarker height={SITE_HEIGHT} state={state} />
       <HoverLabel visible={state === 'hovered'} height={SITE_HEIGHT} preview={preview} />
     </group>

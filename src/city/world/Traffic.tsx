@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { Euler, InstancedMesh, Matrix4, Quaternion, Vector3 } from 'three'
 import { useModel } from '@/city/models/useModel'
 import { carModels, carPose, driveCar, makePool, roadNetwork, type Car } from './carPool'
+import { CarLights } from './VehicleLights'
 
 /**
  * The whole moving-car budget. A handful of cars is enough to make the streets
@@ -47,9 +48,12 @@ function CarModel({
 export function Traffic({
   layout,
   moving = true,
+  lights = 0,
 }: {
   layout: 'desktop' | 'mobile'
   moving?: boolean
+  /** Headlight strength from the time-of-day preset. */
+  lights?: number
 }) {
   const network = useMemo(() => roadNetwork(), [])
   const cars = useMemo(() => makePool(POOL[layout], network), [layout, network])
@@ -91,6 +95,7 @@ export function Traffic({
           }}
         />
       ))}
+      {lights > 0 && <CarLights cars={cars} strength={lights} />}
     </group>
   )
 }

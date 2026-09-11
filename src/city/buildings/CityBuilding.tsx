@@ -1,4 +1,5 @@
 import { Html } from '@react-three/drei'
+import type { WebGLProgramParametersWithUniforms } from 'three'
 import { wasClick } from '@/city/camera/dragGuard'
 import { useModel } from '@/city/models/useModel'
 import { deg } from '@/city/models/InstancedModel'
@@ -19,6 +20,25 @@ const MARKER: Record<BuildingState, string> = {
   hovered: 'size-4 scale-110',
   selected: 'size-4 outline-2 outline-offset-2 outline-accent-ring',
 }
+
+/**
+ * The night glow reads a model's own colour as the emissive mask: the Kenney
+ * kits carry it in the atlas, the converted FBX packs carry it per vertex. Only
+ * the atlas case is built into the standard material, so the vertex case is one
+ * added line. Without it a flat white emissive washes those models out to grey.
+ */
+function tintGlowByVertexColor(shader: WebGLProgramParametersWithUniforms) {
+  shader.fragmentShader = shader.fragmentShader.replace(
+    '#include <emissivemap_fragment>',
+    `#include <emissivemap_fragment>
+    #if defined( USE_COLOR ) || defined( USE_COLOR_ALPHA )
+      totalEmissiveRadiance *= vColor.rgb;
+    #endif`,
+  )
+}
+
+/** Keeps the patched program out of the cache slot of an unpatched material. */
+const GLOW_PROGRAM = () => 'vertex-color-glow'
 
 /** Stable screen-space marker: no duplicate model geometry, so no z-fighting. */
 export function InteractionMarker({ height, state }: { height: number; state: BuildingState }) {
@@ -94,8 +114,6 @@ export function CityBuilding({
 }) {
   const { geometry, material, size } = useModel(url)
   const hovered = state === 'hovered'
-  /** Window glow reads the atlas as an emissive mask; without one, a flat emissive would wash out vertex-coloured models. */
-  const hasWindowMap = Boolean(material.map)
 
   return (
     <group position={[center[0], 0, center[1]]} scale={scale}>
@@ -121,7 +139,9 @@ export function CityBuilding({
           vertexColors={material.vertexColors}
           emissive="#ffffff"
           emissiveMap={material.map}
-          emissiveIntensity={hasWindowMap ? glow : 0}
+          emissiveIntensity={glow}
+          onBeforeCompile={tintGlowByVertexColor}
+          customProgramCacheKey={GLOW_PROGRAM}
         />
       </mesh>
       <InteractionMarker height={size.y} state={state} />

@@ -49,12 +49,12 @@ export function CityScene() {
       <Environment preset={preset} />
       <Ground preset={preset} />
       <Roads />
-      <Rail moving={!reducedMotion} />
+      <Rail moving={!reducedMotion} lights={preset.vehicleLights} />
       <Greenery />
       <DecorativeBuildings />
       <Props lit={preset.streetlights} />
       <Scenery />
-      <Traffic layout={layout} moving={!reducedMotion} />
+      <Traffic layout={layout} moving={!reducedMotion} lights={preset.vehicleLights} />
 
       {projects.map((project) => {
         const content = doc(project, locale)
@@ -95,6 +95,7 @@ export function CityScene() {
             center={footprintCenter(landmark.grid, landmark.footprint)}
             footprint={landmark.footprint}
             state={stateOf(landmark.id)}
+            lit={preset.streetlights}
             preview={preview}
             onSelect={() => selectLandmark(landmark.id)}
             onHoverChange={hover(landmark.id)}

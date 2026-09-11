@@ -19,6 +19,8 @@ export interface TimePreset {
   /** Streetlights and window glow are the only night-only extras. */
   streetlights: boolean
   windowGlow: number
+  /** Headlight strength on cars and the train; 0 leaves them dark. */
+  vehicleLights: number
 }
 
 export const timePresets: Record<TimeTheme, TimePreset> = {
@@ -31,6 +33,7 @@ export const timePresets: Record<TimeTheme, TimePreset> = {
     sun: { color: '#ffb27a', intensity: 1.6, position: [-14, 8, 10] },
     streetlights: true,
     windowGlow: 0.15,
+    vehicleLights: 0.4,
   },
   day: {
     background: '#bfe3f5',
@@ -41,6 +44,7 @@ export const timePresets: Record<TimeTheme, TimePreset> = {
     sun: { color: '#fff6e6', intensity: 2.6, position: [12, 18, 9] },
     streetlights: false,
     windowGlow: 0,
+    vehicleLights: 0,
   },
   sunset: {
     background: '#f6c08a',
@@ -51,6 +55,7 @@ export const timePresets: Record<TimeTheme, TimePreset> = {
     sun: { color: '#ff9a52', intensity: 2.2, position: [16, 5, -8] },
     streetlights: true,
     windowGlow: 0.25,
+    vehicleLights: 0.5,
   },
   night: {
     background: '#111a2b',
@@ -61,6 +66,7 @@ export const timePresets: Record<TimeTheme, TimePreset> = {
     sun: { color: '#8fa5d6', intensity: 0.5, position: [-8, 14, -12] },
     streetlights: true,
     windowGlow: 0.45,
+    vehicleLights: 1,
   },
 }
 

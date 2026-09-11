@@ -5,6 +5,7 @@ import { TRAIN_SCALE, railAssets } from '@/city/assets'
 import { InstancedModel, deg, type Instance } from '@/city/models/InstancedModel'
 import { Model } from '@/city/models/Model'
 import { RAIL_RING, baseBounds } from './cityGrid'
+import { FACING, GlowMaterial, HEADLIGHT, TAILLIGHT } from './VehicleLights'
 
 /**
  * Unlike the road straights, an unrotated Kenney track tile already runs along
@@ -40,6 +41,13 @@ const EXIT = baseBounds.maxZ + TRAIN_LENGTH / 2
 const TRAVEL = EXIT - ENTRY
 const RUN = TRAVEL / SPEED
 const CYCLE = RUN + GAP
+/** The cab light, the tail light, and the pool the cab light throws down the line. */
+const LAMP_Y = 0.5
+/** Just inside the nose and the tail of the consist. */
+const LAMP_Z = TRAIN_LENGTH / 2 - 0.04
+/** Track tiles are 0.15 thick, so the pool is laid above the rails. */
+const POOL_Y = 0.17
+
 /** Where a parked train stands when the visitor asked for no motion (spec §29). */
 const PARKED_Z = baseBounds.minZ + (baseBounds.maxZ - baseBounds.minZ) * 0.42
 
@@ -63,7 +71,7 @@ function service(elapsed: number) {
  * Four meshes and one matrix each: cheap enough to keep moving at all times
  * (spec §31), and it gives the diorama an edge that leads somewhere.
  */
-export function Rail({ moving = true }: { moving?: boolean }) {
+export function Rail({ moving = true, lights = 0 }: { moving?: boolean; lights?: number }) {
   const train = useRef<Group>(null)
   const cars = useRef<(Mesh | null)[]>([])
 
@@ -114,6 +122,30 @@ export function Rail({ moving = true }: { moving?: boolean }) {
       <InstancedModel url={railAssets.track} instances={ties} castShadow={false} />
       {/* Centred on the group, front cab first, so the consist reads as one train. */}
       <group ref={train} position={[RAIL_X, 0, 0]}>
+        {lights > 0 && (
+          <>
+            <mesh position={[0, LAMP_Y, LAMP_Z]} quaternion={FACING} scale={[0.62, 0.34, 1]}>
+              <planeGeometry />
+              <GlowMaterial strength={lights} color={HEADLIGHT} clippingPlanes={clippingPlanes} />
+            </mesh>
+            <mesh position={[0, LAMP_Y, -LAMP_Z]} quaternion={FACING} scale={[0.5, 0.28, 1]}>
+              <planeGeometry />
+              <GlowMaterial strength={lights} color={TAILLIGHT} clippingPlanes={clippingPlanes} />
+            </mesh>
+            <mesh
+              position={[0, POOL_Y, LAMP_Z + 1]}
+              rotation={[-Math.PI / 2, 0, 0]}
+              scale={[0.7, 2, 1]}
+            >
+              <planeGeometry />
+              <GlowMaterial
+                strength={lights * 0.5}
+                color={HEADLIGHT}
+                clippingPlanes={clippingPlanes}
+              />
+            </mesh>
+          </>
+        )}
         {CARS.map((url, i) => (
           <Model
             key={url}

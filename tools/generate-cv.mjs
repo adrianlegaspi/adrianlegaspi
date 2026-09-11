@@ -2,10 +2,15 @@
  * Generates the PDF + Markdown for each document under public/ using RenderCV.
  * https://github.com/rendercv/rendercv
  *
- * Two documents are defined below, each in its own folder with its own source
- * YAML and its own version manifest:
+ * The documents defined below each have their own source YAML and their own
+ * version manifest, so editing one never bumps another:
  *   cv            public/cv/            -> src/data/cvVersion.json
+ *   cv-a          public/cv/            -> public/cv/a.version.json
  *   cover-letter  public/cover-letter/  -> public/cover-letter/version.json
+ *
+ * Role-targeted CV variants are lettered: cv-a, cv-b, cv-c. Each is a full copy
+ * of the CV source re-angled for one kind of role, and none of them are in the
+ * default run -- what a letter targets is stated at the top of its own YAML.
  *
  * The CV manifest lives under src/ because the app imports it to build the
  * download link (see src/data/profile.ts). Nothing reads the letter's manifest,
@@ -36,8 +41,9 @@
  * Because the version is in the public URL, a link already shared with someone
  * would 404 the moment it stopped being the newest build.
  *
- *   pnpm cv:generate                  both documents
+ *   pnpm cv:generate                  cv + cover letter
  *   pnpm cv:generate cover-letter     just the cover letter
+ *   pnpm cv:generate cv-a             just variant A
  *   pnpm cv:generate -- --major       bump the major version
  */
 import { spawnSync } from 'node:child_process'
@@ -52,14 +58,23 @@ const requirementsFile = join(root, 'tools', 'cv-requirements.txt')
 const cvDir = join(root, 'public', 'cv')
 const coverLetterDir = join(root, 'public', 'cover-letter')
 
-// Each document lives in its own public/ folder and versions itself
-// independently, so editing the cover letter does not bump the CV.
+// Every document versions itself independently, so editing the cover letter or
+// a variant does not bump the CV.
 const documents = {
   cv: {
     baseName: 'Adrian_Legaspi_CV',
     dir: cvDir,
     source: join(cvDir, 'Adrian_Legaspi_CV.yaml'),
     manifest: join(root, 'src', 'data', 'cvVersion.json'),
+  },
+  // Variant A -- backend / semantic data platform roles. Shares public/cv/ with
+  // the main CV but versions itself separately, and is left out of the default
+  // run below so a routine `pnpm cv:generate` does not touch it.
+  'cv-a': {
+    baseName: 'Adrian_Legaspi_CV_A',
+    dir: cvDir,
+    source: join(cvDir, 'Adrian_Legaspi_CV_A.yaml'),
+    manifest: join(cvDir, 'a.version.json'),
   },
   'cover-letter': {
     baseName: 'Adrian_Legaspi_Cover_Letter',

@@ -11,19 +11,13 @@
 # Rendered by `pnpm cv:generate cv-a`. Not part of the default run.
 cv:
   name: Adrian Legaspi
+  headline: Backend Engineer
   location: Monterrey, Mexico
-  email: adrian.luball@gmail.com
-  phone: '+526647809152'
-  website: https://legaspi.dev
-  social_networks:
-    - network: LinkedIn
-      username: adrian-legaspi
-    - network: GitHub
-      username: adrianlegaspi
 
   sections:
     profile:
-      - 'Senior Software Engineer with 9+ years building production backend services and REST APIs in Node.js and TypeScript, across enterprise security platforms, fintech, and agentic AI products, with hands-on semantic data modeling and LLM application experience.'
+      - 'Senior Software Engineer with 9+ years building backend services and REST APIs in Node.js, TypeScript and Python, across enterprise security, fintech and AI products.'
+      - 'Designs ontologies and semantic data models in OWL, builds API-first and event-driven services on AWS, and ships LLM applications with RAG retrieval, vector search and agent orchestration. Professional-level English for technical and conversational communication.'
 
     experience:
       - company: JointechAI
@@ -32,8 +26,19 @@ cv:
         start_date: 2022-08
         end_date: present
         highlights:
-          - '**Viasat Internal Security Application (via Borderux):** Designed the semantic data model behind the platform, formalized as an OWL class and property hierarchy: products, the findings raised against them, and the assets that discover those findings. Built the centralized React and TypeScript dashboard aggregating them for 4,000+ internal users. Sole frontend engineer embedded in a backend-heavy team of 15.'
-          - '**Agentic HR ERP (Jointech AI):** Tech Lead for a team of 5 engineers on the internal HR platform managing 30 employees and analyzing prospective roles and candidates for hiring. Built its Node.js and Express backend: REST APIs, Model Context Protocol integration, RAG retrieval pipeline and fine-tuning workflows, plus the React client.'
+          - '**Viasat Internal Security Application (via Borderux):** Designed and maintained the platform ontology and semantic data model, formalized as an OWL class and property hierarchy: products, the findings raised against them, and the assets that discover those findings. Government-contract security program; specifics under NDA.'
+          - 'Maintained and evolved that taxonomy as the domain grew, gathering requirements directly from stakeholders as new sources and use cases arrived, and keeping products, findings and the assets that discover them queryable as one connected model instead of per-source silos.'
+          - 'Integrated heterogeneous scanner and asset sources into that model through event-driven Lambda handlers, S3 event triggers, and inbound webhooks, with Redis caching on hot read paths and CloudWatch logs and alarms for operational visibility.'
+          - 'Delivered Python AWS Lambda functions and REST API services behind API Gateway, each deployed and versioned independently, embedded in a backend-heavy team of 15.'
+          - 'Built the centralized React and TypeScript dashboard that aggregates security findings for 4,000+ internal users, as the sole frontend engineer on the team.'
+          - 'Worked across the platform AWS environment, including S3, EC2, CloudWatch and Lightsail, with services running in Docker containers and releases shipped through GitHub Actions.'
+          - '**Agentic HR ERP (Jointech AI):** Tech Lead for a team of 5 engineers on the internal HR platform managing 30 employees and analyzing prospective roles and candidates for hiring.'
+          - 'Built its Node.js, Express and TypeScript backend: REST API design, service integration, and the data model behind it, containerized with Docker across local and deployed environments.'
+          - 'Implemented the RAG architecture covering document ingestion, chunking, embeddings and Chroma vector search, delivering grounded semantic search across heterogeneous HR and candidate documents.'
+          - 'Developed agent orchestration and prompt-engineering workflows over Model Context Protocol, wiring retrieval and structured tools into LLM calls, plus model fine-tuning workflows. Built the React client on top of those services.'
+          - 'Kept LLM behavior reliable in production with an LLM-as-a-judge evaluation step and prompt grading before release.'
+          - '**Reciplease (via Borderux):** Built a Python and FastAPI backend that turns long-form recipe blog posts into clean, structured recipes, using the Gemini API for extraction and rewriting, backed by PostgreSQL and packaged with Docker.'
+          - 'Published its endpoints against an OpenAPI contract, with Firebase Auth for access control and event-driven Firebase triggers running background processing.'
 
       - company: Arte Digital
         position: Software Engineer
@@ -41,8 +46,10 @@ cv:
         start_date: 2020-01
         end_date: 2022-08
         highlights:
-          - '**Captira:** Engineered full-stack legal software, building complex Angular data dashboards backed by secure Laravel REST APIs serving 3,000+ legal professionals.'
-          - '**Crediverso:** Architected and built full-stack fintech features for a platform serving 10,000 users, using React and a headless WordPress backend. Reduced deployment time by establishing CI/CD pipelines with Codeship.'
+          - '**Captira:** Designed and built secure Laravel REST APIs serving 3,000+ legal professionals, with the relational data model behind them.'
+          - 'Built complex Angular data dashboards on those APIs, covering case, document and reporting workflows.'
+          - '**Crediverso:** Architected and shipped full-stack fintech features for a platform serving 10,000 users, on React and a headless WordPress backend.'
+          - 'Established the CI/CD pipelines with Codeship, later migrating them to AWS CodePipeline, cutting deployment time for the team.'
 
       - company: LuballSoftware (Freelance)
         position: Web Designer & Developer
@@ -61,20 +68,22 @@ cv:
         end_date: 2015-05
 
     skills:
-      - label: Backend & APIs
-        details: Node.js, Express, TypeScript, Python, REST API design, PostgreSQL, Firebase, Laravel (PHP)
-      - label: Semantic & Data Modeling
-        details: Ontologies (OWL), semantic data models, taxonomies
-      - label: AI & LLM
-        details: RAG pipelines, agent orchestration, Model Context Protocol, fine-tuning, prompt engineering
+      - label: Ontologies & Semantic Data
+        details: OWL ontologies, semantic data models, taxonomies, class and property hierarchies, domain modeling
+      - label: Backend & API Engineering
+        details: Node.js, Express, TypeScript, Python, FastAPI, REST API design, OpenAPI contracts, AWS Lambda, API Gateway, PostgreSQL, Redis, Firebase Auth, Laravel (PHP)
+      - label: Architecture & Integration
+        details: Serverless microservices, event-driven handlers (S3 events, Firebase triggers, webhooks), asynchronous workflows, service-to-service integration, data integration patterns, Model Context Protocol
+      - label: Generative AI & Semantic Search
+        details: RAG architectures, Chroma vector search, embeddings, semantic retrieval, agent orchestration, prompt engineering, LLM-as-a-judge evaluation, fine-tuning, Gemini APIs
       - label: Cloud & DevOps
-        details: Amazon Web Services, Docker, CI/CD (GitHub Actions), software architecture
+        details: AWS (Lambda, API Gateway, S3, EC2, CloudWatch, Lightsail), Docker, CI/CD (GitHub Actions, AWS CodePipeline, Codeship), software architecture
       - label: Frontend
         details: React, TypeScript, Angular, SCSS
 
     languages:
       - label: English
-        details: Professional proficiency
+        details: Professional proficiency, nine years of daily technical collaboration with US-based clients and teams
       - label: Spanish
         details: Native
 

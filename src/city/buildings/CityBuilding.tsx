@@ -74,7 +74,10 @@ export function HoverLabel({
 }) {
   if (!visible || !preview) return null
   return (
-    <Html position={[0, height + ROOF_GAP, 0]} center style={{ pointerEvents: 'none' }}>
+    <Html
+      position={[0, height + ROOF_GAP, 0]}
+      style={{ pointerEvents: 'none', transform: 'translate3d(-50%, calc(-100% - 1rem), 0)' }}
+    >
       <div className={cx(surface.menu, 'w-56')}>
         <p className="text-sm font-semibold text-ink">{preview.title}</p>
         <p className="mt-1 text-xs text-ink-muted">{preview.summary}</p>

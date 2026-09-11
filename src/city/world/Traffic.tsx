@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Euler, InstancedMesh, Matrix4, Quaternion, Vector3 } from 'three'
 import { useModel } from '@/city/models/useModel'
-import { carModels, carPose, driveCar, makePool, roadNetwork, type Car } from './carPool'
+import { ROAD_TOP, carModels, carPose, driveCar, makePool, roadNetwork, type Car } from './carPool'
 import { CarLights } from './VehicleLights'
 
 /**
@@ -35,6 +35,7 @@ function CarModel({
       args={[geometry, material, cars.length]}
       castShadow
       receiveShadow
+      frustumCulled={false}
     />
   )
 }
@@ -73,7 +74,7 @@ export function Traffic({
       if (!mesh) return
       group.forEach((car, i) => {
         const pose = carPose(car)
-        position.set(pose.x, 0, pose.z)
+        position.set(pose.x, ROAD_TOP, pose.z)
         euler.set(0, pose.angle, 0)
         quaternion.setFromEuler(euler)
         scale.setScalar(car.scale)

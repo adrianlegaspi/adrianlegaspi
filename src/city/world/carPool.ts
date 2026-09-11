@@ -1,5 +1,15 @@
 import { CAR_SCALE, carAssets } from '@/city/assets'
-import { CITY_DEPTH, CITY_WIDTH, RING_RING, cellAt, isRoad, lotToWorld, ringLots } from './cityGrid'
+import {
+  CITY_DEPTH,
+  CITY_WIDTH,
+  cellAt,
+  isRoad,
+  lotToWorld,
+  gapConnectors,
+  ringLots,
+  roadRing,
+} from './cityGrid'
+import { isCrossingClosed } from './railPath'
 import { hash } from './random'
 
 /** Compass directions, clockwise from north. */
@@ -23,7 +33,8 @@ export function roadNetwork() {
 
   for (let z = 0; z < CITY_DEPTH; z++)
     for (let x = 0; x < CITY_WIDTH; x++) if (isRoad(x, z)) addLot(x, z)
-  for (const { x, z } of ringLots(RING_RING)) addLot(x, z)
+  for (const { x, z } of ringLots(roadRing)) addLot(x, z)
+  for (const { x, z } of gapConnectors) addLot(x, z)
 
   /** Exits of a lot, as direction indices. */
   const exits = new Map<string, number[]>()
@@ -58,6 +69,13 @@ export const carModels = [
   carAssets.van,
   carAssets.delivery,
 ]
+
+/**
+ * Top of a road tile. Cars ride on the tarmac rather than on the ground under
+ * it: placed at zero they stand 0.02 low, which is invisible from across the
+ * district and reads as driving through the road once the visitor zooms in.
+ */
+export const ROAD_TOP = 0.02
 
 /** Half a lot out from the centre, the near side of the lane. */
 const LANE = 0.17
@@ -195,6 +213,15 @@ export function driveCar(car: Car, delta: number, network: ReturnType<typeof roa
 
   car.t += delta * car.speed
   if (car.t < 1) return
+
+  // Held at a level crossing. The car stops on the edge of the lot with the
+  // track in it and stays there, nose at the barrier, until the train is past.
+  const [dx, dz] = DIRECTIONS[car.to]
+  if (isCrossingClosed(car.x + dx, car.z + dz)) {
+    car.t = 1
+    return
+  }
+
   car.t = 0
 
   // A short errand at a building, so the street is not a conveyor belt. Rare on

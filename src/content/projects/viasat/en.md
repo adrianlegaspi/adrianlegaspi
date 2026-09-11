@@ -3,34 +3,40 @@ title: Viasat
 company: Viasat
 role: Software Engineer
 label: Professional Experience
-summary: Internal security-focused software at a global satellite communications company.
+summary: A centralized internal security platform serving more than 4,000 users at a global satellite communications company.
 placeholder: true
 ---
 
 ## Context
 
-Viasat operates satellite communications infrastructure at global scale. I work on
-internal software that supports the company's security engineering practice — tooling
-used by internal teams rather than a customer-facing product.
+Viasat operates satellite communications infrastructure at global scale. I work on a
+centralized internal platform that brings security findings from different scanners and
+asset sources into one connected model. The platform serves more than 4,000 internal
+users rather than external customers.
 
 ## What I did
 
-- Built and maintained features across the full stack of an internal security application.
-- Worked with security engineers to turn operational needs into working tooling.
-- Improved data ingestion and reporting paths used for internal reviews.
-- Contributed to code quality, review practice and release reliability.
+- Architected and built the React and TypeScript dashboard as the sole frontend engineer
+  in a backend-heavy team of 15.
+- Designed and maintained an OWL ontology linking products, security findings and the
+  assets that discover them.
+- Evolved the taxonomy with stakeholders as new data sources and use cases arrived.
+- Integrated scanner and asset sources through Python Lambda handlers, S3 events and
+  inbound webhooks.
+- Delivered independently versioned REST APIs behind API Gateway, with Redis on hot read
+  paths and CloudWatch logs and alarms for operational visibility.
 
 ## Technical highlights
 
-TypeScript and React on the front end, Node.js services and PostgreSQL behind it, with
-Python used for data-oriented work. The interesting engineering here is less about any
-single framework and more about modelling security data so it stays queryable and
-trustworthy as sources change.
+The ontology keeps products, findings and discovery assets queryable as one model instead
+of separate source-specific silos. Event-driven handlers bring new source data into that
+model, while Redis supports hot read paths. Services run in Docker, with releases shipped
+through GitHub Actions across the AWS environment.
 
 ## Outcome
 
-The tooling is used internally by security engineering. Specific metrics, system names
-and architecture are not published.
+The platform serves more than 4,000 internal users. Proprietary implementation details,
+system names and internal architecture are not published.
 
 ## Confidentiality
 

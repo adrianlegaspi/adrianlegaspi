@@ -8,8 +8,9 @@ placeholder: true
 
 ## Context
 
-Kinoko Merge is a self-published mobile merge game, live on the App Store and Google Play.
-A personal project — design, code and release were all mine.
+Kinoko Merge is a self-published mobile merge game released in July 2026. It launched as
+Kinoko Merge on the App Store and Shroom Merge on Google Play. Design, code and release
+were all mine.
 
 ## The problem
 
@@ -34,4 +35,5 @@ seaside soundtrack, chosen to stay readable on a phone screen.
 
 ## Outcome
 
-Live on iOS — iPhone, iPad and Apple Silicon Macs — and on Android. Free, with ads.
+Released in July 2026 on iOS — iPhone, iPad and Apple Silicon Macs — and Android. Free,
+with ads.

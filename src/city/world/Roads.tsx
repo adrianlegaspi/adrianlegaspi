@@ -4,13 +4,13 @@ import { InstancedModel, deg, type Instance } from '@/city/models/InstancedModel
 import {
   CITY_DEPTH,
   CITY_WIDTH,
-  RING_RING,
   cellAt,
   isBoundaryExit,
   isRoad,
   lotToWorld,
-  ringIndex,
+  gapConnectors,
   ringLots,
+  roadRing,
 } from './cityGrid'
 
 /** Compass directions as quarter turns, clockwise from north (-Z). */
@@ -108,9 +108,9 @@ function gridTiles(tiles: Tiles) {
  * rather than a cut (spec §20).
  */
 function ringTiles(tiles: Tiles) {
-  const { low, highX, highZ } = ringIndex(RING_RING)
+  const { low, highX, highZ } = roadRing
 
-  for (const { x, z } of ringLots(RING_RING)) {
+  for (const { x, z } of ringLots(roadRing)) {
     const [wx, wz] = lotToWorld(x, z)
     const position: [number, number, number] = [wx, 0, wz]
     const onWest = x === low
@@ -138,11 +138,22 @@ function ringTiles(tiles: Tiles) {
   }
 }
 
+/**
+ * The lots that carry an eastern avenue across the track to the boundary road.
+ */
+function connectorTiles(tiles: Tiles) {
+  for (const { x, z } of gapConnectors) {
+    const [wx, wz] = lotToWorld(x, z)
+    tiles.straights.push({ position: [wx, 0, wz] })
+  }
+}
+
 export function Roads() {
   const tiles = useMemo(() => {
     const built = empty()
     gridTiles(built)
     ringTiles(built)
+    connectorTiles(built)
     return built
   }, [])
 

@@ -12,6 +12,6 @@
     "rotation": 270,
     "scale": 1
   },
-  "technologies": ["TypeScript", "React", "Node.js", "PostgreSQL", "Python"],
+  "technologies": ["TypeScript", "React", "Python", "OWL", "AWS Lambda", "S3", "Redis", "Docker"],
   "links": { "website": null, "github": null }
 }

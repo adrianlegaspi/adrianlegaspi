@@ -1,7 +1,16 @@
 import { useMemo } from 'react'
 import { natureAssets, type NatureAssetId } from '@/city/assets'
 import { InstancedModel, deg, type Instance } from '@/city/models/InstancedModel'
-import { CITY_DEPTH, CITY_WIDTH, RAIL_RING, cellAt, lotToWorld, ringLots } from './cityGrid'
+import {
+  CITY_DEPTH,
+  CITY_WIDTH,
+  beltRings,
+  cellAt,
+  lotToWorld,
+  ringLots,
+  southBeltLots,
+} from './cityGrid'
+import { isRailLot } from './railPath'
 import { hash, pick } from './random'
 
 /** Nothing shorter than this reads at diorama distance, so it stays off the shadow map. */
@@ -39,9 +48,9 @@ const add = (into: Scatter, id: NatureAssetId, instance: Instance) => {
 function scatter(): Scatter {
   const into: Scatter = {}
 
-  for (const { x, z } of ringLots(RAIL_RING)) {
-    // The western arm of this ring is the rail line, not planting.
-    if (x === -RAIL_RING) continue
+  for (const { x, z } of [...beltRings.flatMap(ringLots), ...southBeltLots]) {
+    // The southern leg runs the length of the inner belt; that is track.
+    if (isRailLot(x, z)) continue
     const [wx, wz] = lotToWorld(x, z)
 
     for (let i = 0; i < 3; i++) {

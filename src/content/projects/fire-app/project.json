@@ -12,6 +12,6 @@
     "rotation": 90,
     "scale": 1
   },
-  "technologies": ["JavaScript", "Node.js", "MySQL"],
+  "technologies": [],
   "links": { "website": null, "github": null }
 }

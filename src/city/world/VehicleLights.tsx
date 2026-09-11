@@ -15,7 +15,7 @@ import {
   type Texture,
 } from 'three'
 import { CAMERA_DIRECTION } from '@/city/camera/cameraBounds'
-import { carPose, type Car } from './carPool'
+import { ROAD_TOP, carPose, type Car } from './carPool'
 
 /**
  * Vehicle lights, drawn as additive quads rather than lit with real lights: a
@@ -143,7 +143,7 @@ export function CarLights({ cars, strength }: { cars: Car[]; strength: number })
       LAMPS.forEach((lamp, i) => {
         position.set(
           pose.x + lamp.x * cos + lamp.z * sin,
-          lamp.y,
+          ROAD_TOP + lamp.y,
           pose.z - lamp.x * sin + lamp.z * cos,
         )
         scale.setScalar(lamp.size)

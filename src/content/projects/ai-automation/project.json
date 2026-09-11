@@ -12,6 +12,15 @@
     "rotation": 0,
     "scale": 1
   },
-  "technologies": ["TypeScript", "Node.js", "MCP", "LLM APIs", "Python"],
+  "technologies": [
+    "TypeScript",
+    "Node.js",
+    "Python",
+    "FastAPI",
+    "MCP",
+    "Chroma",
+    "Gemini",
+    "PostgreSQL"
+  ],
   "links": { "website": null, "github": null }
 }

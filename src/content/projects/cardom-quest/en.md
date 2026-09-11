@@ -8,8 +8,8 @@ placeholder: true
 
 ## Context
 
-Cardom Quest is a self-published mobile roguelike deck builder, live on Google Play. A
-personal project, built and shipped solo.
+Cardom Quest is a self-published mobile roguelike deck builder, released on Google Play
+in 2026. I owned the full product from concept through launch.
 
 ## The problem
 
@@ -20,6 +20,7 @@ deck is also building a party.
 ## What I did
 
 - Built the game in Phaser 3 and shipped it to Google Play.
+- Owned design, development and release as the sole developer.
 - Designed the card set around three jobs — heal, buff and attack — and the recruitment
   loop that turns a card into a persistent ally.
 - Wrote the procedural map generator, so the medieval-fantasy campaign keeps going instead
@@ -35,4 +36,4 @@ hand-placed levels.
 
 ## Outcome
 
-Live on Google Play. Free with ads, and it collects no user data.
+Released on Google Play in 2026. Free with ads, and it collects no user data.

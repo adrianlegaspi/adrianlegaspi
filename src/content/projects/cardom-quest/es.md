@@ -8,8 +8,7 @@ placeholder: true
 
 ## Contexto
 
-Cardom Quest es un deck builder roguelike para móvil, autopublicado y disponible en Google
-Play. Un proyecto personal, hecho y lanzado en solitario.
+Cardom Quest es un deck builder roguelike para móvil, autopublicado en Google Play en 2026. Fui responsable del producto completo, desde el concepto hasta el lanzamiento.
 
 ## El problema
 
@@ -20,6 +19,7 @@ armar el mazo es también armar el grupo.
 ## Lo que hice
 
 - Construí el juego en Phaser 3 y lo publiqué en Google Play.
+- Me encargué del diseño, desarrollo y publicación como único desarrollador.
 - Diseñé el set de cartas alrededor de tres funciones —curar, potenciar y atacar— y el
   bucle de reclutamiento que convierte una carta en un aliado permanente.
 - Escribí el generador procedural de mapas, para que la campaña de fantasía medieval siga
@@ -35,4 +35,4 @@ no de niveles colocados a mano.
 
 ## Resultado
 
-Disponible en Google Play. Gratis con anuncios, y no recoge datos de usuario.
+Publicado en Google Play en 2026. Gratis con anuncios, y no recoge datos de usuario.

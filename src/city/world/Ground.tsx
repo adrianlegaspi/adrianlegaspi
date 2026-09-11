@@ -1,13 +1,5 @@
 import { useMemo } from 'react'
-import {
-  CITY_DEPTH,
-  CITY_WIDTH,
-  RING_RING,
-  baseBounds,
-  cellAt,
-  cityBounds,
-  lotToWorld,
-} from './cityGrid'
+import { CITY_DEPTH, CITY_WIDTH, baseBounds, cellAt, lotToWorld, roadRing } from './cityGrid'
 import type { TimePreset } from '@/city/environment/timeOfDay'
 
 const BASE_HEIGHT = 0.6
@@ -19,10 +11,10 @@ const BASE_HEIGHT = 0.6
  */
 const belt = (() => {
   const outer = {
-    minX: cityBounds.minX - RING_RING,
-    maxX: cityBounds.maxX + RING_RING,
-    minZ: cityBounds.minZ - RING_RING,
-    maxZ: cityBounds.maxZ + RING_RING,
+    minX: roadRing.low - 0.5,
+    maxX: roadRing.highX + 0.5,
+    minZ: roadRing.low - 0.5,
+    maxZ: roadRing.highZ + 0.5,
   }
   const strip = (minX: number, maxX: number, minZ: number, maxZ: number) => ({
     size: [maxX - minX, maxZ - minZ] as [number, number],

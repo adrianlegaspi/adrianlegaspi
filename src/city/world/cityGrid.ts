@@ -42,27 +42,41 @@ export const cityBounds = {
 }
 
 /**
- * The district is ringed rather than cut off: a boundary road one lot outside
- * the grid closes every avenue that would otherwise end in mid-air, a rail line
- * runs one lot beyond it, and a green belt finishes the base (spec §20 — the
- * edge of the environment is deliberate).
+ * The district is ringed rather than cut off: a boundary road closes every
+ * avenue that would otherwise end in mid-air, and a green belt finishes the
+ * base (spec §20 — the edge of the environment is deliberate).
+ *
+ * The road hugs the grid on the west, north and south. Its east side leaves one
+ * lot for the rail line: every avenue leaving the grid there crosses the track
+ * to reach the ring, which is where the level crossings are.
  */
-export const RING_RING = 1
-export const RAIL_RING = 2
-const BELT = 0.5
+export interface Ring {
+  low: number
+  highX: number
+  highZ: number
+}
 
-/** Lot index of a ring, per side. `-1` and `16` for the boundary road. */
-export const ringIndex = (ring: number) => ({
-  low: -ring,
-  highX: CITY_WIDTH - 1 + ring,
-  highZ: CITY_DEPTH - 1 + ring,
+export const roadRing: Ring = { low: -1, highX: CITY_WIDTH + 1, highZ: CITY_DEPTH }
+
+/**
+ * Track axes stay fixed while the southern road moves in beside the last block.
+ * The line runs north through the eastern gap, then turns west outside the
+ * southern road.
+ */
+export const RAIL_X = CITY_WIDTH
+export const RAIL_Z = CITY_DEPTH + 2
+
+/** A ring pushed `by` lots further out than another. */
+const outward = ({ low, highX, highZ }: Ring, by: number): Ring => ({
+  low: low - by,
+  highX: highX + by,
+  highZ: highZ + by,
 })
 
 export type RingLot = { x: number; z: number }
 
 /** The rectangle of lots that makes up one ring, walked in reading order. */
-export function ringLots(ring: number): RingLot[] {
-  const { low, highX, highZ } = ringIndex(ring)
+export function ringLots({ low, highX, highZ }: Ring): RingLot[] {
   const lots: RingLot[] = []
   for (let z = low; z <= highZ; z++)
     for (let x = low; x <= highX; x++)
@@ -70,23 +84,65 @@ export function ringLots(ring: number): RingLot[] {
   return lots
 }
 
-/** The whole base, including the ring road, the rail line and the green belt. */
+/**
+ * Grass between the boundary road and the lip of the base. Two lots wide: the
+ * rail line takes the inner one where it runs outside the city, which leaves a
+ * full lot of planting between the track and the edge.
+ */
+const BELT = 2
+
+/** The belt, ring by ring, so the planting can be walked lot by lot. */
+export const beltRings: Ring[] = Array.from({ length: BELT }, (_, i) => outward(roadRing, i + 1))
+
+/** Extra planting behind the fixed southern track. */
+export const southBeltLots: RingLot[] = Array.from(
+  { length: roadRing.highX - roadRing.low + 2 * BELT + 1 },
+  (_, i) => ({ x: roadRing.low - BELT + i, z: RAIL_Z + 1 }),
+)
+
+/** The whole base, including the boundary road, the rail line and the green belt. */
+const baseMinX = roadRing.low - 0.5 - BELT
+const baseMaxX = roadRing.highX + 0.5 + BELT
+const baseMinZ = roadRing.low - 0.5 - BELT
+const baseMaxZ = RAIL_Z + 1.5
 export const baseBounds = {
-  minX: cityBounds.minX - (RAIL_RING + BELT) * LOT_SIZE,
-  maxX: cityBounds.maxX + (RAIL_RING + BELT) * LOT_SIZE,
-  minZ: cityBounds.minZ - (RAIL_RING + BELT) * LOT_SIZE,
-  maxZ: cityBounds.maxZ + (RAIL_RING + BELT) * LOT_SIZE,
-  centerX: cityBounds.centerX,
-  centerZ: cityBounds.centerZ,
+  minX: baseMinX,
+  maxX: baseMaxX,
+  minZ: baseMinZ,
+  maxZ: baseMaxZ,
+  centerX: (baseMinX + baseMaxX) / 2,
+  centerZ: (baseMinZ + baseMaxZ) / 2,
 }
 
 /** A city road that runs off the grid edge, and so meets the boundary road. */
 export const isBoundaryExit = (x: number, z: number) => {
-  const { low, highX, highZ } = ringIndex(RING_RING)
+  const { low, highX, highZ } = roadRing
   if (x === low || x === highX) return isRoad(x === low ? 0 : CITY_WIDTH - 1, z)
   if (z === low || z === highZ) return isRoad(x, z === low ? 0 : CITY_DEPTH - 1)
   return false
 }
+
+/** Grid rows whose avenue leaves by the east edge. */
+const exitRows = () => {
+  const rows: number[] = []
+  for (let z = 0; z < CITY_DEPTH; z++) if (isRoad(CITY_WIDTH - 1, z)) rows.push(z)
+  return rows
+}
+
+/**
+ * Lots carrying eastern avenues across the track to the boundary road.
+ */
+export const gapConnectors: RingLot[] = exitRows().map((z) => ({ x: RAIL_X, z }))
+
+/**
+ * Every lot where road meets track, all of them on the eastern leg: the two
+ * stretches of boundary road the leg runs between, and the avenues in between.
+ */
+export const railCrossings: RingLot[] = [
+  { x: RAIL_X, z: roadRing.low },
+  ...exitRows().map((z) => ({ x: RAIL_X, z })),
+  { x: RAIL_X, z: roadRing.highZ },
+]
 
 export interface Placement {
   id: string

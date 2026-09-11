@@ -57,6 +57,7 @@ export const roadAssets = {
 /** The rail line along the western belt, and the modern commuter train that runs it. */
 export const railAssets = {
   track: '/models/rail/track.glb',
+  curve: '/models/rail/railroad-corner-small.glb',
   'track-detailed': '/models/rail/track-detailed.glb',
   front: '/models/rail/train-electric-bullet-a.glb',
   middle: '/models/rail/train-electric-bullet-c.glb',

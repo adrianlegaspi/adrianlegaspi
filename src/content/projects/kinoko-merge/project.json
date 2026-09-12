@@ -16,5 +16,6 @@
   "links": {
     "appStore": "https://apps.apple.com/us/app/kinoko-merge/id6785820123",
     "playStore": "https://play.google.com/store/apps/details?id=dev.procreations.shroommerge"
-  }
+  },
+  "icon": "/projects/kinoko-merge/icon.png"
 }

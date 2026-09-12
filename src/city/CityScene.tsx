@@ -9,16 +9,34 @@ import { Greenery } from './world/Greenery'
 import { Ground } from './world/Ground'
 import { Props } from './world/Props'
 import { Rail } from './world/Rail'
+import { PylonSign } from './world/PylonSign'
 import { Roads } from './world/Roads'
 import { Scenery } from './world/Scenery'
 import { Traffic } from './world/Traffic'
-import { footprintCenter } from './world/cityGrid'
+import { footprintCenter, lotToWorld } from './world/cityGrid'
 import { DebugCity } from './debug/DebugCity'
 import { doc, projects } from '@/content/registry'
 import { landmarks } from '@/data/landmarks'
 import { page } from '@/content/pages'
 import { usePortfolio } from '@/app/providers/portfolio'
 import { useSelection } from '@/app/selection'
+
+/** Roadside pylon sign standing beside Kinoko Merge's lot, facing the avenue. */
+const KINOKO_SIGN_POSITION: [number, number, number] = (() => {
+  const [wx, wz] = lotToWorld(14, 12)
+  return [wx, 0, wz]
+})()
+
+/**
+ * Cardom Quest's block is built out on every side, so its sign stands at the
+ * edge of the building's own lot (its scale leaves a margin around the model)
+ * rather than a free neighboring one, facing the avenue to its east.
+ */
+const CARDOM_SIGN_POSITION: [number, number, number] = (() => {
+  const [wx, wz] = lotToWorld(12, 5)
+  const [, wz2] = lotToWorld(12, 6)
+  return [wx + 0.4, 0, (wz + wz2) / 2]
+})()
 
 export function CityScene() {
   const { preset, hoveredProjectId, setHoveredProjectId, layout, reducedMotion, locale } =
@@ -54,6 +72,12 @@ export function CityScene() {
       <DecorativeBuildings />
       <Props lit={preset.streetlights} />
       <Scenery />
+      <PylonSign position={KINOKO_SIGN_POSITION} texture="/textures/kinoko-merge-sign.png" />
+      <PylonSign
+        position={CARDOM_SIGN_POSITION}
+        rotation={90}
+        texture="/textures/cardom-quest-sign.png"
+      />
       <Traffic layout={layout} moving={!reducedMotion} lights={preset.vehicleLights} />
 
       {projects.map((project) => {

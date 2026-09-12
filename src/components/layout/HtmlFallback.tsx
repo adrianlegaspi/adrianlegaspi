@@ -7,6 +7,7 @@ import { doc, projects } from '@/content/registry'
 import { page, type PageId } from '@/content/pages'
 import { LanguageSelector } from '@/components/navigation/LanguageSelector'
 import { ConfidentialProjectNotice } from '@/components/project/ConfidentialProjectNotice'
+import { MediaGallery } from '@/components/project/MediaGallery'
 import { link, Prose, Text } from '@/design-system'
 
 /**
@@ -76,12 +77,22 @@ export function HtmlFallback() {
         return (
           <article key={project.id} id={`project-${project.id}`} className="mt-10 space-y-2">
             <Text tone="eyebrow">{content.label ?? t.projectType[project.type]}</Text>
-            <Text as="h2" tone="title" className="text-xl">
-              {content.title}
-            </Text>
+            <div className="flex items-center gap-3">
+              {project.icon && (
+                <img
+                  src={project.icon}
+                  alt=""
+                  className="h-10 w-10 shrink-0 rounded-control border border-line object-cover"
+                />
+              )}
+              <Text as="h2" tone="title" className="text-xl">
+                {content.title}
+              </Text>
+            </div>
             <Text>{content.summary}</Text>
             {project.confidential && <ConfidentialProjectNotice />}
             <Prose>{content.body}</Prose>
+            <MediaGallery items={project.media} />
           </article>
         )
       })}

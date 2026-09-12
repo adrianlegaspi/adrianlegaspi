@@ -38,6 +38,12 @@ export const es: Strings = {
     collapse: 'Contraer',
   },
 
+  gallery: {
+    close: 'Cerrar',
+    previous: 'Imagen anterior',
+    next: 'Imagen siguiente',
+  },
+
   projectType: {
     professional: 'Profesional',
     personal: 'Proyecto personal',

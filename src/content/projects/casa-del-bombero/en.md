@@ -1,37 +1,40 @@
 ---
 title: lacasadelbombero.app
 role: Full-stack Engineer
-label: Public Project
-summary: A public web application built for a firefighting community.
+label: Client Project
+summary: A custom WordPress plugin that turns wp-admin into an internal client and debt management system for a business selling to firefighters.
 placeholder: true
 ---
 
 ## Context
 
-A public web application serving a firefighting community. Unlike most of the work in
-this city, this one is live and you can look at it.
+A business selling equipment to firefighters on credit needed to track clients, payments
+and outstanding debt. I built a custom WordPress plugin that repurposes wp-admin as an
+internal management dashboard, rather than a public site.
 
 ## The problem
 
-The community relied on scattered channels — chat groups, printed sheets, word of mouth —
-for information that needed a single reliable home.
+The business tracked clients, debts and payments across scattered spreadsheets, with no
+single place to look up a client, see their balance or record a payment.
 
 ## What I did
 
-- Built the application end to end: data model, API, front end and deployment.
-- Designed the interface around fast, mobile-first use rather than desktop administration.
-- Set up hosting and the release process so updates are routine.
+- Built a custom WordPress plugin that adapts wp-admin into an internal management
+  dashboard.
+- Implemented the client module: creation, search, payment status, balance and blacklist.
+- Implemented payments (abonos), inventory, sales and warranties on the same plugin
+  foundation.
 
 ## Technical highlights
 
-React and TypeScript on the front end, a Node.js API over PostgreSQL. Deliberately small
-architecture: the constraint here is long-term maintainability by one person, so every
-part of the stack had to justify itself.
+WordPress as the platform, with a custom plugin that replaces the standard wp-admin
+experience with purpose-built client, debt, payment and inventory screens, rather than
+extending an existing CRM or e-commerce plugin.
 
 ## Outcome
 
-Live and in use by its community.
+In internal use by the business to manage clients and debt.
 
-## Links
+## Confidentiality
 
-The live site is linked below.
+This is an internal management system, not a public site. Access is login-gated.

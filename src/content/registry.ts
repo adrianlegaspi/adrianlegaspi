@@ -16,6 +16,13 @@ export type Placement = z.output<typeof placementSchema> & { model: BuildingAsse
 
 const link = z.union([z.url(), z.null()]).default(null)
 
+const mediaItemSchema = z.object({
+  src: z.string(),
+  alt: z.string(),
+  width: z.number().positive(),
+  height: z.number().positive(),
+})
+
 const projectConfigSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/, 'id must be kebab-case'),
   status: z.enum(['published', 'draft']),
@@ -29,6 +36,8 @@ const projectConfigSchema = z.object({
   links: z
     .object({ website: link, github: link, demo: link, appStore: link, playStore: link })
     .default({ website: null, github: null, demo: null, appStore: null, playStore: null }),
+  media: z.array(mediaItemSchema).default([]),
+  icon: z.string().optional(),
 })
 
 const docSchema = z.object({

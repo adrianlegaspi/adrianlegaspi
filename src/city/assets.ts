@@ -111,7 +111,6 @@ export const propAssets = {
   'container-c': '/models/industrial/shipping-container-c.glb',
   tank: '/models/industrial/detail-tank.glb',
   'chimney-medium': '/models/industrial/chimney-medium.glb',
-  'mushroom-princess': '/models/decoration/princess-mushroom.glb',
 } as const
 
 /**

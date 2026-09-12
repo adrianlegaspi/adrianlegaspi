@@ -1,7 +1,7 @@
 {
   "id": "fixed-ai",
   "status": "published",
-  "type": "unreleased",
+  "type": "personal",
   "featured": false,
   "confidential": false,
   "dates": { "start": "2024", "end": "2024" },
@@ -12,6 +12,35 @@
     "rotation": 90,
     "scale": 1
   },
-  "technologies": ["React", "TypeScript", "Node.js", "LLM APIs"],
-  "links": { "website": null, "github": null }
+  "technologies": ["React Native", "Expo", "TypeScript", "Fastify", "Supabase", "Gemini"],
+  "links": {
+    "playStore": "https://play.google.com/store/apps/details?id=dev.adrianlegaspi.fixedai"
+  },
+  "icon": "/projects/fixed-ai/icon.png",
+  "media": [
+    {
+      "src": "/projects/fixed-ai/onboarding.png",
+      "alt": "FixedAI onboarding screen",
+      "width": 720,
+      "height": 1600
+    },
+    {
+      "src": "/projects/fixed-ai/repair-request.png",
+      "alt": "FixedAI photo-and-prompt repair request screen with budget selector",
+      "width": 720,
+      "height": 1600
+    },
+    {
+      "src": "/projects/fixed-ai/generated-instructions.png",
+      "alt": "FixedAI generated step-by-step repair instructions",
+      "width": 720,
+      "height": 1600
+    },
+    {
+      "src": "/projects/fixed-ai/projects-list.png",
+      "alt": "FixedAI list of saved repair projects",
+      "width": 720,
+      "height": 1600
+    }
+  ]
 }

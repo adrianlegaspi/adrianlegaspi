@@ -2,6 +2,7 @@ import { usePortfolio } from '@/app/providers/portfolio'
 import type { PanelContent } from '@/app/panelContent'
 import { Notice, Prose, Tag, Text } from '@/design-system'
 import { ConfidentialProjectNotice } from './ConfidentialProjectNotice'
+import { MediaGallery } from './MediaGallery'
 import { ProjectHeader } from './ProjectHeader'
 import { ProjectLinks } from './ProjectLinks'
 
@@ -32,6 +33,8 @@ export function ProjectPanel({ content }: { content: PanelContent }) {
       <div>
         <Prose>{content.body}</Prose>
       </div>
+
+      <MediaGallery items={content.media} />
 
       <ProjectLinks content={content} />
 

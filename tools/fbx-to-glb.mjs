@@ -36,7 +36,12 @@ const filter = process.argv[2]
 
 await MeshoptSimplifier.ready
 
-/** Base colour per material becomes a COLOR_0 attribute, so one material serves all. */
+/**
+ * Base colour per material becomes a COLOR_0 attribute, so one material serves
+ * all. Skips primitives that carry a real base colour texture instead of a
+ * flat material colour — baking those down to one vertex colour would throw
+ * the painted texture away, which is the whole point of that asset.
+ */
 function bakeVertexColors(document) {
   const buffer = document.getRoot().listBuffers()[0]
   const shared = document
@@ -48,6 +53,7 @@ function bakeVertexColors(document) {
   for (const mesh of document.getRoot().listMeshes()) {
     for (const primitive of mesh.listPrimitives()) {
       const material = primitive.getMaterial()
+      if (material?.getBaseColorTexture()) continue
       const color = material ? material.getBaseColorFactor() : [1, 1, 1, 1]
       const count = primitive.getAttribute('POSITION').getCount()
       // Normalized bytes: 4 per vertex instead of 16, and plenty for flat colours.

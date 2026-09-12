@@ -12,6 +12,14 @@
     "rotation": 0,
     "scale": 1
   },
-  "technologies": ["React", "TypeScript", "Node.js", "PostgreSQL"],
-  "links": { "website": "https://lacasadelbombero.app", "github": null }
+  "technologies": ["WordPress", "PHP", "MySQL"],
+  "links": { "website": "https://lacasadelbombero.app", "github": null },
+  "media": [
+    {
+      "src": "/projects/casa-del-bombero/clients.png",
+      "alt": "Client management dashboard listing clients with balance and payment status",
+      "width": 1910,
+      "height": 946
+    }
+  ]
 }

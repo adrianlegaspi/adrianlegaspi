@@ -11,6 +11,7 @@ export type LinkKind =
 export interface PanelContent {
   id: string
   title: string
+  icon: string | null
   /** Small line above the title: project type or landmark label. */
   eyebrow: string
   role: string | null
@@ -19,6 +20,7 @@ export interface PanelContent {
   body: string
   technologies: string[]
   links: { kind: LinkKind; label: string; href: string }[]
+  media: { src: string; alt: string; width: number; height: number }[]
   confidential: boolean
   placeholder: boolean
 }
@@ -51,6 +53,7 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
     return {
       id: selection.id,
       title: content.title,
+      icon: null,
       eyebrow: selection.landmark.page === 'about' ? t.nav.about : t.nav.contact,
       role: null,
       dates: null,
@@ -58,6 +61,7 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
       body: content.body,
       technologies: [],
       links: selection.landmark.page === 'contact' ? contactLinks(locale) : [],
+      media: [],
       confidential: false,
       placeholder: false,
     }
@@ -68,6 +72,7 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
     return {
       id: selection.id,
       title: content.title,
+      icon: null,
       eyebrow: t.nav.legal,
       role: null,
       dates: null,
@@ -75,6 +80,7 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
       body: content.body,
       technologies: [],
       links: [],
+      media: [],
       confidential: false,
       placeholder: false,
     }
@@ -100,6 +106,7 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
   return {
     id: project.id,
     title: content.title,
+    icon: project.icon ?? null,
     eyebrow: content.label ?? t.projectType[project.type],
     role: content.role ?? null,
     dates: startYear === endYear ? startYear : `${startYear} – ${endYear}`,
@@ -107,6 +114,7 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
     body: content.body,
     technologies: project.technologies,
     links,
+    media: project.media,
     confidential: project.confidential,
     placeholder: content.placeholder,
   }

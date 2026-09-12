@@ -15,5 +15,6 @@
   "technologies": ["Phaser 3"],
   "links": {
     "playStore": "https://play.google.com/store/apps/details?id=cardom.procreations.dev"
-  }
+  },
+  "icon": "/projects/cardom-quest/icon.png"
 }

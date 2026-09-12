@@ -37,6 +37,12 @@ export const en = {
     collapse: 'Collapse',
   },
 
+  gallery: {
+    close: 'Close',
+    previous: 'Previous image',
+    next: 'Next image',
+  },
+
   projectType: {
     professional: 'Professional',
     personal: 'Personal project',

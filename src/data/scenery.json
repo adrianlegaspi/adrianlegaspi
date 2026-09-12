@@ -55,13 +55,6 @@
       "lot": [12, 14],
       "offset": [0, 0.1],
       "rotation": 90
-    },
-    {
-      "prop": "mushroom-princess",
-      "lot": [15, 11],
-      "offset": [0, 0.5],
-      "lift": 1.4,
-      "rotation": 0
     }
   ]
 }

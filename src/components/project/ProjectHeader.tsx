@@ -14,9 +14,18 @@ export function ProjectHeader({ content }: { content: PanelContent }) {
           </span>
         )}
       </Text>
-      <Text as="h2" tone="title">
-        {content.title}
-      </Text>
+      <div className="flex items-center gap-3">
+        {content.icon && (
+          <img
+            src={content.icon}
+            alt=""
+            className="h-10 w-10 shrink-0 rounded-control border border-line object-cover"
+          />
+        )}
+        <Text as="h2" tone="title">
+          {content.title}
+        </Text>
+      </div>
       <dl className={`flex flex-wrap gap-x-6 gap-y-1 ${textTone('meta')}`}>
         {content.role && (
           <div className="flex gap-1">

@@ -88,19 +88,18 @@ Case study can include:
 
 ### 9.5 FixedAI
 
-**Category:** Completed unreleased product  
+**Category:** Personal project — React Native (iOS/Android) app  
 **Visual metaphor:** Startup/small modern office  
-**Status:** Finished, never released
+**Status:** Published on the Play Store, unsupported since early 2026
 
-The case study should explicitly distinguish:
+FixedAI turns a photo and a prompt describing a broken object into step-by-step repair
+instructions. The case study should state plainly that it is:
 
-> completed product
+> live on the Play Store, but unsupported since early 2026 — functionality is not
+> guaranteed.
 
-from:
-
-> publicly launched product.
-
-There is nothing wrong with showcasing an unreleased project as long as the status is clear.
+There is nothing wrong with showcasing a dropped project as long as its live/unsupported
+status is clear.
 
 ### 9.6 DepGuard
 

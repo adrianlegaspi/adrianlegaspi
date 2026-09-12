@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { contactLinks } from '@/app/panelContent'
 import { usePortfolio } from '@/app/providers/portfolio'
+import { splitLocale } from '@/app/routes'
 import { doc, projects } from '@/content/registry'
 import { page, type PageId } from '@/content/pages'
-import { profile } from '@/data/profile'
 import { LanguageSelector } from '@/components/navigation/LanguageSelector'
 import { ConfidentialProjectNotice } from '@/components/project/ConfidentialProjectNotice'
 import { link, Prose, Text } from '@/design-system'
@@ -14,18 +15,18 @@ import { link, Prose, Text } from '@/design-system'
  */
 export function HtmlFallback() {
   const { t, locale } = usePortfolio()
-  const { pathname } = useLocation()
+  const { path } = splitLocale(useLocation().pathname)
   const about = page('about', locale)
   const contact = page('contact', locale)
   const legalPages: PageId[] = ['privacy', 'tos', 'eula', 'copyright']
 
   // The route still selects something, so jump to its section instead of the top.
   useEffect(() => {
-    const id = pathname.startsWith('/projects/')
-      ? `project-${pathname.slice('/projects/'.length)}`
-      : pathname.slice(1)
+    const id = path.startsWith('/projects/')
+      ? `project-${path.slice('/projects/'.length)}`
+      : path.slice(1)
     document.getElementById(id)?.scrollIntoView()
-  }, [pathname])
+  }, [path])
 
   const anchors = [
     ...projects.map((project) => ({
@@ -35,14 +36,6 @@ export function HtmlFallback() {
     { href: '#about', label: t.nav.about },
     { href: '#contact', label: t.nav.contact },
     ...legalPages.map((id) => ({ href: `#${id}`, label: page(id, locale).title })),
-  ]
-
-  const contactLinks: { label: string; href: string; newTab?: boolean }[] = [
-    { label: t.contact.email, href: `mailto:${profile.email}` },
-    { label: t.contact.linkedin, href: profile.linkedin },
-    { label: t.contact.github, href: profile.github },
-    // A PDF, not a route — a new tab leaves this page where it is.
-    { label: t.contact.cv, href: profile.cv, newTab: true },
   ]
 
   return (
@@ -106,12 +99,13 @@ export function HtmlFallback() {
         </Text>
         <Text className="mt-2">{contact.summary || t.contact.cta}</Text>
         <ul className="mt-4 flex flex-wrap gap-3 text-sm">
-          {contactLinks.map((item) => (
+          {contactLinks(locale).map((item) => (
             <li key={item.href}>
               <a
                 className={link}
                 href={item.href}
-                {...(item.newTab ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+                // The CV is a PDF, not a route: a new tab leaves this page where it is.
+                {...(item.kind === 'cv' ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
               >
                 {item.label}
               </a>

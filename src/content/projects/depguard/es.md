@@ -3,7 +3,6 @@ title: DepGuard
 role: Autor
 label: Proyecto personal
 summary: Herramienta para buscar e investigar CVEs e información de seguridad de dependencias.
-placeholder: true
 ---
 
 ## Contexto
@@ -33,4 +32,6 @@ la procedencia queda visible en el resultado.
 
 ## Resultado
 
-En desarrollo activo. Los enlaces de demo y código se agregan abajo cuando sean públicos.
+Disponible en depguard-io.vercel.app. Cubre ocho ecosistemas de paquetes, entre ellos npm,
+PyPI, Go y Maven, sobre datos de avisos de OSV y GHSA. Sigue en desarrollo activo; el enlace
+al código se agrega abajo cuando el repositorio sea público.

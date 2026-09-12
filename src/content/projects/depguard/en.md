@@ -3,7 +3,6 @@ title: DepGuard
 role: Author
 label: Personal Project
 summary: A tool for searching and investigating CVEs and dependency security information.
-placeholder: true
 ---
 
 ## Context
@@ -32,4 +31,6 @@ sourced. Search runs over the normalised layer; provenance stays visible in the 
 
 ## Outcome
 
-In active development. Demo and source links are added below as they become public.
+Live at depguard-io.vercel.app. Covers eight package ecosystems, including npm, PyPI, Go
+and Maven, over OSV and GHSA advisory data. Still in active development; the source link is
+added below when the repository goes public.

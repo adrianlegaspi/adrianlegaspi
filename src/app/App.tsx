@@ -8,6 +8,7 @@ import { HtmlFallback } from '@/components/layout/HtmlFallback'
 import { MobileBottomSheet } from '@/components/layout/MobileBottomSheet'
 import { usePortfolio } from './providers/portfolio'
 import { panelContent } from './panelContent'
+import { splitLocale } from './routes'
 import { applySeo } from './seo'
 import { isKnownRoute, useSelection } from './selection'
 
@@ -16,6 +17,7 @@ const webgl = hasWebGL()
 export function App() {
   const { locale, layout, t } = usePortfolio()
   const { pathname } = useLocation()
+  const { path } = splitLocale(pathname)
   const navigate = useNavigate()
   const { selection, clear } = useSelection()
   const content = useMemo(() => panelContent(selection, locale), [selection, locale])
@@ -24,7 +26,7 @@ export function App() {
     if (!isKnownRoute(pathname)) navigate('/', { replace: true })
   }, [pathname, navigate])
 
-  useEffect(() => applySeo(content, t, pathname), [content, t, pathname])
+  useEffect(() => applySeo(content, t, locale, path), [content, t, locale, path])
 
   if (!webgl) return <HtmlFallback />
 

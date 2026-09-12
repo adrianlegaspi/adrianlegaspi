@@ -57,6 +57,7 @@ export const es: Strings = {
     email: 'Correo',
     linkedin: 'LinkedIn',
     github: 'GitHub',
+    x: 'X',
     cv: 'CV',
   },
 

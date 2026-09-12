@@ -56,6 +56,7 @@ export const en = {
     email: 'Email',
     linkedin: 'LinkedIn',
     github: 'GitHub',
+    x: 'X',
     cv: 'CV',
   },
 

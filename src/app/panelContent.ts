@@ -1,11 +1,12 @@
 import { doc } from '@/content/registry'
 import { page } from '@/content/pages'
+import { profile } from '@/data/profile'
 import { strings, type Locale } from '@/i18n'
 import type { Selection } from './selection'
 
 /** What a panel link points at, so the UI can give it the right icon. */
 export type LinkKind =
-  'website' | 'appStore' | 'playStore' | 'github' | 'demo' | 'email' | 'linkedin' | 'cv'
+  'website' | 'appStore' | 'playStore' | 'github' | 'demo' | 'email' | 'linkedin' | 'x' | 'cv'
 
 export interface PanelContent {
   id: string
@@ -24,6 +25,22 @@ export interface PanelContent {
 
 const year = (value: string) => value.slice(0, 4)
 
+/**
+ * How to reach Adrian. The construction site is the end-of-experience call to
+ * action (spec §10), and the same list is what the no-WebGL page and the
+ * prerendered /contact route show, so it lives here rather than in each of them.
+ */
+export function contactLinks(locale: Locale): PanelContent['links'] {
+  const t = strings(locale)
+  return [
+    { kind: 'email', label: t.contact.email, href: `mailto:${profile.email}` },
+    { kind: 'linkedin', label: t.contact.linkedin, href: profile.linkedin },
+    { kind: 'github', label: t.contact.github, href: profile.github },
+    { kind: 'x', label: t.contact.x, href: profile.x },
+    { kind: 'cv', label: t.contact.cv, href: profile.cv },
+  ]
+}
+
 /** Everything the case-study panel shows, in the visitor's language. */
 export function panelContent(selection: Selection, locale: Locale): PanelContent | null {
   if (!selection) return null
@@ -40,7 +57,7 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
       summary: content.summary,
       body: content.body,
       technologies: [],
-      links: [],
+      links: selection.landmark.page === 'contact' ? contactLinks(locale) : [],
       confidential: false,
       placeholder: false,
     }

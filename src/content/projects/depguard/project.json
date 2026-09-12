@@ -13,5 +13,5 @@
     "scale": 1
   },
   "technologies": ["React", "TypeScript", "Node.js", "PostgreSQL"],
-  "links": { "website": null, "github": null }
+  "links": { "website": "https://depguard-io.vercel.app", "github": null }
 }

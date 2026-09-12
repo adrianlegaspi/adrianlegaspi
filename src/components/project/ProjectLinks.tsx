@@ -1,5 +1,6 @@
 import {
   Apple,
+  AtSign,
   FileText,
   GitBranch,
   Globe,
@@ -10,7 +11,6 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { usePortfolio } from '@/app/providers/portfolio'
-import { profile } from '@/data/profile'
 import type { LinkKind, PanelContent } from '@/app/panelContent'
 import { ActionLink, icon } from '@/design-system'
 
@@ -22,21 +22,14 @@ const icons: Record<LinkKind, LucideIcon> = {
   demo: MonitorPlay,
   email: Mail,
   linkedin: Contact,
+  // lucide's `X` is the close cross, so the handle reads better as an at-sign.
+  x: AtSign,
   cv: FileText,
 }
 
 export function ProjectLinks({ content }: { content: PanelContent }) {
   const { t } = usePortfolio()
-  // The construction site is the end-of-experience call to action (spec §10).
-  const contact = content.id === 'next-project'
-  const links: PanelContent['links'] = contact
-    ? [
-        { kind: 'email', label: t.contact.email, href: `mailto:${profile.email}` },
-        { kind: 'linkedin', label: t.contact.linkedin, href: profile.linkedin },
-        { kind: 'github', label: t.contact.github, href: profile.github },
-        { kind: 'cv', label: t.contact.cv, href: profile.cv },
-      ]
-    : content.links
+  const links = content.links
 
   if (!links.length) return null
 

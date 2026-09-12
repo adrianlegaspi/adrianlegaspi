@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { usePortfolio } from '@/app/providers/portfolio'
+import { localized } from '@/app/routes'
 import { LanguageSelector } from '@/components/navigation/LanguageSelector'
 import { MainNavigation } from '@/components/navigation/MainNavigation'
 import { TimeThemeSelector } from '@/components/navigation/TimeThemeSelector'
@@ -7,7 +8,7 @@ import { cx, focusRing, surface, Text } from '@/design-system'
 
 /** Minimal by design: the city carries the personality (spec §21/§22). */
 export function Header() {
-  const { t, layout } = usePortfolio()
+  const { t, layout, locale } = usePortfolio()
   return (
     <header
       className={cx(
@@ -16,7 +17,7 @@ export function Header() {
         surface.bar,
       )}
     >
-      <Link to="/" className={cx('rounded-control', focusRing)}>
+      <Link to={localized(locale, '/')} className={cx('rounded-control', focusRing)}>
         <Text as="h1" tone="heading" className="leading-tight">
           {t.name}
         </Text>

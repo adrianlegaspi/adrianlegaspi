@@ -6,6 +6,7 @@ yarn.lock
 
 # Build output
 dist/
+dist-ssr/
 build/
 .next/
 out/

@@ -7,7 +7,9 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { initialLocale, storeLocale, strings, type Locale, type Strings } from '@/i18n'
+import { useLocation } from 'react-router-dom'
+import { strings, type Locale, type Strings } from '@/i18n'
+import { splitLocale } from '@/app/routes'
 import {
   initialTimeMode,
   resolveTheme,
@@ -22,7 +24,6 @@ export type Layout = 'desktop' | 'mobile'
 
 interface Portfolio {
   locale: Locale
-  setLocale: (locale: Locale) => void
   t: Strings
   timeMode: TimeMode
   setTimeMode: (mode: TimeMode) => void
@@ -52,7 +53,10 @@ function useMediaQuery(query: string) {
 const THEME_REFRESH_MS = 10 * 60 * 1000
 
 export function PortfolioProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(initialLocale)
+  // The URL is the only source of truth for language: /es/* is Spanish,
+  // everything else English. A stored preference would disagree with the
+  // canonical URL and with the hreflang pair pointing at it.
+  const { locale } = splitLocale(useLocation().pathname)
   const [timeMode, setTimeModeState] = useState<TimeMode>(initialTimeMode)
   const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null)
   // Only bumped to force the render that re-reads the clock below.
@@ -77,11 +81,6 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.theme = theme
   }, [locale, theme])
 
-  const setLocale = useCallback((next: Locale) => {
-    setLocaleState(next)
-    storeLocale(next)
-  }, [])
-
   const setTimeMode = useCallback((next: TimeMode) => {
     setTimeModeState(next)
     storeTimeMode(next)
@@ -90,7 +89,6 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   const value = useMemo<Portfolio>(
     () => ({
       locale,
-      setLocale,
       t: strings(locale),
       timeMode,
       setTimeMode,
@@ -101,7 +99,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       layout: isMobile ? 'mobile' : 'desktop',
       reducedMotion,
     }),
-    [locale, setLocale, timeMode, setTimeMode, theme, hoveredProjectId, isMobile, reducedMotion],
+    [locale, timeMode, setTimeMode, theme, hoveredProjectId, isMobile, reducedMotion],
   )
 
   return <PortfolioContext.Provider value={value}>{children}</PortfolioContext.Provider>

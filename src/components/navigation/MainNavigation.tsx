@@ -1,31 +1,31 @@
 import { AtSign, Building2, FileText, Scale, UserRound } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { usePortfolio } from '@/app/providers/portfolio'
+import { legalRoutes, localized, splitLocale } from '@/app/routes'
 import { projects, doc } from '@/content/registry'
 import { page, type PageId } from '@/content/pages'
 import { profile } from '@/data/profile'
 import { ActionLink, control, cx, icon, Menu, menuItem } from '@/design-system'
 
 /** App store submission requires these to exist; they carry no landmark. */
-const legalPages: { route: string; id: PageId }[] = [
-  { route: '/privacy', id: 'privacy' },
-  { route: '/tos', id: 'tos' },
-  { route: '/eula', id: 'eula' },
-  { route: '/copyright', id: 'copyright' },
-]
+const legalPages: { route: string; id: PageId }[] = Object.entries(legalRoutes).map(
+  ([route, id]) => ({ route, id }),
+)
 
 /**
  * The same city state, reachable without WebGL or a mouse (spec §23/§29).
  */
 export function MainNavigation() {
   const { t, locale, setHoveredProjectId } = usePortfolio()
-  const { pathname } = useLocation()
+  // Compared and linked without the locale prefix, so /es/about is still "about".
+  const { path } = splitLocale(useLocation().pathname)
+  const to = (target: string) => localized(locale, target)
 
   return (
     <nav aria-label={t.nav.menu} className="flex flex-wrap items-center gap-x-1">
       <Menu
         ariaLabel={t.nav.projects}
-        active={pathname.startsWith('/projects')}
+        active={path.startsWith('/projects')}
         label={
           <>
             <Building2 {...icon} />
@@ -38,12 +38,12 @@ export function MainNavigation() {
             {projects.map((project) => (
               <li key={project.id}>
                 <Link
-                  to={`/projects/${project.id}`}
+                  to={to(`/projects/${project.id}`)}
                   role="menuitem"
                   onClick={close}
                   onMouseEnter={() => setHoveredProjectId(project.id)}
                   onMouseLeave={() => setHoveredProjectId(null)}
-                  aria-current={pathname === `/projects/${project.id}` ? 'page' : undefined}
+                  aria-current={path === `/projects/${project.id}` ? 'page' : undefined}
                   className={cx(menuItem, 'flex min-h-11 flex-col justify-center')}
                 >
                   <span>{doc(project, locale).title}</span>
@@ -56,17 +56,17 @@ export function MainNavigation() {
       </Menu>
 
       <Link
-        to="/about"
-        className={cx(control('nav', pathname === '/about'), 'gap-1.5')}
-        aria-current={pathname === '/about' ? 'page' : undefined}
+        to={to('/about')}
+        className={cx(control('nav', path === '/about'), 'gap-1.5')}
+        aria-current={path === '/about' ? 'page' : undefined}
       >
         <UserRound {...icon} />
         {t.nav.about}
       </Link>
       <Link
-        to="/contact"
-        className={cx(control('nav', pathname === '/contact'), 'gap-1.5')}
-        aria-current={pathname === '/contact' ? 'page' : undefined}
+        to={to('/contact')}
+        className={cx(control('nav', path === '/contact'), 'gap-1.5')}
+        aria-current={path === '/contact' ? 'page' : undefined}
       >
         <AtSign {...icon} />
         {t.nav.contact}
@@ -78,7 +78,7 @@ export function MainNavigation() {
 
       <Menu
         ariaLabel={t.nav.legal}
-        active={legalPages.some((entry) => pathname === entry.route)}
+        active={legalPages.some((entry) => path === entry.route)}
         width="w-72"
         label={
           <>
@@ -92,10 +92,10 @@ export function MainNavigation() {
             {legalPages.map(({ route, id }) => (
               <li key={route}>
                 <Link
-                  to={route}
+                  to={to(route)}
                   role="menuitem"
                   onClick={close}
-                  aria-current={pathname === route ? 'page' : undefined}
+                  aria-current={path === route ? 'page' : undefined}
                   className={cx(menuItem, 'text-balance')}
                 >
                   {page(id, locale).title}

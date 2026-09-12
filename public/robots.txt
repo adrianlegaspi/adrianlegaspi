@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
 
+# Answer engines. Covered by the rule above; named so the intent is explicit.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+
 Sitemap: https://legaspi.dev/sitemap.xml

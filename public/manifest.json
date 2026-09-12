@@ -1,0 +1,21 @@
+{
+  "name": "Adrian Legaspi — Senior Software Engineer",
+  "short_name": "Adrian Legaspi",
+  "description": "An interactive city of the software I have built.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdfbd4",
+  "theme_color": "#fdfbd4",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

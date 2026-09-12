@@ -25,8 +25,8 @@ export interface TimePreset {
 
 export const timePresets: Record<TimeTheme, TimePreset> = {
   dawn: {
-    background: '#f3d9c4',
-    fog: { color: '#f3d9c4', near: 22, far: 60 },
+    background: '#f7e2ba',
+    fog: { color: '#f2d6a8', near: 22, far: 60 },
     ground: '#c9c2b6',
     park: '#87a86b',
     ambient: { color: '#ffd9c0', intensity: 1.5 },
@@ -37,7 +37,7 @@ export const timePresets: Record<TimeTheme, TimePreset> = {
   },
   day: {
     background: '#bfe3f5',
-    fog: { color: '#cfe8f7', near: 28, far: 75 },
+    fog: { color: '#d8ecf7', near: 28, far: 75 },
     ground: '#d6d2c8',
     park: '#8fbf6b',
     ambient: { color: '#ffffff', intensity: 2 },
@@ -47,8 +47,8 @@ export const timePresets: Record<TimeTheme, TimePreset> = {
     vehicleLights: 0,
   },
   sunset: {
-    background: '#f6c08a',
-    fog: { color: '#f2b57e', near: 22, far: 62 },
+    background: '#e8a05a',
+    fog: { color: '#dc9155', near: 22, far: 62 },
     ground: '#c8b8a4',
     park: '#7f9a5f',
     ambient: { color: '#ffcfa6', intensity: 1.6 },
@@ -58,8 +58,8 @@ export const timePresets: Record<TimeTheme, TimePreset> = {
     vehicleLights: 0.5,
   },
   night: {
-    background: '#111a2b',
-    fog: { color: '#0d1523', near: 16, far: 48 },
+    background: '#151b35',
+    fog: { color: '#0e1226', near: 16, far: 48 },
     ground: '#3b4152',
     park: '#37503a',
     ambient: { color: '#93a7d1', intensity: 0.7 },

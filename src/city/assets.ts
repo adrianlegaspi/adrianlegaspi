@@ -62,6 +62,10 @@ export const railAssets = {
   front: '/models/rail/train-electric-bullet-a.glb',
   middle: '/models/rail/train-electric-bullet-c.glb',
   rear: '/models/rail/train-electric-bullet-b.glb',
+  'container-blue': '/models/rail/train-carriage-container-blue.glb',
+  'container-green': '/models/rail/train-carriage-container-green.glb',
+  'container-red': '/models/rail/train-carriage-container-red.glb',
+  'tank-large': '/models/rail/train-carriage-tank-large.glb',
 } as const
 
 /**
@@ -107,6 +111,7 @@ export const propAssets = {
   'container-c': '/models/industrial/shipping-container-c.glb',
   tank: '/models/industrial/detail-tank.glb',
   'chimney-medium': '/models/industrial/chimney-medium.glb',
+  'mushroom-princess': '/models/decoration/princess-mushroom.glb',
 } as const
 
 /**

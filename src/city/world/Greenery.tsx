@@ -53,18 +53,16 @@ function scatter(): Scatter {
     if (isRailLot(x, z)) continue
     const [wx, wz] = lotToWorld(x, z)
 
-    for (let i = 0; i < 3; i++) {
-      const r = hash(x, z, i)
-      const jitterX = (hash(x, z, i + 10) - 0.5) * 0.8
-      const jitterZ = (hash(x, z, i + 20) - 0.5) * 0.8
-      const id =
-        r > 0.55 ? pick(CANOPY, r * 7) : r > 0.22 ? pick(UNDERGROWTH, r * 11) : pick(ROCKS, r * 13)
-      add(into, id, {
-        position: [wx + jitterX, 0, wz + jitterZ],
-        rotation: deg(r * 720),
-        scale: 0.85 + r * 0.4,
-      })
-    }
+    const r = hash(x, z, 0)
+    const jitterX = (hash(x, z, 10) - 0.5) * 0.8
+    const jitterZ = (hash(x, z, 20) - 0.5) * 0.8
+    const id =
+      r > 0.55 ? pick(CANOPY, r * 7) : r > 0.22 ? pick(UNDERGROWTH, r * 11) : pick(ROCKS, r * 13)
+    add(into, id, {
+      position: [wx + jitterX, 0, wz + jitterZ],
+      rotation: deg(r * 720),
+      scale: 0.85 + r * 0.4,
+    })
   }
 
   for (let z = 0; z < CITY_DEPTH; z++) {
@@ -77,10 +75,10 @@ function scatter(): Scatter {
         rotation: deg(r * 360),
         scale: 0.9 + r * 0.35,
       })
-      for (let i = 0; i < 2; i++) {
-        const s = hash(x, z, i + 30)
+      const s = hash(x, z, 30)
+      if (s > 0.5) {
         add(into, pick(PARK_UNDERGROWTH, s * 9), {
-          position: [wx + (s - 0.5) * 0.7, 0, wz + (hash(x, z, i + 40) - 0.5) * 0.7],
+          position: [wx + (s - 0.5) * 0.7, 0, wz + (hash(x, z, 40) - 0.5) * 0.7],
           rotation: deg(s * 720),
           scale: 0.85 + s * 0.3,
         })

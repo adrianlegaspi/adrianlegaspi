@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Plane, Vector3, type Group, type Mesh, type MeshStandardMaterial } from 'three'
-import { TRAIN_SCALE, propAssets, railAssets } from '@/city/assets'
-import { InstancedModel, deg } from '@/city/models/InstancedModel'
+import { TRAIN_SCALE, railAssets } from '@/city/assets'
+import { InstancedModel } from '@/city/models/InstancedModel'
 import { Model } from '@/city/models/Model'
 import { useModel } from '@/city/models/useModel'
 import { baseBounds } from './cityGrid'
@@ -32,17 +32,11 @@ const BOGIE = CAR_LENGTH * 0.32
 /** The commuter service: a bullet set, front cab first. */
 const COMMUTER = [railAssets.front, railAssets.middle, railAssets.rear]
 
-/**
- * The freight service: the same cab hauling flat wagons. The wagons are built
- * here rather than imported — the kit has no rolling stock beyond the bullet
- * set, and a deck is a box — and they carry the industrial props the yards
- * elsewhere in the city are stacked with.
- */
 const WAGONS = [
-  propAssets['container-a'],
-  propAssets['container-b'],
-  null,
-  propAssets['container-c'],
+  railAssets['container-blue'],
+  railAssets['container-green'],
+  railAssets['tank-large'],
+  railAssets['container-red'],
 ] as const
 
 const CONSIST_LENGTH = {
@@ -70,12 +64,6 @@ const POOL_Y = 0.17
 
 /** Where a parked train stands when the visitor asked for no motion (spec §29). */
 const PARKED = RAIL_LENGTH * 0.38
-
-/** The flat wagon: a deck on a frame, sized to sit under a shipping container. */
-const DECK = { width: 0.92, height: 0.3, length: CAR_LENGTH - 0.16 }
-/** Containers are modelled a good deal larger than a wagon deck. */
-const LOAD_SCALE = 0.6
-const TANK = { radius: 0.42, length: 1.7 }
 
 type Variant = keyof typeof CONSIST_LENGTH
 
@@ -107,20 +95,6 @@ function placeCar(node: Group, center: number, way: number) {
   node.rotation.y = Math.atan2(front.x - back.x, front.z - back.z)
 }
 
-/** A shipping container, laid along the wagon whichever axis it was modelled on. */
-function Load({ url, onMesh }: { url: string; onMesh: (mesh: Mesh | null) => void }) {
-  const { size } = useModel(url)
-  return (
-    <Model
-      ref={onMesh}
-      url={url}
-      position={[0, DECK.height, 0]}
-      rotation={[0, size.x > size.z ? deg(90) : 0, 0]}
-      scale={LOAD_SCALE}
-    />
-  )
-}
-
 export function Rail({ moving = true, lights = 0 }: { moving?: boolean; lights?: number }) {
   const [variant, setVariant] = useState<Variant>('commuter')
   const cars = useRef<Record<Variant, (Group | null)[]>>({ commuter: [], freight: [] })
@@ -142,8 +116,7 @@ export function Rail({ moving = true, lights = 0 }: { moving?: boolean; lights?:
 
   // `localClippingEnabled` is switched on where the renderer is made, in
   // `CityCanvas`, because a renderer setting is not this component's to change.
-  // Materials are shared per model, so the props the wagons carry are clipped
-  // wherever else they appear — all of which stand well inside these planes.
+  // Every train model gets the same exit clipping planes.
   useEffect(() => {
     for (const mesh of meshes.current) {
       const material = mesh?.material as MeshStandardMaterial | undefined
@@ -245,45 +218,20 @@ export function Rail({ moving = true, lights = 0 }: { moving?: boolean; lights?:
           />
           {lamps(false)}
         </group>
-        {WAGONS.map((load, i) => (
+        {WAGONS.map((url, i) => (
           <group
-            key={i}
+            key={url}
             ref={(node) => {
               cars.current.freight[i + 1] = node
             }}
           >
-            <mesh position={[0, DECK.height / 2, 0]} castShadow receiveShadow>
-              <boxGeometry args={[DECK.width, DECK.height, DECK.length]} />
-              <meshStandardMaterial
-                color="#4a4f57"
-                flatShading
-                clippingPlanes={clippingPlanes}
-                clipShadows
-              />
-            </mesh>
-            {load ? (
-              <Load
-                url={load}
-                onMesh={(node) => {
-                  meshes.current[COMMUTER.length + 1 + i] = node
-                }}
-              />
-            ) : (
-              <mesh
-                position={[0, DECK.height + TANK.radius, 0]}
-                rotation={[Math.PI / 2, 0, 0]}
-                castShadow
-                receiveShadow
-              >
-                <cylinderGeometry args={[TANK.radius, TANK.radius, TANK.length, 12]} />
-                <meshStandardMaterial
-                  color="#b9bdc4"
-                  flatShading
-                  clippingPlanes={clippingPlanes}
-                  clipShadows
-                />
-              </mesh>
-            )}
+            <Model
+              ref={(node) => {
+                meshes.current[COMMUTER.length + 1 + i] = node
+              }}
+              url={url}
+              scale={TRAIN_SCALE}
+            />
             {lamps(i === WAGONS.length - 1)}
           </group>
         ))}

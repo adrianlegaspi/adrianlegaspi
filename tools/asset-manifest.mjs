@@ -12,6 +12,7 @@ export const sources = {
   construction: 'Low Poly Construction',
   civic: '.',
   nature: 'kenney_nature-kit/Models/GLTF format',
+  mushroom: 'mushroom',
 }
 
 /**
@@ -60,6 +61,12 @@ export const assets = [
     width: 0.24,
   },
   { out: 'civic/fire-station.glb', from: 'civic', file: 'Fire Station.fbx', width: 1.9 },
+  {
+    out: 'decoration/princess-mushroom.glb',
+    from: 'mushroom',
+    file: 'princess.fbx',
+    width: 0.35,
+  },
 
   nature('pine-tall', 'tree_pineTallA'),
   nature('pine-round', 'tree_pineRoundC'),

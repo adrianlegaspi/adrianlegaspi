@@ -1,5 +1,5 @@
 {
-  "comment": "Hand-placed scenery on lots no building occupies. lot = grid lot, offset/lift in lot units from the lot centre, rotation in degrees.",
+  "comment": "Hand-placed scenery: on lots no building occupies, or lifted onto a building's roof. lot = grid lot, offset/lift in lot units from the lot centre, rotation in degrees.",
   "props": [
     {
       "prop": "container-a",
@@ -55,6 +55,13 @@
       "lot": [12, 14],
       "offset": [0, 0.1],
       "rotation": 90
+    },
+    {
+      "prop": "mushroom-princess",
+      "lot": [15, 11],
+      "offset": [0, 0.5],
+      "lift": 1.4,
+      "rotation": 0
     }
   ]
 }

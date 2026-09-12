@@ -11,6 +11,7 @@ export const es: Strings = {
     cv: 'CV',
     menu: 'Menú',
     home: 'Reiniciar vista',
+    legal: 'Legal',
   },
 
   city: {

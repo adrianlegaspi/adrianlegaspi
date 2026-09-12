@@ -1,9 +1,18 @@
-import { AtSign, Building2, FileText, UserRound } from 'lucide-react'
+import { AtSign, Building2, FileText, Scale, UserRound } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { usePortfolio } from '@/app/providers/portfolio'
 import { projects, doc } from '@/content/registry'
+import { page, type PageId } from '@/content/pages'
 import { profile } from '@/data/profile'
 import { ActionLink, control, cx, icon, Menu, menuItem } from '@/design-system'
+
+/** App store submission requires these to exist; they carry no landmark. */
+const legalPages: { route: string; id: PageId }[] = [
+  { route: '/privacy', id: 'privacy' },
+  { route: '/tos', id: 'tos' },
+  { route: '/eula', id: 'eula' },
+  { route: '/copyright', id: 'copyright' },
+]
 
 /**
  * The same city state, reachable without WebGL or a mouse (spec §23/§29).
@@ -66,6 +75,36 @@ export function MainNavigation() {
         <FileText {...icon} />
         {t.nav.cv}
       </ActionLink>
+
+      <Menu
+        ariaLabel={t.nav.legal}
+        active={legalPages.some((entry) => pathname === entry.route)}
+        width="w-72"
+        label={
+          <>
+            <Scale {...icon} />
+            {t.nav.legal}
+          </>
+        }
+      >
+        {(close) => (
+          <ul>
+            {legalPages.map(({ route, id }) => (
+              <li key={route}>
+                <Link
+                  to={route}
+                  role="menuitem"
+                  onClick={close}
+                  aria-current={pathname === route ? 'page' : undefined}
+                  className={cx(menuItem, 'text-balance')}
+                >
+                  {page(id, locale).title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Menu>
     </nav>
   )
 }

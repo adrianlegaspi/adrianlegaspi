@@ -46,6 +46,23 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
     }
   }
 
+  if (selection.kind === 'legal') {
+    const content = page(selection.page, locale)
+    return {
+      id: selection.id,
+      title: content.title,
+      eyebrow: t.nav.legal,
+      role: null,
+      dates: null,
+      summary: content.summary,
+      body: content.body,
+      technologies: [],
+      links: [],
+      confidential: false,
+      placeholder: false,
+    }
+  }
+
   const project = selection.project
   const content = doc(project, locale)
   const { start, end } = project.dates

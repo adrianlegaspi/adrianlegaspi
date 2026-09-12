@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { usePortfolio } from '@/app/providers/portfolio'
 import { doc, projects } from '@/content/registry'
-import { page } from '@/content/pages'
+import { page, type PageId } from '@/content/pages'
 import { profile } from '@/data/profile'
 import { LanguageSelector } from '@/components/navigation/LanguageSelector'
 import { ConfidentialProjectNotice } from '@/components/project/ConfidentialProjectNotice'
@@ -17,6 +17,7 @@ export function HtmlFallback() {
   const { pathname } = useLocation()
   const about = page('about', locale)
   const contact = page('contact', locale)
+  const legalPages: PageId[] = ['privacy', 'tos', 'eula', 'copyright']
 
   // The route still selects something, so jump to its section instead of the top.
   useEffect(() => {
@@ -33,6 +34,7 @@ export function HtmlFallback() {
     })),
     { href: '#about', label: t.nav.about },
     { href: '#contact', label: t.nav.contact },
+    ...legalPages.map((id) => ({ href: `#${id}`, label: page(id, locale).title })),
   ]
 
   const contactLinks: { label: string; href: string; newTab?: boolean }[] = [
@@ -117,6 +119,18 @@ export function HtmlFallback() {
           ))}
         </ul>
       </article>
+
+      {legalPages.map((id) => {
+        const content = page(id, locale)
+        return (
+          <article key={id} id={id} className="mt-12">
+            <Text as="h2" tone="title" className="text-xl">
+              {content.title}
+            </Text>
+            <Prose>{content.body}</Prose>
+          </article>
+        )
+      })}
     </div>
   )
 }

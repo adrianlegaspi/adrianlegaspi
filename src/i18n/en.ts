@@ -10,6 +10,7 @@ export const en = {
     cv: 'CV',
     menu: 'Menu',
     home: 'Reset view',
+    legal: 'Legal',
   },
 
   city: {

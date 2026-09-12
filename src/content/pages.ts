@@ -1,8 +1,12 @@
 import { parseFrontmatter } from './frontmatter'
 import { locales, type Locale } from '@/i18n'
 
-/** Static pages that are reached from a landmark rather than from a project. */
-export type PageId = 'about' | 'contact'
+/**
+ * Static pages that are reached from a landmark, plus the legal pages required
+ * for app store submission, which are reached by direct URL only and have no
+ * building in the city.
+ */
+export type PageId = 'about' | 'contact' | 'privacy' | 'tos' | 'eula' | 'copyright'
 
 export interface Page {
   title: string
@@ -10,7 +14,7 @@ export interface Page {
   body: string
 }
 
-const modules = import.meta.glob<string>('./{about,contact}/*.md', {
+const modules = import.meta.glob<string>('./{about,contact,privacy,tos,eula,copyright}/*.md', {
   eager: true,
   query: '?raw',
   import: 'default',
@@ -39,6 +43,10 @@ function load(id: PageId): Record<Locale, Page> {
 const pages: Record<PageId, Record<Locale, Page>> = {
   about: load('about'),
   contact: load('contact'),
+  privacy: load('privacy'),
+  tos: load('tos'),
+  eula: load('eula'),
+  copyright: load('copyright'),
 }
 
 export const page = (id: PageId, locale: Locale): Page => pages[id][locale] ?? pages[id].en

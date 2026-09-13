@@ -28,14 +28,16 @@ const KINOKO_SIGN_POSITION: [number, number, number] = (() => {
 })()
 
 /**
- * Cardom Quest's block is built out on every side, so its sign stands at the
- * edge of the building's own lot (its scale leaves a margin around the model)
- * rather than a free neighboring one, facing the avenue to its east.
+ * Cardom Quest's building model (raw mesh, before its 0.78 scale) is nearly
+ * as wide as its single-lot footprint, so there's almost no clearance beside
+ * it — but its footprint is 2 lots deep while the scaled model only fills the
+ * middle of that span, leaving a real gap at the lot's north edge. The sign
+ * stands there instead, still facing the avenue to the east.
  */
+const CARDOM_SIGN_SCALE = 0.7
 const CARDOM_SIGN_POSITION: [number, number, number] = (() => {
-  const [wx, wz] = lotToWorld(12, 5)
-  const [, wz2] = lotToWorld(12, 6)
-  return [wx + 0.4, 0, (wz + wz2) / 2]
+  const [wx, wz] = lotToWorld(12.3, 4.76)
+  return [wx, 0, wz]
 })()
 
 export function CityScene() {
@@ -76,6 +78,7 @@ export function CityScene() {
       <PylonSign
         position={CARDOM_SIGN_POSITION}
         rotation={90}
+        scale={CARDOM_SIGN_SCALE}
         texture="/textures/cardom-quest-sign.png"
       />
       <Traffic layout={layout} moving={!reducedMotion} lights={preset.vehicleLights} />

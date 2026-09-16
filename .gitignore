@@ -1,8 +1,9 @@
 # Dependencies
 node_modules/
 package-lock.json
-pnpm-lock.yaml
 yarn.lock
+# pnpm-lock.yaml is committed on purpose. Vercel builds with no lockfile resolve
+# caret ranges fresh, which already broke a deploy on a react minor release.
 
 # Build output
 dist/

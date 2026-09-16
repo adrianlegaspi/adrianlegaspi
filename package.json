@@ -2,6 +2,7 @@
   "name": "legaspi",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.21.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build && vite build --ssr src/prerender/entry.tsx --outDir dist-ssr && node tools/prerender.mjs",
@@ -16,8 +17,8 @@
     "@react-three/fiber": "^9.7.0",
     "@tailwindcss/vite": "^4.3.3",
     "lucide-react": "^1.43.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "react": "~19.2.8",
+    "react-dom": "~19.2.8",
     "react-markdown": "^10.1.0",
     "react-photo-album": "^3.6.1",
     "react-router-dom": "^7.18.3",

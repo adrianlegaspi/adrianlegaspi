@@ -19,7 +19,7 @@ export const es: Strings = {
   },
 
   city: {
-    hint: 'Explora la ciudad. Cada edificio representa algo que he construido.',
+    hint: 'Explora la ciudad. Interactúa con los edificios marcados para conocer mi trabajo.',
     dismissHint: 'Cerrar aviso',
     loading: 'Construyendo la ciudad…',
     canvasLabel: 'Ciudad 3D interactiva. Todos los proyectos también aparecen en la navegación.',

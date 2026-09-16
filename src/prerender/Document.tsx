@@ -64,7 +64,7 @@ function Home({ locale }: { locale: Locale }) {
         {t.name}
       </Text>
       <Text tone="meta">{t.title}</Text>
-      <Text className="mt-3">{t.city.hint}</Text>
+      <Text className="mt-3">{t.city.canvasLabel}</Text>
 
       <section className="mt-10">
         <Text as="h2" tone="title" className="text-xl">

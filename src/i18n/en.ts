@@ -22,7 +22,7 @@ export const en = {
   },
 
   city: {
-    hint: "Explore the city. Each landmark is something I've built.",
+    hint: 'Explore the city. Interact with the marked buildings to learn about my work.',
     dismissHint: 'Dismiss hint',
     loading: 'Building the city…',
     canvasLabel: 'Interactive 3D city. Every project is also listed in the navigation.',

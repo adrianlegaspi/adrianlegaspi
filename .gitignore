@@ -43,3 +43,6 @@ temp/
 rendercv_output/
 public/cv/*.typ
 public/cover-letter/*.typ
+
+# Vercel CLI link (project and org ids)
+.vercel/

@@ -3,6 +3,8 @@ import type { Strings } from './index'
 export const es: Strings = {
   name: 'Adrian Legaspi',
   title: 'Senior Software Engineer',
+  tagline:
+    'Ingeniero de software senior con más de nueve años construyendo sistemas en producción. Explora la ciudad: los edificios representan trabajo que he construido.',
 
   nav: {
     projects: 'Proyectos',
@@ -71,6 +73,7 @@ export const es: Strings = {
     github: 'GitHub',
     x: 'X',
     cv: 'CV',
+    cvLanguage: 'inglés',
   },
 
   time: {

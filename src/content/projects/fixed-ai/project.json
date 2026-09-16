@@ -13,9 +13,6 @@
     "scale": 1
   },
   "technologies": ["React Native", "Expo", "TypeScript", "Fastify", "Supabase", "Gemini"],
-  "links": {
-    "playStore": "https://play.google.com/store/apps/details?id=dev.adrianlegaspi.fixedai"
-  },
   "icon": "/projects/fixed-ai/icon.png",
   "media": [
     {

@@ -15,5 +15,6 @@ export const profile = {
   github: 'https://github.com/adrianlegaspi',
   x: 'https://x.com/adrianlegaspi_',
   cv: `/cv/${cvVersion.pdf}`,
+  cvSizeBytes: cvVersion.pdfSizeBytes,
   site: 'https://legaspi.dev',
 } as const

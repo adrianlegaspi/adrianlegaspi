@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { panelContent } from '@/app/panelContent'
 import { legalRoutes, localized, paths } from '@/app/routes'
-import { absolute, seoFor } from '@/app/seo'
+import { absolute, ogLocale, seoFor } from '@/app/seo'
 import { selectionFor } from '@/app/selection'
 import { doc, projects } from '@/content/registry'
 import { page } from '@/content/pages'
@@ -56,7 +56,10 @@ function render(locale: Locale, path: string): Prerendered {
     `<meta property="og:title" content="${escape(title)}" />`,
     `<meta property="og:description" content="${escape(description)}" />`,
     `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:locale" content="${locale}" />`,
+    `<meta property="og:locale" content="${ogLocale[locale]}" />`,
+    ...locales
+      .filter((value) => value !== locale)
+      .map((value) => `<meta property="og:locale:alternate" content="${ogLocale[value]}" />`),
     ...alternates.map((a) => `<link rel="alternate" hreflang="${a.hreflang}" href="${a.href}" />`),
     `<link rel="alternate" hreflang="x-default" href="${absolute('en', path)}" />`,
     jsonScript(graph(selection, locale, path, title, content?.title ?? t.name)),
@@ -88,7 +91,7 @@ export function llms(): string {
   return [
     `# ${t.name}`,
     '',
-    `> ${t.name}, ${t.title}. Portfolio presented as an interactive 3D city, where every building is a project. Every page is also available as plain HTML at the URLs below, in English and Spanish (/es).`,
+    `> ${t.name}, ${t.title}. Portfolio presented as an interactive 3D city, where the buildings represent work I have built. Every page is also available as plain HTML at the URLs below, in English and Spanish (/es).`,
     '',
     '## Projects',
     '',

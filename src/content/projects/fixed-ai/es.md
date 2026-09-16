@@ -1,7 +1,7 @@
 ---
 title: FixedAI
 role: Founder / Engineer
-label: En vivo, sin soporte
+label: Proyecto personal
 summary: Una app móvil que convierte una foto y un prompt en instrucciones de reparación paso a paso para objetos cotidianos.
 ---
 
@@ -35,5 +35,5 @@ generación libre.
 
 ## Resultado
 
-Publicada en la Play Store, pero sin soporte desde principios de 2026, así que no se
-garantiza su funcionamiento actual. El código de la app sigue en el repositorio.
+Se publicó en la Play Store y ya no aparece ahí, así que no hay enlace de instalación.
+Quedó sin soporte a principios de 2026. El código de la app sigue en el repositorio.

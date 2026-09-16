@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /cover-letter/
 
 # Answer engines. Covered by the rule above; named so the intent is explicit.
 User-agent: GPTBot
@@ -11,5 +12,6 @@ User-agent: PerplexityBot
 User-agent: Google-Extended
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /cover-letter/
 
 Sitemap: https://legaspi.dev/sitemap.xml

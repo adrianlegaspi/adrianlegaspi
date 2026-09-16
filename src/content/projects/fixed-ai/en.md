@@ -1,7 +1,7 @@
 ---
 title: FixedAI
 role: Founder / Engineer
-label: Live, Unsupported
+label: Personal Project
 summary: A mobile app that turns a photo and a prompt into step-by-step repair instructions for everyday objects.
 ---
 
@@ -33,5 +33,5 @@ Gemini calls to typed operations validated before use rather than freeform gener
 
 ## Outcome
 
-Published on the Play Store, but it has had no support since early 2026, so current
-functionality is not guaranteed. The app code is still in the repository.
+Shipped to the Play Store and no longer listed there, so there is no install link. It went
+unsupported in early 2026. The app code is still in the repository.

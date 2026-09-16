@@ -3,6 +3,9 @@ import { locales, type Locale, type Strings } from '@/i18n'
 import { localized } from './routes'
 import type { PanelContent } from './panelContent'
 
+/** Open Graph wants language_TERRITORY, so a bare locale code is not enough. */
+export const ogLocale: Record<Locale, string> = { en: 'en_US', es: 'es_ES' }
+
 /** Absolute URL for a canonical path in one locale. */
 export const absolute = (locale: Locale, path: string) => {
   const url = `${profile.site}${localized(locale, path)}`
@@ -16,7 +19,7 @@ export function seoFor(content: PanelContent | null, t: Strings, locale: Locale,
   const subject = content && content.title === t.name ? content.eyebrow : content?.title
   return {
     title: subject ? `${subject} - ${t.name}` : `${t.name} - ${t.title}`,
-    description: content?.summary || t.city.hint,
+    description: content?.summary || t.tagline,
     url: absolute(locale, path),
     /** hreflang pairs. Each locale points at every locale, itself included. */
     alternates: locales.map((value) => ({ hreflang: value, href: absolute(value, path) })),
@@ -53,7 +56,9 @@ export function applySeo(content: PanelContent | null, t: Strings, locale: Local
   set('meta[property="og:description"]', 'meta', 'content', description)
   set('meta[property="og:url"]', 'meta', 'content', url)
   set('meta[property="og:type"]', 'meta', 'content', 'website')
-  set('meta[property="og:locale"]', 'meta', 'content', locale)
+  set('meta[property="og:locale"]', 'meta', 'content', ogLocale[locale])
+  const other = locales.find((value) => value !== locale)
+  if (other) set('meta[property="og:locale:alternate"]', 'meta', 'content', ogLocale[other])
   for (const alternate of alternates) {
     const selector = `link[rel="alternate"][hreflang="${alternate.hreflang}"]`
     set(selector, 'link', 'href', alternate.href)

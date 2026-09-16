@@ -47,7 +47,12 @@ export function contactLinks(locale: Locale): PanelContent['links'] {
     { kind: 'linkedin', label: t.contact.linkedin, href: profile.linkedin },
     { kind: 'github', label: t.contact.github, href: profile.github },
     { kind: 'x', label: t.contact.x, href: profile.x },
-    { kind: 'cv', label: t.contact.cv, href: profile.cv },
+    {
+      kind: 'cv',
+      // The CV is only written in English, so the Spanish panel has to say so.
+      label: `${t.contact.cv} (${t.contact.cvLanguage}, ${Math.round(profile.cvSizeBytes / 1024)} KB)`,
+      href: profile.cv,
+    },
   ]
 }
 

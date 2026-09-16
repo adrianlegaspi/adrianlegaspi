@@ -2,6 +2,12 @@ export const en = {
   name: 'Adrian Legaspi',
   // The professional title stays in English in both locales for international positioning.
   title: 'Senior Software Engineer',
+  /**
+   * Home page description. The city hint is written for someone already looking
+   * at the city, so it cannot double as the search result for Adrian's name.
+   */
+  tagline:
+    'Senior software engineer with more than nine years building production systems. Explore the city: the buildings represent work I have built.',
 
   nav: {
     projects: 'Projects',
@@ -70,6 +76,7 @@ export const en = {
     github: 'GitHub',
     x: 'X',
     cv: 'CV',
+    cvLanguage: 'English',
   },
 
   time: {

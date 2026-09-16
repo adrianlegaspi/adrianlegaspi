@@ -6,7 +6,16 @@ import type { Selection } from './selection'
 
 /** What a panel link points at, so the UI can give it the right icon. */
 export type LinkKind =
-  'website' | 'appStore' | 'playStore' | 'github' | 'demo' | 'email' | 'linkedin' | 'x' | 'cv'
+  | 'website'
+  | 'appStore'
+  | 'playStore'
+  | 'github'
+  | 'npm'
+  | 'demo'
+  | 'email'
+  | 'linkedin'
+  | 'x'
+  | 'cv'
 
 export interface PanelContent {
   id: string
@@ -22,7 +31,6 @@ export interface PanelContent {
   links: { kind: LinkKind; label: string; href: string }[]
   media: { src: string; alt: string; width: number; height: number }[]
   confidential: boolean
-  placeholder: boolean
 }
 
 const year = (value: string) => value.slice(0, 4)
@@ -63,7 +71,6 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
       links: selection.landmark.page === 'contact' ? contactLinks(locale) : [],
       media: [],
       confidential: false,
-      placeholder: false,
     }
   }
 
@@ -82,7 +89,6 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
       links: [],
       media: [],
       confidential: false,
-      placeholder: false,
     }
   }
 
@@ -100,6 +106,7 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
     links.push({ kind: 'playStore', label: t.panel.playStore, href: project.links.playStore })
   if (project.links.github)
     links.push({ kind: 'github', label: t.panel.github, href: project.links.github })
+  if (project.links.npm) links.push({ kind: 'npm', label: t.panel.npm, href: project.links.npm })
   if (project.links.demo)
     links.push({ kind: 'demo', label: t.panel.demo, href: project.links.demo })
 
@@ -116,6 +123,5 @@ export function panelContent(selection: Selection, locale: Locale): PanelContent
     links,
     media: project.media,
     confidential: project.confidential,
-    placeholder: content.placeholder,
   }
 }

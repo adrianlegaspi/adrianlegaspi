@@ -14,6 +14,8 @@ export function Menu({
   variant = 'nav',
   active = false,
   width = 'w-64',
+  scrollable = false,
+  header,
   children,
 }: {
   label: ReactNode
@@ -22,6 +24,10 @@ export function Menu({
   /** Current route or selected value, so a closed menu still reads as active. */
   active?: boolean
   width?: string
+  /** Constrain long menus to the viewport and scroll their item list. */
+  scrollable?: boolean
+  /** Optional controls that sit outside the menu-item semantics. */
+  header?: ReactNode
   children: (close: () => void) => ReactNode
 }) {
   const [open, setOpen] = useState(false)
@@ -63,15 +69,21 @@ export function Menu({
       </Button>
       {open && (
         <div
-          role="menu"
-          aria-label={ariaLabel}
           className={cx(
-            'absolute right-0 z-30 mt-1 max-h-[60vh] overflow-y-auto',
+            'absolute right-0 z-30 mt-1 flex max-w-[calc(100vw-2rem)] flex-col',
+            scrollable && 'max-h-[60vh]',
             width,
             surface.menu,
           )}
         >
-          {children(() => setOpen(false))}
+          {header && <div className="mb-1.5 shrink-0 border-b border-line pb-1.5">{header}</div>}
+          <div
+            role="menu"
+            aria-label={ariaLabel}
+            className={cx(scrollable && 'min-h-0 overflow-y-auto')}
+          >
+            {children(() => setOpen(false))}
+          </div>
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-# 02 — Technology Stack & Repository Structure
+# 02: Technology Stack & Repository Structure
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §5–§6.
 
@@ -145,7 +145,6 @@ src/
 │   │   │   ├── en.md
 │   │   │   └── es.md
 │   │   ├── erp/
-│   │   ├── ai-automation/
 │   │   ├── casa-del-bombero/
 │   │   ├── fixed-ai/
 │   │   ├── depguard/

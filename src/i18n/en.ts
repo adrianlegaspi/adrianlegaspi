@@ -11,6 +11,8 @@ export const en = {
     menu: 'Menu',
     home: 'Reset view',
     legal: 'Legal',
+    searchProjects: 'Search projects',
+    noMatchingProjects: 'No matching projects',
   },
 
   city: {
@@ -31,6 +33,7 @@ export const en = {
     appStore: 'App Store',
     playStore: 'Google Play',
     github: 'Source',
+    npm: 'npm package',
     demo: 'Demo',
     selected: 'Selected',
     expand: 'Expand',
@@ -59,7 +62,10 @@ export const en = {
   contact: {
     heading: "There's room for one more.",
     cta: "Let's build something together.",
+    available: 'Open to roles and selected projects',
     email: 'Email',
+    copyEmail: 'Copy email',
+    emailCopied: 'Email copied to clipboard',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     x: 'X',
@@ -77,6 +83,11 @@ export const en = {
 
   language: {
     label: 'Language',
+  },
+
+  sound: {
+    mute: 'Mute city sounds',
+    unmute: 'Turn on city sounds',
   },
 
   fallback: {

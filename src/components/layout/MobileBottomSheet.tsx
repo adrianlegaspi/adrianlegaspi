@@ -3,6 +3,7 @@ import { ChevronsDownUp, ChevronsUpDown, GripHorizontal, X } from 'lucide-react'
 import { usePortfolio } from '@/app/providers/portfolio'
 import type { PanelContent } from '@/app/panelContent'
 import { ProjectPanel } from '@/components/project/ProjectPanel'
+import { ProjectLinks } from '@/components/project/ProjectLinks'
 import { Button, control, cx, icon, surface } from '@/design-system'
 import { usePanel } from './usePanel'
 
@@ -39,7 +40,7 @@ export function MobileBottomSheet({
     >
       {content && (
         <>
-          <div className="flex items-center gap-2 px-4 pt-3">
+          <div className="flex shrink-0 items-center gap-2 px-4 pt-3">
             <button
               type="button"
               onClick={() => setExpandedId(expanded ? null : (content?.id ?? null))}
@@ -59,9 +60,14 @@ export function MobileBottomSheet({
               <span className="sr-only">{t.panel.close}</span>
             </Button>
           </div>
-          <div className="touch-pan-y overflow-y-auto overscroll-contain px-4 pt-2 pb-6">
+          <div className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain px-4 pt-2 pb-6">
             <ProjectPanel content={content} />
           </div>
+          {content.links.length > 0 && (
+            <footer className="shrink-0 border-t border-line px-4 py-3">
+              <ProjectLinks content={content} />
+            </footer>
+          )}
         </>
       )}
     </aside>

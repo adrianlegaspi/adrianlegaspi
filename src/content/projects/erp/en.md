@@ -2,15 +2,14 @@
 title: HR / ATS ERP Platform
 role: Tech Lead
 label: Professional Experience
-summary: An agentic HR platform managing 30 employees and supporting analysis of prospective roles and candidates.
-placeholder: true
+summary: An agentic HR platform managing 30 employees, with document-grounded AI workflows for prospective roles and candidate analysis.
 ---
 
 ## Context
 
-An internal HR platform for Jointech AI that manages 30 employees and supports analysis
-of prospective roles and candidates. I led its architecture and implementation with a
-team of five engineers.
+During summer 2025, I led the architecture and implementation of an internal HR platform
+for Jointech AI with a team of five engineers. It manages 30 employees and supports
+analysis of prospective roles and candidates.
 
 ## The problem
 

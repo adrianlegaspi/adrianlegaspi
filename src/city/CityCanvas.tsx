@@ -42,7 +42,7 @@ export function CityCanvas() {
 
   /**
    * Only buildings carry pointer handlers, so a "missed" click is any click on
-   * the city that was not a building — ground, roads, scenery or sky — and
+   * the city that was not a building: ground, roads, scenery or sky, and
    * dismisses the panel. A pointer that travelled was a camera pan, not a click.
    */
   const onPointerMissed = (event: MouseEvent) => {

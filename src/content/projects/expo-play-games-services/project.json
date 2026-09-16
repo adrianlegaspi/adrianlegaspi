@@ -1,0 +1,20 @@
+{
+  "id": "expo-play-games-services",
+  "status": "published",
+  "type": "personal",
+  "featured": false,
+  "confidential": false,
+  "dates": { "start": "2026", "end": null },
+  "building": {
+    "model": "office-g",
+    "grid": [15, 4],
+    "footprint": [1, 1],
+    "rotation": 270,
+    "scale": 1
+  },
+  "technologies": ["Expo Modules", "React Native", "TypeScript", "Kotlin", "Android"],
+  "links": {
+    "github": "https://github.com/adrianlegaspi/expo-play-games-services",
+    "npm": "https://www.npmjs.com/package/expo-play-games-services"
+  }
+}

@@ -85,7 +85,7 @@ export function GlowMaterial({
   )
 }
 
-/** Lamp offsets in car space — the kit models all face +Z — and their sizes. */
+/** Lamp offsets and sizes in car space. The kit models all face +Z. */
 const LAMPS = [
   { x: -0.12, y: 0.11, z: 0.33, size: 0.22, color: HEADLIGHT },
   { x: 0.12, y: 0.11, z: 0.33, size: 0.22, color: HEADLIGHT },

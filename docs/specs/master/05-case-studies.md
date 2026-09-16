@@ -1,4 +1,4 @@
-# 05 — Case Studies, Confidentiality & Positioning
+# 05: Case Studies, Confidentiality & Positioning
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §24–§28.
 
@@ -44,6 +44,12 @@ Do not merely list technology logos.
 Use measurable results when legitimately available.
 
 Otherwise describe real operational/product outcomes.
+
+### Games
+
+Games use promotional copy: premise, play loop, highlights and availability.
+
+Do not force product case-study headings such as The problem or What I did onto games.
 
 ### Media
 
@@ -154,7 +160,8 @@ This is a feature of the concept, not a workaround.
 
 Primary identity:
 
-# Adrian Legaspi  
+# Adrian Legaspi
+
 ## Senior Software Engineer
 
 The copy should establish:

@@ -122,6 +122,13 @@ const CLEARED = 0.8
 
 export const isCrossingClosed = (x: number, z: number) => closedCrossings.has(`${x},${z}`)
 
+/** How much of a train currently overlaps the visible rail line. */
+export function railOverlap(nose: number, tail: number) {
+  const low = Math.min(nose, tail)
+  const high = Math.max(nose, tail)
+  return Math.max(0, Math.min(high, RAIL_LENGTH) - Math.max(low, 0))
+}
+
 /** Closes every crossing a train stretching from `tail` to `nose` has claimed. */
 export function closeCrossings(nose: number, tail: number) {
   const way = Math.sign(nose - tail) || 1

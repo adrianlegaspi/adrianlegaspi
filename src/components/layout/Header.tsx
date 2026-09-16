@@ -3,6 +3,7 @@ import { usePortfolio } from '@/app/providers/portfolio'
 import { localized } from '@/app/routes'
 import { LanguageSelector } from '@/components/navigation/LanguageSelector'
 import { MainNavigation } from '@/components/navigation/MainNavigation'
+import { SoundToggle } from '@/components/navigation/SoundToggle'
 import { TimeThemeSelector } from '@/components/navigation/TimeThemeSelector'
 import { cx, focusRing, surface, Text } from '@/design-system'
 
@@ -32,6 +33,7 @@ export function Header() {
             <span aria-hidden className="mx-1 h-6 w-px bg-line" />
           </>
         )}
+        <SoundToggle />
         <TimeThemeSelector />
         <LanguageSelector />
       </div>

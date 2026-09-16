@@ -12,5 +12,6 @@ test('freight consist uses train-kit carriage models', async () => {
   for (const model of ['container-blue', 'container-green', 'tank-large', 'container-red']) {
     assert.match(wagons, new RegExp(`railAssets\\['${model}'\\]`))
   }
+  assert.match(source, /url={railAssets\.diesel}/)
   assert.doesNotMatch(source, /<(?:box|cylinder)Geometry/)
 })

@@ -24,7 +24,7 @@ const key = (x: number, z: number) => `${x},${z}`
 
 /**
  * Every lot a car may drive on: the avenues of the layout map plus the boundary
- * road. Plazas and parks are deliberately left out — roads have no simulation
+ * road. Plazas and parks are deliberately left out. Roads have no simulation
  * purpose beyond this (spec §20).
  */
 export function roadNetwork() {
@@ -142,7 +142,7 @@ const PULL_SECONDS = 0.55
  * Control point of the arc a car takes across one lot. A turn bends around the
  * corner where the two lane centre-lines meet, so the car enters and leaves
  * exactly along its lane; a straight run gets the midpoint, which collapses the
- * curve onto the lane itself — with the lot centre instead, cars weaved down
+ * curve onto the lane itself. With the lot centre instead, cars weaved down
  * every avenue and stood askew when parked. A U-turn, only reachable from a dead
  * end, swings through the middle of the lot.
  */

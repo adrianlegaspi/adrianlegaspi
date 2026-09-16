@@ -4,15 +4,14 @@ company: Viasat
 role: Software Engineer
 label: Experiencia profesional
 summary: Plataforma interna centralizada de seguridad para más de 4,000 usuarios en una empresa global de comunicaciones satelitales.
-placeholder: true
 ---
 
 ## Contexto
 
-Viasat opera infraestructura de comunicaciones satelitales a escala global. Trabajo en
-una plataforma interna centralizada que reúne hallazgos de seguridad de distintos
-escáneres y fuentes de activos dentro de un modelo conectado. La plataforma sirve a más
-de 4,000 usuarios internos, no a clientes externos.
+Desde agosto de 2022 trabajo en una plataforma interna centralizada de Viasat que reúne
+hallazgos de seguridad de distintos escáneres y fuentes de activos dentro de un modelo
+conectado. Viasat opera infraestructura de comunicaciones satelitales a escala global. La
+plataforma sirve a más de 4,000 usuarios internos, no a clientes externos.
 
 ## Lo que hice
 

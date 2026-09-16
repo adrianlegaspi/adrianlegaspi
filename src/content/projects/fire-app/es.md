@@ -4,7 +4,6 @@ company: Bomberos de Tijuana
 role: Software Engineer
 label: Experiencia profesional
 summary: Aplicación digital para registrar incidentes prehospitalarios, usada por más de 180 bomberos y paramédicos en 18 estaciones.
-placeholder: true
 ---
 
 ## Contexto
@@ -27,11 +26,8 @@ estaciones separadas y un grupo amplio de usuarios de campo.
 ## Aspectos técnicos
 
 El reto operativo fue el alcance: un mismo flujo de reportes debía servir a más de 180
-usuarios de campo en 18 ubicaciones. Los detalles adicionales de implementación están en
-confirmación antes de publicarse.
+usuarios de campo en 18 ubicaciones.
 
 ## Resultado
 
 Usado por más de 180 bomberos y paramédicos en las 18 estaciones de Bomberos de Tijuana.
-Las fechas exactas y la redacción pública adicional están en confirmación antes de
-publicarse.

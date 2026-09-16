@@ -44,7 +44,7 @@ export const cityBounds = {
 /**
  * The district is ringed rather than cut off: a boundary road closes every
  * avenue that would otherwise end in mid-air, and a green belt finishes the
- * base (spec §20 — the edge of the environment is deliberate).
+ * base (spec §20: the edge of the environment is deliberate).
  *
  * The road hugs the grid on the west, north and south. Its east side leaves one
  * lot for the rail line: every avenue leaving the grid there crosses the track

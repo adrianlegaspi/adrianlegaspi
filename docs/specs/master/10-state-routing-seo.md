@@ -1,4 +1,4 @@
-# 10 — State, Routing, SEO & Analytics
+# 10: State, Routing, SEO & Analytics
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §30, §35–§37.
 
@@ -10,8 +10,8 @@ Application state should include:
 
 ```ts
 interface PortfolioState {
-  locale: "en" | "es"
-  timeMode: "auto" | "day" | "sunset" | "night"
+  locale: 'en' | 'es'
+  timeMode: 'auto' | 'day' | 'sunset' | 'night'
   selectedProjectId: string | null
   hoveredProjectId: string | null
 }

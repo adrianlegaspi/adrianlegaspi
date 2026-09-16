@@ -8,17 +8,17 @@ placeholder: true
 
 ## About
 
-I build software products end to end — backend, frontend and the decisions in between.
+I build software products end to end: backend, frontend and the decisions in between.
 Most of my work has been on systems people use daily at their jobs: internal platforms,
 security tooling, operational applications. The kind of software that is judged on
 whether it holds up, not on whether it demos well.
 
 ## What I do
 
-- **Full-stack product engineering** — Node.js and TypeScript services, React front ends, PostgreSQL.
-- **Architecture** — multi-tenant systems, data modelling, service boundaries that survive contact with new requirements.
-- **Technical leadership** — owning delivery as tech lead, breaking work into shippable slices, code review as teaching.
-- **AI integration** — LLM features that are validated, typed and useful in production rather than impressive in a demo.
+- **Full-stack product engineering**: Node.js and TypeScript services, React front ends, PostgreSQL.
+- **Architecture**: multi-tenant systems, data modelling, service boundaries that survive contact with new requirements.
+- **Technical leadership**: owning delivery as tech lead, breaking work into shippable slices, code review as teaching.
+- **AI integration**: LLM features that are validated, typed and useful in production rather than impressive in a demo.
 
 ## How I work
 

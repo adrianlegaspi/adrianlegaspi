@@ -3,37 +3,24 @@ title: Kinoko Merge
 role: Solo developer
 label: Indie Game
 summary: A calm 3D merge game where you toss mushrooms into a pit and combine them into rarer ones.
-placeholder: true
 ---
 
-## Context
+## Toss, bounce, merge
 
-Kinoko Merge is a self-published mobile merge game released in July 2026. It launched as
-Kinoko Merge on the App Store and Shroom Merge on Google Play. Design, code and release
-were all mine.
+Throw mushrooms into the pit. Aim each toss, use wall bounces and combine matches to
+discover all ten mushrooms, from Tiny Button to Ancient Mushroom.
 
-## The problem
+## A calm run
 
-Merge games usually drop pieces straight down from the top of the board, which turns them
-into a waiting game. The idea here was to put the player at the rim of the pit and make
-the throw itself the skill: aim, judge the bounce, land the mushroom where you want it.
+No timer. Take a few quiet minutes, use Shroom Bomb, Shake, Fertilizer or remove, then
+keep merging.
 
-## What I did
+## Made for mobile
 
-- Built the game in Godot and shipped it to both stores.
-- Designed the toss-and-bounce mechanic, the merge chain of ten mushroom types — from the
-  Tiny Button up to the legendary Ancient Mushroom — and the power-ups: Shroom Bomb,
-  Shake, Fertilizer and remove.
-- Kept it timer-free, so a run is a few calm minutes rather than a session.
-- Localised it in English and Spanish.
+Cel-shaded low-poly art and a gentle seaside soundtrack keep the pit readable on phone
+screens. Made solo in Godot and localised in English and Spanish.
 
-## Technical highlights
+## Play now
 
-The pit is soft-walled and the mushrooms are deliberately bouncy, so a wall bounce is a
-usable aiming tool rather than a mistake. The look is cel-shaded low-poly over a gentle
-seaside soundtrack, chosen to stay readable on a phone screen.
-
-## Outcome
-
-Released in July 2026 on iOS — iPhone, iPad and Apple Silicon Macs — and Android. Free,
-with ads.
+Released in July 2026 as Kinoko Merge on the App Store and Shroom Merge on Google Play.
+Free with ads.

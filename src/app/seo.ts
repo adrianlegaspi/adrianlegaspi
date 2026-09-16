@@ -15,7 +15,7 @@ export function seoFor(content: PanelContent | null, t: Strings, locale: Locale,
   // suffix, so that one page is titled by its section instead.
   const subject = content && content.title === t.name ? content.eyebrow : content?.title
   return {
-    title: subject ? `${subject} — ${t.name}` : `${t.name} — ${t.title}`,
+    title: subject ? `${subject} - ${t.name}` : `${t.name} - ${t.title}`,
     description: content?.summary || t.city.hint,
     url: absolute(locale, path),
     /** hreflang pairs. Each locale points at every locale, itself included. */

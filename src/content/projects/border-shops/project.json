@@ -1,0 +1,43 @@
+{
+  "id": "border-shops",
+  "status": "published",
+  "type": "client",
+  "featured": false,
+  "confidential": false,
+  "dates": { "start": "2018", "end": "2020" },
+  "building": {
+    "model": "office-h",
+    "grid": [9, 9],
+    "footprint": [1, 1],
+    "rotation": 180,
+    "scale": 1
+  },
+  "technologies": ["Cordova", "PHP", "MySQL"],
+  "links": { "website": null, "github": null },
+  "media": [
+    {
+      "src": "/projects/border-shops/screen-0.jpg",
+      "alt": "Border Shops Employees login screen",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "src": "/projects/border-shops/screen-1.jpg",
+      "alt": "Border Shops Employees point-of-sale screen with a product field and cart",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "src": "/projects/border-shops/screen-2.jpg",
+      "alt": "Border Shops Employees notification compose screen",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "src": "/projects/border-shops/screen-3.jpg",
+      "alt": "Border Shops Employees sale registration screen with totals",
+      "width": 720,
+      "height": 1280
+    }
+  ]
+}

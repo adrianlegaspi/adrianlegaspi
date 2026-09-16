@@ -12,7 +12,7 @@ import {
 
 /**
  * The "next project" lot: a fenced, prepared plot standing in for work that
- * has not happened yet. Nothing is built on it on purpose — the copy says the
+ * has not happened yet. Nothing is built on it on purpose. The copy says the
  * plot is empty, so the site is a poured slab, hoarding and idle equipment.
  */
 const INSET = 0.1

@@ -4,15 +4,14 @@ company: Viasat
 role: Software Engineer
 label: Professional Experience
 summary: A centralized internal security platform serving more than 4,000 users at a global satellite communications company.
-placeholder: true
 ---
 
 ## Context
 
-Viasat operates satellite communications infrastructure at global scale. I work on a
-centralized internal platform that brings security findings from different scanners and
-asset sources into one connected model. The platform serves more than 4,000 internal
-users rather than external customers.
+Since August 2022, I have worked on a centralized internal platform at Viasat that brings
+security findings from different scanners and asset sources into one connected model.
+Viasat operates satellite communications infrastructure at global scale. The platform
+serves more than 4,000 internal users rather than external customers.
 
 ## What I did
 

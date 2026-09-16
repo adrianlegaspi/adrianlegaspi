@@ -3,7 +3,6 @@ title: lacasadelbombero.app
 role: Full-stack Engineer
 label: Client Project
 summary: A custom WordPress plugin that turns wp-admin into an internal client and debt management system for a business selling to firefighters.
-placeholder: true
 ---
 
 ## Context
@@ -11,6 +10,9 @@ placeholder: true
 A business selling equipment to firefighters on credit needed to track clients, payments
 and outstanding debt. I built a custom WordPress plugin that repurposes wp-admin as an
 internal management dashboard, rather than a public site.
+
+Built in late 2024, the system remains in internal use today and receives occasional
+updates.
 
 ## The problem
 
@@ -33,7 +35,7 @@ extending an existing CRM or e-commerce plugin.
 
 ## Outcome
 
-In internal use by the business to manage clients and debt.
+Still in internal use by the business to manage clients and debt, with occasional updates.
 
 ## Confidentiality
 

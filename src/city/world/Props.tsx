@@ -83,7 +83,7 @@ const PLAZA_PLANTERS: Instance[] = [
 /**
  * Street furniture, derived from the hand-authored map rather than listed one by
  * one: the map already says where roads and plazas are, and props only have to
- * decorate them (spec §20 — composition, not interactive clutter). Planting is
+ * decorate them (spec §20: composition, not interactive clutter). Planting is
  * `Greenery`'s job and moving cars are `Traffic`'s.
  */
 function buildProps() {

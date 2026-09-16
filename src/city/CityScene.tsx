@@ -30,7 +30,7 @@ const KINOKO_SIGN_POSITION: [number, number, number] = (() => {
 /**
  * Cardom Quest's building model (raw mesh, before its 0.78 scale) is nearly
  * as wide as its single-lot footprint, so there's almost no clearance beside
- * it — but its footprint is 2 lots deep while the scaled model only fills the
+ * it, but its footprint is 2 lots deep while the scaled model only fills the
  * middle of that span, leaving a real gap at the lot's north edge. The sign
  * stands there instead, still facing the avenue to the east.
  */

@@ -23,7 +23,7 @@ const WEST = 3
  * Which edges a tile connects when it is not rotated, read off the kerbs of the
  * tiles themselves: `road-bend` is open west and south, `road-intersection` is
  * closed to the north. The Kenney road tiles are flat and painted, so their
- * orientation lives in the texture and cannot be derived from the geometry —
+ * orientation lives in the texture and cannot be derived from the geometry, so
  * these two constants are the whole convention.
  */
 const BEND_BASE = [WEST, SOUTH]
@@ -48,28 +48,22 @@ function bendRotation(a: number, b: number) {
   return 0
 }
 
-type Tiles = Record<
-  'straights' | 'crossroads' | 'crossings' | 'plazas' | 'bends' | 'tees',
-  Instance[]
->
+type Tiles = Record<'straights' | 'crossroads' | 'plazas' | 'bends' | 'tees', Instance[]>
 
 const empty = (): Tiles => ({
   straights: [],
   crossroads: [],
-  crossings: [],
   plazas: [],
   bends: [],
   tees: [],
 })
 
-const isCrossroad = (x: number, z: number) =>
-  isRoad(x, z) && (isRoad(x, z - 1) || isRoad(x, z + 1)) && (isRoad(x - 1, z) || isRoad(x + 1, z))
-
 /**
  * Road tiles come from the layout map, so no bends or T-junctions are needed
- * inside the grid: it only contains straights and symmetric four-way crossroads.
- * An unrotated Kenney `road-straight` runs along X — its curbs sit at the two
- * X edges — so a north-south tile is the one turned 90 degrees.
+ * inside the grid. The path variant puts each pedestrian crossing inside its
+ * junction instead of rotating whole sidewalk tiles on adjacent approaches.
+ * An unrotated Kenney `road-straight` runs along X, so a north-south tile turns
+ * 90 degrees.
  */
 function gridTiles(tiles: Tiles) {
   for (let z = 0; z < CITY_DEPTH; z++) {
@@ -91,13 +85,8 @@ function gridTiles(tiles: Tiles) {
       }
 
       const rotation = eastWest ? 0 : deg(90)
-      // A pedestrian crossing on each junction approach.
-      const nextToJunction = eastWest
-        ? isCrossroad(x - 1, z) || isCrossroad(x + 1, z)
-        : isCrossroad(x, z - 1) || isCrossroad(x, z + 1)
       const tile = { position: [wx, 0, wz] as [number, number, number], rotation }
-      if (nextToJunction) tiles.crossings.push(tile)
-      else tiles.straights.push(tile)
+      tiles.straights.push(tile)
     }
   }
 }
@@ -161,7 +150,6 @@ export function Roads() {
     <group>
       <InstancedModel url={roadAssets.straight} instances={tiles.straights} castShadow={false} />
       <InstancedModel url={roadAssets.crossroad} instances={tiles.crossroads} castShadow={false} />
-      <InstancedModel url={roadAssets.crossing} instances={tiles.crossings} castShadow={false} />
       <InstancedModel url={roadAssets.plaza} instances={tiles.plazas} castShadow={false} />
       <InstancedModel url={roadAssets.bend} instances={tiles.bends} castShadow={false} />
       <InstancedModel url={roadAssets.tee} instances={tiles.tees} castShadow={false} />

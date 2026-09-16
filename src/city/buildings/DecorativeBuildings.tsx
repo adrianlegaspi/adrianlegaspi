@@ -9,7 +9,7 @@ import { hash, pick } from '@/city/world/random'
  * Render facades. The Kenney kits are near-white, which left the district
  * reading as one material and gave the interactive buildings nothing to stand
  * out against; a muted per-instance tint keeps the fill as background while
- * costing nothing — the tint is an instance colour, so the draw call is shared.
+ * costing nothing: the tint is an instance colour, so the draw call is shared.
  */
 const TINTS = [
   '#ffffff',

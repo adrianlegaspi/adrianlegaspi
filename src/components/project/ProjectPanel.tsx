@@ -1,13 +1,15 @@
 import { usePortfolio } from '@/app/providers/portfolio'
 import type { PanelContent } from '@/app/panelContent'
-import { Notice, Prose, Tag, Text } from '@/design-system'
+import { Prose, Tag, Text } from '@/design-system'
 import { ConfidentialProjectNotice } from './ConfidentialProjectNotice'
+import { ContactPanel } from './ContactPanel'
 import { MediaGallery } from './MediaGallery'
 import { ProjectHeader } from './ProjectHeader'
-import { ProjectLinks } from './ProjectLinks'
 
 export function ProjectPanel({ content }: { content: PanelContent }) {
   const { t } = usePortfolio()
+
+  if (content.id === 'next-project') return <ContactPanel content={content} />
 
   return (
     <article className="space-y-4">
@@ -35,14 +37,6 @@ export function ProjectPanel({ content }: { content: PanelContent }) {
       </div>
 
       <MediaGallery items={content.media} />
-
-      <ProjectLinks content={content} />
-
-      {import.meta.env.DEV && content.placeholder && (
-        <Notice variant="flag">
-          Placeholder copy — confirm wording, dates and links before publishing.
-        </Notice>
-      )}
     </article>
   )
 }

@@ -1,4 +1,4 @@
-# 01 — Product
+# 01: Product
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §1–§4 and §52.
 

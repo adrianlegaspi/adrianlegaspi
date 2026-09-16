@@ -19,3 +19,9 @@ test('rail path follows the two-lot corner model', () => {
   assert.deepEqual([start.x, start.z], [rail.RAIL_CURVE_MIN[0], rail.RAIL_CURVE_MIN[1] + 2])
   assert.deepEqual([end.x, end.z], [rail.RAIL_CURVE_MIN[0] + 2, rail.RAIL_CURVE_MIN[1]])
 })
+
+test('train sound overlap fades only as the full train leaves', () => {
+  assert.equal(rail.railOverlap(4, 1), 3)
+  assert.equal(rail.railOverlap(rail.RAIL_LENGTH + 2, rail.RAIL_LENGTH - 1), 1)
+  assert.equal(rail.railOverlap(rail.RAIL_LENGTH + 4, rail.RAIL_LENGTH + 1), 0)
+})

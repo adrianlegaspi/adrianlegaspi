@@ -8,14 +8,14 @@ summary: A tool for searching and investigating CVEs and dependency security inf
 ## Context
 
 DepGuard is a personal project for searching and investigating CVEs and dependency
-security data — the kind of lookup you do when a scanner flags a package and you need to
-know whether it actually matters to you.
+security data. It supports the lookup you need when a scanner flags a package and you
+need to know whether it actually matters to you.
 
 ## The problem
 
 Vulnerability data is public but awkward. Advisories, package registries and CVE records
-live in different shapes, and the useful question — does this affect my dependency, at my
-version? — needs all three joined together.
+live in different shapes. Answering whether a vulnerability affects a dependency at a
+specific version requires joining all three.
 
 ## What I did
 
@@ -31,6 +31,6 @@ sourced. Search runs over the normalised layer; provenance stays visible in the 
 
 ## Outcome
 
-Live at depguard-io.vercel.app. Covers eight package ecosystems, including npm, PyPI, Go
-and Maven, over OSV and GHSA advisory data. Still in active development; the source link is
-added below when the repository goes public.
+Live at depguard-io.vercel.app. Covers eight package ecosystems including npm, PyPI, Go
+and Maven over OSV and GHSA advisory data. Still in active development. Source is
+available on GitHub.

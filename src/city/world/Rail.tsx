@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Plane, Vector3, type Group, type Mesh, type MeshStandardMaterial } from 'three'
 import { TRAIN_SCALE, railAssets } from '@/city/assets'
+import { playCrossingHorn, updateTrainAudio } from '@/audio/cityAudio'
 import { InstancedModel } from '@/city/models/InstancedModel'
 import { Model } from '@/city/models/Model'
 import { useModel } from '@/city/models/useModel'
@@ -11,6 +12,8 @@ import {
   RAIL_LENGTH,
   closeCrossings,
   closedCrossings,
+  crossings,
+  railOverlap,
   railPoint,
   railTiles,
 } from './railPath'
@@ -64,6 +67,8 @@ const POOL_Y = 0.17
 
 /** Where a parked train stands when the visitor asked for no motion (spec §29). */
 const PARKED = RAIL_LENGTH * 0.38
+const HORN_APPROACH = 7
+const SOUND_EDGE_FADE = 3
 
 type Variant = keyof typeof CONSIST_LENGTH
 
@@ -79,6 +84,7 @@ function service(elapsed: number) {
   const way = pass % 2 === 0 ? 1 : -1
   const variant: Variant = hash(pass, 7, 3) > 0.55 ? 'freight' : 'commuter'
   return {
+    pass,
     variant,
     running: into < RUN,
     // The nose, from one lip of the base to the other.
@@ -99,6 +105,10 @@ export function Rail({ moving = true, lights = 0 }: { moving?: boolean; lights?:
   const [variant, setVariant] = useState<Variant>('commuter')
   const cars = useRef<Record<Variant, (Group | null)[]>>({ commuter: [], freight: [] })
   const meshes = useRef<(Mesh | null)[]>([])
+  const trainPoint = useRef(new Vector3())
+  const projectedTrainPoint = useRef(new Vector3())
+  const lastPass = useRef(-1)
+  const hornedCrossings = useRef(new Set<number>())
 
   const tiles = useMemo(() => railTiles(), [])
   const { size: curveSize } = useModel(railAssets.curve)
@@ -129,7 +139,7 @@ export function Rail({ moving = true, lights = 0 }: { moving?: boolean; lights?:
   useFrame((state) => {
     const now = moving
       ? service(state.clock.elapsedTime)
-      : { variant: 'commuter' as Variant, running: false, nose: PARKED, way: 1 }
+      : { pass: -1, variant: 'commuter' as Variant, running: false, nose: PARKED, way: 1 }
 
     if (now.variant !== variant) setVariant(now.variant)
 
@@ -138,7 +148,49 @@ export function Rail({ moving = true, lights = 0 }: { moving?: boolean; lights?:
       if (node) placeCar(node, now.nose - now.way * (i + 0.5) * CAR_LENGTH, now.way)
     })
 
-    if (now.running) closeCrossings(now.nose, now.nose - now.way * CONSIST_LENGTH[now.variant])
+    const consistLength = CONSIST_LENGTH[now.variant]
+    const tail = now.nose - now.way * consistLength
+    const soundPosition = now.nose - now.way * consistLength * 0.5
+    const point = railPoint(soundPosition)
+    trainPoint.current.set(point.x, 0.5, point.z)
+    projectedTrainPoint.current.copy(trainPoint.current).project(state.camera)
+    const pan = Math.min(Math.max(projectedTrainPoint.current.x, -1), 1)
+    const distance = state.camera.position.distanceTo(trainPoint.current)
+    const overlap = now.running ? railOverlap(now.nose, tail) : 0
+    const edgeFade = Math.min(overlap / SOUND_EDGE_FADE, 1)
+    const distanceMix = Math.min(Math.max(1 - (distance - 6) / 48, 0.08), 1)
+    const audible = overlap > 0
+    updateTrainAudio(pan, distanceMix * edgeFade, audible)
+
+    if (now.pass !== lastPass.current) {
+      lastPass.current = now.pass
+      hornedCrossings.current.clear()
+    }
+
+    if (audible) {
+      crossings.forEach((crossing, index) => {
+        const distanceAhead = (crossing.s - now.nose) * now.way
+        if (
+          distanceAhead >= 0 &&
+          distanceAhead <= HORN_APPROACH &&
+          hornedCrossings.current.size === 0 &&
+          playCrossingHorn(hash(now.pass, index, 29))
+        ) {
+          hornedCrossings.current.add(index)
+        }
+      })
+
+      const distanceIntoPass = now.way > 0 ? now.nose : RAIL_LENGTH - now.nose
+      if (
+        hornedCrossings.current.size === 0 &&
+        distanceIntoPass >= RAIL_LENGTH * 0.45 &&
+        playCrossingHorn(hash(now.pass, 41, 29))
+      ) {
+        hornedCrossings.current.add(-1)
+      }
+    }
+
+    if (now.running) closeCrossings(now.nose, tail)
     else if (closedCrossings.size) closedCrossings.clear()
   })
 
@@ -213,7 +265,7 @@ export function Rail({ moving = true, lights = 0 }: { moving?: boolean; lights?:
             ref={(node) => {
               meshes.current[COMMUTER.length] = node
             }}
-            url={railAssets.front}
+            url={railAssets.diesel}
             scale={TRAIN_SCALE}
           />
           {lamps(false)}

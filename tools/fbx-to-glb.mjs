@@ -39,7 +39,7 @@ await MeshoptSimplifier.ready
 /**
  * Base colour per material becomes a COLOR_0 attribute, so one material serves
  * all. Skips primitives that carry a real base colour texture instead of a
- * flat material colour — baking those down to one vertex colour would throw
+ * flat material colour. Baking those down to one vertex colour would throw
  * the painted texture away, which is the whole point of that asset.
  */
 function bakeVertexColors(document) {

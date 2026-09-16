@@ -1,4 +1,4 @@
-# 14 — Guardrails for AI Implementation
+# 14: Guardrails for AI Implementation
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original section §50.
 

@@ -28,14 +28,21 @@ const projectConfigSchema = z.object({
   status: z.enum(['published', 'draft']),
   type: z.enum(['professional', 'personal', 'client', 'unreleased']),
   featured: z.boolean().default(false),
-  // Confidentiality is never inferred — every project states it (spec §39).
+  // Confidentiality is never inferred. Every project states it (spec §39).
   confidential: z.boolean(),
   dates: z.object({ start: z.string(), end: z.string().nullable() }),
   building: placementSchema,
   technologies: z.array(z.string()),
   links: z
-    .object({ website: link, github: link, demo: link, appStore: link, playStore: link })
-    .default({ website: null, github: null, demo: null, appStore: null, playStore: null }),
+    .object({ website: link, github: link, demo: link, appStore: link, playStore: link, npm: link })
+    .default({
+      website: null,
+      github: null,
+      demo: null,
+      appStore: null,
+      playStore: null,
+      npm: null,
+    }),
   media: z.array(mediaItemSchema).default([]),
   icon: z.string().optional(),
 })
@@ -133,7 +140,16 @@ function buildRegistry(): Project[] {
     projects.push({ ...parsed.data, building: parsed.data.building as Placement, docs })
   }
 
-  return projects.sort((a, b) => a.id.localeCompare(b.id))
+  return projects.sort((a, b) => {
+    const aEnd = a.dates.end
+    const bEnd = b.dates.end
+    if (aEnd === null || bEnd === null) {
+      if (aEnd === null && bEnd === null)
+        return b.dates.start.localeCompare(a.dates.start) || a.id.localeCompare(b.id)
+      return aEnd === null ? -1 : 1
+    }
+    return bEnd.localeCompare(aEnd) || a.id.localeCompare(b.id)
+  })
 }
 
 export const allProjects = buildRegistry()

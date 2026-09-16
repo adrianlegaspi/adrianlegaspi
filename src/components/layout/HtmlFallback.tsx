@@ -7,6 +7,7 @@ import { doc, projects } from '@/content/registry'
 import { page, type PageId } from '@/content/pages'
 import { LanguageSelector } from '@/components/navigation/LanguageSelector'
 import { ConfidentialProjectNotice } from '@/components/project/ConfidentialProjectNotice'
+import { EmailCopyButton } from '@/components/project/EmailCopyButton'
 import { MediaGallery } from '@/components/project/MediaGallery'
 import { link, Prose, Text } from '@/design-system'
 
@@ -112,14 +113,18 @@ export function HtmlFallback() {
         <ul className="mt-4 flex flex-wrap gap-3 text-sm">
           {contactLinks(locale).map((item) => (
             <li key={item.href}>
-              <a
-                className={link}
-                href={item.href}
-                // The CV is a PDF, not a route: a new tab leaves this page where it is.
-                {...(item.kind === 'cv' ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
-              >
-                {item.label}
-              </a>
+              {item.kind === 'email' ? (
+                <EmailCopyButton email={item.href.slice('mailto:'.length)} label={item.label} />
+              ) : (
+                <a
+                  className={link}
+                  href={item.href}
+                  // The CV is a PDF, not a route: a new tab leaves this page where it is.
+                  {...(item.kind === 'cv' ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+                >
+                  {item.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>

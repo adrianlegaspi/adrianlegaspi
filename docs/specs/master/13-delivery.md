@@ -1,4 +1,4 @@
-# 13 — Delivery: MVP, Order, Acceptance & Roadmap
+# 13: Delivery: MVP, Order, Acceptance & Roadmap
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §45–§49 and §51.
 
@@ -22,7 +22,7 @@ The MVP is complete when all of the following work.
 - roads;
 - decorative buildings;
 - simple props;
-- seven initial project buildings;
+- initial project buildings;
 - City Hall;
 - Next Project construction site.
 
@@ -87,7 +87,7 @@ Anything beyond this list should require a concrete reason before being added to
 
 The project should be implemented vertically rather than spending days creating infrastructure before anything visible exists.
 
-### Phase 1 — Walking skeleton
+### Phase 1: Walking skeleton
 
 Build:
 
@@ -102,7 +102,7 @@ Build:
 
 When this works, the fundamental architecture is proven.
 
-### Phase 2 — Data-driven buildings
+### Phase 2: Data-driven buildings
 
 Implement:
 
@@ -115,20 +115,20 @@ Implement:
 
 Move the first project into the content system.
 
-### Phase 3 — City composition
+### Phase 3: City composition
 
 Add:
 
 - roads;
 - decorative buildings;
-- seven project buildings;
+- initial project buildings;
 - City Hall;
 - construction site;
 - trees/props.
 
 Do not polish individual props yet.
 
-### Phase 4 — Responsive UI
+### Phase 4: Responsive UI
 
 Implement:
 
@@ -138,7 +138,7 @@ Implement:
 - focus behavior;
 - touch interactions.
 
-### Phase 5 — Environment
+### Phase 5: Environment
 
 Implement:
 
@@ -147,7 +147,7 @@ Implement:
 - selector;
 - window/streetlight treatment.
 
-### Phase 6 — Routing
+### Phase 6: Routing
 
 Implement:
 
@@ -157,7 +157,7 @@ Implement:
 - browser back/forward;
 - direct-load building focus.
 
-### Phase 7 — Accessibility / fallback
+### Phase 7: Accessibility / fallback
 
 Implement:
 
@@ -167,7 +167,7 @@ Implement:
 - semantic controls;
 - focus management.
 
-### Phase 8 — Optimization
+### Phase 8: Optimization
 
 Profile before optimizing.
 
@@ -180,13 +180,13 @@ Then address:
 - mobile GPU load;
 - lazy loading.
 
-### Phase 9 — Content
+### Phase 9: Content
 
 Replace placeholders with real case studies and links.
 
 Private-work content gets an explicit confidentiality review before publication.
 
-### Phase 10 — Deploy
+### Phase 10: Deploy
 
 - Vercel;
 - `legaspi.dev`;

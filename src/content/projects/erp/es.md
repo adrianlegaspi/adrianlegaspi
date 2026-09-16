@@ -2,15 +2,14 @@
 title: Plataforma ERP de RH / ATS
 role: Tech Lead
 label: Experiencia profesional
-summary: Plataforma agéntica de RH que administra 30 empleados y apoya el análisis de vacantes y candidatos.
-placeholder: true
+summary: Plataforma agéntica de RH que administra 30 empleados y usa flujos de IA fundamentados en documentos para analizar vacantes y candidatos.
 ---
 
 ## Contexto
 
-Una plataforma interna de RH para Jointech AI que administra 30 empleados y apoya el
-análisis de vacantes y candidatos. Lideré su arquitectura e implementación con un equipo
-de cinco ingenieros.
+Durante el verano de 2025, lideré la arquitectura y la implementación de una plataforma
+interna de RH para Jointech AI con un equipo de cinco ingenieros. Administra 30 empleados
+y apoya el análisis de vacantes y candidatos.
 
 ## El problema
 
@@ -35,7 +34,7 @@ y candidatos.
 ## Aspectos técnicos
 
 El pipeline de recuperación convierte documentos heterogéneos en fragmentos y embeddings
-almacenados en Chroma, y entrega evidencia relevante a los flujos agénticos mediante
+almacenados en Chroma y entrega evidencia relevante a los flujos agénticos mediante
 herramientas estructuradas. La evaluación y calificación de prompts crean un control de
 publicación para el comportamiento del LLM, en lugar de tratar cambios de prompts como
 configuración sin revisar.

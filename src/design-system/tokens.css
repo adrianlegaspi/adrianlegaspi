@@ -1,6 +1,6 @@
 /**
  * Design tokens. Every UI surface, text tone and control state resolves to a
- * token here — components never reach for a raw palette value, so the whole
+ * token here: components never reach for a raw palette value, so the whole
  * UI restyles from this file (spec §21: quiet UI, one accent).
  *
  * Palette "harbor": #F7F9FB mist, #8FC1E3 sky, #5085A5 steel, #31708E teal,
@@ -37,7 +37,7 @@
   --color-selected: #2a3028;
   --color-selected-ink: #f7f9fb;
 
-  /* Notices: confidentiality (spec §25) and the DEV-only placeholder warning. */
+  /* Notices: confidentiality (spec §25) and other panel notices. */
   --color-notice: #e2eef6;
   --color-notice-line: rgba(49, 112, 142, 0.5);
   --color-notice-ink: #1d4355;
@@ -50,7 +50,7 @@
 
 /**
  * The chrome floats over the city, so it follows the time of day. Only the
- * tokens change — no component knows a theme exists (spec §19).
+ * tokens change: no component knows a theme exists (spec §19).
  */
 :root[data-theme='night'],
 :root[data-theme='sunset'] {

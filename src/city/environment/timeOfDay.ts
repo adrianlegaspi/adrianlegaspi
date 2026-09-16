@@ -1,5 +1,5 @@
 /**
- * One scene, four looks. Presets only change visual properties (spec §19) —
+ * One scene, four looks. Presets only change visual properties (spec §19),
  * no geometry, no extra scenes.
  */
 export const timeThemes = ['dawn', 'day', 'sunset', 'night'] as const

@@ -14,7 +14,7 @@ const TAP = 'min-h-11'
 
 /**
  * One icon geometry for the whole UI: same size, same stroke, always
- * decorative — the label next to it carries the meaning (spec §21).
+ * decorative: the label next to it carries the meaning (spec §21).
  */
 export const icon = { size: 16, strokeWidth: 1.75, 'aria-hidden': true } as const
 

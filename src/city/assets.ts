@@ -46,12 +46,11 @@ export const buildingAssets = {
 
 export const roadAssets = {
   straight: '/models/roads/road-straight.glb',
-  crossroad: '/models/roads/road-crossroad.glb',
-  crossing: '/models/roads/road-crossing.glb',
+  crossroad: '/models/roads/road-crossroad-path.glb',
   plaza: '/models/roads/road-square.glb',
   /** Boundary road: the corners and the junctions where an avenue leaves the grid. */
   bend: '/models/roads/road-bend.glb',
-  tee: '/models/roads/road-intersection.glb',
+  tee: '/models/roads/road-intersection-path.glb',
 } as const
 
 /** The rail line along the western belt, and the modern commuter train that runs it. */
@@ -62,6 +61,7 @@ export const railAssets = {
   front: '/models/rail/train-electric-bullet-a.glb',
   middle: '/models/rail/train-electric-bullet-c.glb',
   rear: '/models/rail/train-electric-bullet-b.glb',
+  diesel: '/models/rail/train-diesel-a.glb',
   'container-blue': '/models/rail/train-carriage-container-blue.glb',
   'container-green': '/models/rail/train-carriage-container-green.glb',
   'container-red': '/models/rail/train-carriage-container-red.glb',

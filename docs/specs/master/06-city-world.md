@@ -1,4 +1,4 @@
-# 06 — City World, Assets & Visual Direction
+# 06: City World, Assets & Visual Direction
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §11, §13, §20, §40, §41.
 
@@ -42,7 +42,7 @@ worldZ = gridZ * LOT_SIZE
 
        ┌────────┬────────┬────────┐
        │        │        │        │
-       │ AI     │  Park  │ Viasat │
+       │        │  Park  │ Viasat │
        │        │        │ Tower  │
        ├────────┼────────┼────────┤
        │ Fixed  │ City   │ ERP    │
@@ -96,9 +96,9 @@ Create an asset manifest:
 
 ```ts
 export const buildingAssets = {
-  "commercial-large-01": "/models/buildings/commercial-large-01.glb",
-  "commercial-small-02": "/models/buildings/commercial-small-02.glb",
-  "fire-station-01": "/models/buildings/fire-station-01.glb"
+  'commercial-large-01': '/models/buildings/commercial-large-01.glb',
+  'commercial-small-02': '/models/buildings/commercial-small-02.glb',
+  'fire-station-01': '/models/buildings/fire-station-01.glb',
 } as const
 ```
 

@@ -3,37 +3,24 @@ title: Cardom Quest
 role: Solo developer
 label: Indie Game
 summary: A roguelike deck builder where you recruit allies, build a deck and push back the Orcish horde.
-placeholder: true
 ---
 
-## Context
+## Build a party, not only a deck
 
-Cardom Quest is a self-published mobile roguelike deck builder, released on Google Play
-in 2026. I owned the full product from concept through launch.
+Recruit allies from your cards and turn each deck into a party ready to face the Orcish
+horde.
 
-## The problem
+## Choose every move
 
-Deck builders are usually a duel: your cards against one enemy. I wanted the deck to be a
-squad instead — cards that recruit allies who then fight on their own, so building the
-deck is also building a party.
+Turn-based fights reward planning. Heal, buff and attack cards recruit persistent allies
+that act once they reach the field.
 
-## What I did
+## Keep the campaign going
 
-- Built the game in Phaser 3 and shipped it to Google Play.
-- Owned design, development and release as the sole developer.
-- Designed the card set around three jobs — heal, buff and attack — and the recruitment
-  loop that turns a card into a persistent ally.
-- Wrote the procedural map generator, so the medieval-fantasy campaign keeps going instead
-  of ending at a fixed final boss.
-- Kept combat turn-based, so every fight is a decision rather than a reaction.
+A procedurally generated medieval-fantasy map changes each run instead of ending at a
+fixed final boss.
 
-## Technical highlights
+## Start the quest
 
-Recruited allies act on their own once they are on the field, which moves the interesting
-choice up a level: it is about who you bring, not what you tap each turn. Maps are
-generated per run, so the difficulty curve comes out of the encounter mix rather than
-hand-placed levels.
-
-## Outcome
-
-Released on Google Play in 2026. Free with ads, and it collects no user data.
+Made solo in Phaser 3 and released on Google Play in 2026. Free with ads and no user data
+collected.

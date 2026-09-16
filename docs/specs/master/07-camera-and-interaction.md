@@ -1,4 +1,4 @@
-# 07 — Camera & Interaction
+# 07: Camera & Interaction
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §14–§15.
 

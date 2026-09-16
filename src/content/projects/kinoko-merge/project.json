@@ -17,5 +17,25 @@
     "appStore": "https://apps.apple.com/us/app/kinoko-merge/id6785820123",
     "playStore": "https://play.google.com/store/apps/details?id=dev.procreations.shroommerge"
   },
-  "icon": "/projects/kinoko-merge/icon.png"
+  "icon": "/projects/kinoko-merge/icon.png",
+  "media": [
+    {
+      "src": "/projects/kinoko-merge/main-menu.png",
+      "alt": "Kinoko Merge main menu with a mushroom character and play button",
+      "width": 1284,
+      "height": 2778
+    },
+    {
+      "src": "/projects/kinoko-merge/gameplay.png",
+      "alt": "Kinoko Merge gameplay with mushrooms in the throwing pit",
+      "width": 1284,
+      "height": 2778
+    },
+    {
+      "src": "/projects/kinoko-merge/full-pit.png",
+      "alt": "Kinoko Merge gameplay with a full mushroom pit",
+      "width": 1284,
+      "height": 2778
+    }
+  ]
 }

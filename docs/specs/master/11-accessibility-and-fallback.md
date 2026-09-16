@@ -1,4 +1,4 @@
-# 11 — Accessibility, Errors & Fallback
+# 11: Accessibility, Errors & Fallback
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §29, §34.
 

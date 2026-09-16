@@ -11,7 +11,7 @@ import { link, Prose, Tag, Text } from '@/design-system'
  * The crawlable body of one route, rendered at build time (spec §30).
  *
  * React replaces this the moment the bundle mounts, so it is never what a
- * visitor interacts with — it exists for the crawlers and answer engines that
+ * visitor interacts with; it exists for the crawlers and answer engines that
  * read HTML and do not run JavaScript. Because of that it renders one route's
  * content, not the whole portfolio: fourteen URLs sharing one body would be
  * fourteen duplicates.
@@ -139,9 +139,13 @@ export function Document({ selection, locale }: { selection: Selection; locale: 
               <ul className="mt-2 flex flex-wrap gap-3 text-sm">
                 {content.links.map((entry) => (
                   <li key={entry.href}>
-                    <a className={link} href={entry.href} rel="noreferrer noopener">
-                      {entry.label}
-                    </a>
+                    {entry.kind === 'email' ? (
+                      <span>{entry.href.slice('mailto:'.length)}</span>
+                    ) : (
+                      <a className={link} href={entry.href} rel="noreferrer noopener">
+                        {entry.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

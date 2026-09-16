@@ -12,6 +12,26 @@
     "rotation": 90,
     "scale": 1
   },
-  "technologies": [],
-  "links": { "website": null, "github": null }
+  "technologies": ["Cordova"],
+  "links": { "website": null, "github": null },
+  "media": [
+    {
+      "src": "/projects/fire-app/screen-0.jpg",
+      "alt": "Fire App login screen branded for the Tijuana Fire Department",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "src": "/projects/fire-app/screen-1.jpg",
+      "alt": "Fire App pre-hospital reporting dashboard with create and saved report actions",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "src": "/projects/fire-app/screen-2.jpg",
+      "alt": "Fire App maps screen with alert status and map search controls",
+      "width": 720,
+      "height": 1280
+    }
+  ]
 }

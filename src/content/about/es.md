@@ -15,10 +15,10 @@ El tipo de software que se juzga por si aguanta, no por si se ve bien en una dem
 
 ## Lo que hago
 
-- **Ingeniería de producto full-stack** — servicios en Node.js y TypeScript, front ends en React, PostgreSQL.
-- **Arquitectura** — sistemas multi-tenant, modelado de datos, límites entre servicios que sobreviven a nuevos requerimientos.
-- **Liderazgo técnico** — responsabilidad de la entrega como tech lead, dividir el trabajo en incrementos, revisión de código como enseñanza.
-- **Integración de IA** — funcionalidades con LLM validadas, tipadas y útiles en producción, no impresionantes en una demo.
+- **Ingeniería de producto full-stack**: servicios en Node.js y TypeScript, front ends en React, PostgreSQL.
+- **Arquitectura**: sistemas multi-tenant, modelado de datos, límites entre servicios que sobreviven a nuevos requerimientos.
+- **Liderazgo técnico**: responsabilidad de la entrega como tech lead, dividir el trabajo en incrementos, revisión de código como enseñanza.
+- **Integración de IA**: funcionalidades con LLM validadas, tipadas y útiles en producción, no impresionantes en una demo.
 
 ## Cómo trabajo
 

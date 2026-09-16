@@ -4,7 +4,6 @@ company: Tijuana Fire Department
 role: Software Engineer
 label: Professional Experience
 summary: A digital pre-hospital incident logging application used by 180+ firefighters and paramedics across 18 stations.
-placeholder: true
 ---
 
 ## Context
@@ -27,10 +26,9 @@ a large group of field users.
 ## Technical highlights
 
 The operational challenge was reach: one reporting workflow had to support more than 180
-field users across 18 locations. Further implementation details are being confirmed
-before publication.
+field users across 18 locations.
 
 ## Outcome
 
 Used by more than 180 firefighters and paramedics across all 18 Tijuana Fire Department
-stations. Exact dates and further public wording are being confirmed before publication.
+stations.

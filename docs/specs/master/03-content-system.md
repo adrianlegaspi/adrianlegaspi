@@ -1,4 +1,4 @@
-# 03 — Content System
+# 03: Content System
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §7, §8, §38, §39, §42, §43.
 
@@ -37,10 +37,7 @@ src/content/projects/{project-id}/
     "scale": 1,
     "footprint": [1, 1]
   },
-  "technologies": [
-    "React",
-    "TypeScript"
-  ],
+  "technologies": ["React", "TypeScript"],
   "links": {
     "website": null,
     "github": null
@@ -185,7 +182,9 @@ The MVP may initially use placeholders for:
 - exact project dates;
 - exact confidentiality-safe Viasat wording.
 
-Placeholder content must be obvious in development and should fail a production-content validation check if possible.
+Placeholder status must remain tracked in source during review, but must not appear as a
+visitor-facing case-study banner. It should fail a production-content validation check if
+possible.
 
 Recommended:
 

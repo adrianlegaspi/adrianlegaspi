@@ -1,4 +1,4 @@
-# 09 — Time-of-Day Environment System
+# 09: Time-of-Day Environment System
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original section §19.
 
@@ -22,7 +22,7 @@ Recommended automatic mapping:
 The implementation should define named environment presets:
 
 ```ts
-type TimeTheme = "dawn" | "day" | "sunset" | "night"
+type TimeTheme = 'dawn' | 'day' | 'sunset' | 'night'
 ```
 
 Each preset controls:

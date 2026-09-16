@@ -1,4 +1,4 @@
-# 12 — Performance & Quality Presets
+# 12: Performance & Quality Presets
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §31–§32.
 

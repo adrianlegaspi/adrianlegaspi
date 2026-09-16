@@ -1,14 +1,14 @@
-import { Languages } from 'lucide-react'
+import { Fragment } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { usePortfolio } from '@/app/providers/portfolio'
 import { localized, splitLocale } from '@/app/routes'
 import { locales } from '@/i18n'
-import { control, icon } from '@/design-system'
+import { cx, focusRing } from '@/design-system'
 
 /**
- * Two options stay segmented: a dropdown would hide half the answer. Real
- * links, not a toggle, so each language is a crawlable URL and the pair can
- * declare each other with hreflang (spec §30).
+ * Both language choices stay visible without turning a small preference into
+ * a prominent header control. Real links keep each locale crawlable and let
+ * the pair declare each other with hreflang (spec §30).
  */
 export function LanguageSelector() {
   const { locale, t } = usePortfolio()
@@ -17,19 +17,30 @@ export function LanguageSelector() {
     <div
       role="group"
       aria-label={t.language.label}
-      className="inline-flex items-center gap-0.5 rounded-control border border-line pl-2 text-ink-faint"
+      className="inline-flex min-h-11 items-center text-xs uppercase tracking-[0.08em]"
     >
-      <Languages {...icon} />
-      {locales.map((value) => (
-        <Link
-          key={value}
-          to={localized(value, path)}
-          hrefLang={value}
-          aria-current={locale === value ? 'true' : undefined}
-          className={control('toggle', locale === value)}
-        >
-          {value}
-        </Link>
+      {locales.map((value, index) => (
+        <Fragment key={value}>
+          {index > 0 && (
+            <span aria-hidden className="text-ink-faint">
+              /
+            </span>
+          )}
+          <Link
+            to={localized(value, path)}
+            hrefLang={value}
+            aria-current={locale === value ? 'true' : undefined}
+            className={cx(
+              'inline-flex min-h-11 min-w-7 items-center justify-center rounded-control px-1 font-medium transition-colors',
+              focusRing,
+              locale === value
+                ? 'text-ink underline decoration-2 decoration-accent underline-offset-4'
+                : 'text-ink-faint hover:text-ink',
+            )}
+          >
+            {value}
+          </Link>
+        </Fragment>
       ))}
     </div>
   )

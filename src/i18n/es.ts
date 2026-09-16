@@ -12,6 +12,8 @@ export const es: Strings = {
     menu: 'Menú',
     home: 'Reiniciar vista',
     legal: 'Legal',
+    searchProjects: 'Buscar proyectos',
+    noMatchingProjects: 'No hay proyectos coincidentes',
   },
 
   city: {
@@ -32,6 +34,7 @@ export const es: Strings = {
     appStore: 'App Store',
     playStore: 'Google Play',
     github: 'Código',
+    npm: 'Paquete npm',
     demo: 'Demo',
     selected: 'Seleccionado',
     expand: 'Expandir',
@@ -60,7 +63,10 @@ export const es: Strings = {
   contact: {
     heading: 'Hay espacio para uno más.',
     cta: 'Construyamos algo juntos.',
+    available: 'Disponible para puestos y proyectos seleccionados',
     email: 'Correo',
+    copyEmail: 'Copiar correo',
+    emailCopied: 'Correo copiado al portapapeles',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     x: 'X',
@@ -78,6 +84,11 @@ export const es: Strings = {
 
   language: {
     label: 'Idioma',
+  },
+
+  sound: {
+    mute: 'Silenciar sonidos de la ciudad',
+    unmute: 'Activar sonidos de la ciudad',
   },
 
   fallback: {

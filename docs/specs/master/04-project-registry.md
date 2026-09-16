@@ -1,4 +1,4 @@
-# 04 — Project Registry & Landmarks
+# 04: Project Registry & Landmarks
 
 Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers original sections §9, §10, §12.
 
@@ -6,7 +6,7 @@ Part of the [legaspi.dev Master Spec](../legaspi_dev_master_spec.md). Covers ori
 
 ## 9. Initial Project Registry
 
-The MVP begins with seven project buildings.
+The MVP begins with its core project buildings.
 
 ### 9.1 Viasat
 
@@ -53,25 +53,10 @@ The case study should emphasize:
 
 Only publish details that are safe to disclose.
 
-### 9.3 AI Automation Experience
+AI-assisted candidate matching, retrieval, and evaluation belong in this case study, not
+in a separate project building.
 
-**Category:** Professional specialization / technical work  
-**Visual metaphor:** Research/technology building
-
-This building can aggregate meaningful AI automation work if there is not a single public product that represents it.
-
-Potential themes:
-
-- LLM integration;
-- MCP;
-- automation;
-- structured tool use;
-- AI-assisted workflows;
-- production-oriented AI features.
-
-This should not become an "AI buzzword" section. Every claim should be tied to actual work.
-
-### 9.4 lacasadelbombero.app
+### 9.3 lacasadelbombero.app
 
 **Category:** Public project  
 **Visual metaphor:** Public/commercial/community building  
@@ -86,22 +71,22 @@ Case study can include:
 - problem;
 - outcome.
 
-### 9.5 FixedAI
+### 9.4 FixedAI
 
-**Category:** Personal project — React Native (iOS/Android) app  
+**Category:** Personal project: React Native (iOS/Android) app
 **Visual metaphor:** Startup/small modern office  
 **Status:** Published on the Play Store, unsupported since early 2026
 
 FixedAI turns a photo and a prompt describing a broken object into step-by-step repair
 instructions. The case study should state plainly that it is:
 
-> live on the Play Store, but unsupported since early 2026 — functionality is not
+> live on the Play Store, but unsupported since early 2026. Functionality is not
 > guaranteed.
 
 There is nothing wrong with showcasing a dropped project as long as its live/unsupported
 status is clear.
 
-### 9.6 DepGuard
+### 9.5 DepGuard
 
 **Category:** Personal/public technical project  
 **Visual metaphor:** Security/technology building
@@ -118,7 +103,7 @@ Where possible, expose:
 - search workflow;
 - security-data sources.
 
-### 9.7 Fire App — Tijuana Fire Department
+### 9.6 Fire App: Tijuana Fire Department
 
 **Category:** Historical professional/project work  
 **Approximate date:** 2018  
@@ -130,13 +115,37 @@ The exact public wording, year, scope, organization relationship and available m
 
 It should not be visually treated as unimportant simply because it is older.
 
+### 9.7 Border Shops Employees
+
+- **Category:** Historical client project
+- **Approximate date:** 2018 to 2020
+- **Visual metaphor:** Small commercial office
+
+An Android point-of-sale and inventory app built for a restaurant owner. The client was
+built with Cordova and the backend used PHP and MySQL.
+
+The original plan was to support the owner's restaurant and offer the service to other
+businesses. Development ended in 2020 during the COVID-19 pandemic.
+
+### 9.8 expo-play-games-services
+
+- **Category:** Open-source npm package
+- **Approximate date:** Since March 2026
+- **Visual metaphor:** Small mobile-tooling office
+
+An Android Expo native module for Google Play Games Services. It exposes sign-in,
+achievements, Saved Games and local persistence through a TypeScript API.
+
+The public package and source repository should both be linked. It is active work, so the
+case study should describe its current scope without implying iOS support.
+
 ---
 
 ## 10. Civic / Non-Project Landmarks
 
 Not every interactive destination needs to be a software project.
 
-### City Hall — About / Resume
+### City Hall: About / Resume
 
 City Hall acts as the portfolio's personal/professional information landmark.
 
@@ -153,7 +162,7 @@ Content:
 
 Avoid long autobiographical text.
 
-### Construction Site — Contact
+### Construction Site: Contact
 
 A visibly unfinished plot represents the next project.
 
@@ -208,7 +217,6 @@ Recommended hierarchy:
 
 ### Medium project scale
 
-- AI Automation
 - lacasadelbombero.app
 - FixedAI
 
@@ -216,5 +224,7 @@ Recommended hierarchy:
 
 - DepGuard
 - Fire App
+- Border Shops Employees
+- expo-play-games-services
 
 This hierarchy is a visual starting point and can change after seeing the actual Kenney models.

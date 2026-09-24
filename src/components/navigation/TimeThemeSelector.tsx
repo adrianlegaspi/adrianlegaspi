@@ -16,7 +16,7 @@ const icons: Record<TimeMode | TimeTheme, LucideIcon> = {
  * resolves to, so the visitor can tell the clock from the choice.
  */
 export function TimeThemeSelector() {
-  const { timeMode, setTimeMode, theme, t } = usePortfolio()
+  const { timeMode, setTimeMode, theme, t, layout } = usePortfolio()
   const Current = icons[timeMode === 'auto' ? theme : timeMode]
 
   return (
@@ -27,8 +27,15 @@ export function TimeThemeSelector() {
       label={
         <>
           <Current {...icon} />
-          <span>{t.time[timeMode]}</span>
-          {timeMode === 'auto' && <span className="text-xs text-ink-faint">{t.time[theme]}</span>}
+          {/* Mobile header space is scarce: the icon and the aria-label carry it. */}
+          {layout === 'desktop' && (
+            <>
+              <span>{t.time[timeMode]}</span>
+              {timeMode === 'auto' && (
+                <span className="text-xs text-ink-faint">{t.time[theme]}</span>
+              )}
+            </>
+          )}
         </>
       }
     >

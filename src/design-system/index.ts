@@ -4,7 +4,7 @@
  */
 export { ActionLink } from './ActionLink'
 export { Button } from './Button'
-export { Menu } from './Menu'
+export { Menu, useDismiss } from './Menu'
 export { Notice } from './Notice'
 export { Prose } from './Prose'
 export { Tag } from './Tag'

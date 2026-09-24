@@ -15,8 +15,9 @@ const legalPages: { route: string; id: PageId }[] = Object.entries(legalRoutes).
 
 /**
  * The same city state, reachable without WebGL or a mouse (spec §23/§29).
+ * `stacked` lays it out as a full-width list for the mobile drawer.
  */
-export function MainNavigation() {
+export function MainNavigation({ stacked = false }: { stacked?: boolean }) {
   const { t, locale } = usePortfolio()
   const [projectQuery, setProjectQuery] = useState('')
   // Compared and linked without the locale prefix, so /es/about is still "about".
@@ -28,14 +29,19 @@ export function MainNavigation() {
         doc(project, locale).title.toLocaleLowerCase(locale).includes(query),
       )
     : projects
+  const item = stacked && 'justify-start'
 
   return (
-    <nav aria-label={t.nav.menu} className="flex flex-wrap items-center gap-x-1">
+    <nav
+      aria-label={t.nav.menu}
+      className={cx('flex gap-x-1', stacked ? 'flex-col' : 'flex-wrap items-center')}
+    >
       <Menu
         ariaLabel={t.nav.projects}
         active={path.startsWith('/projects')}
         width="w-72"
         scrollable
+        inline={stacked}
         label={
           <>
             <Building2 {...icon} />
@@ -96,7 +102,7 @@ export function MainNavigation() {
 
       <Link
         to={to('/about')}
-        className={cx(control('nav', path === '/about'), 'gap-1.5')}
+        className={cx(control('nav', path === '/about'), 'gap-1.5', item)}
         aria-current={path === '/about' ? 'page' : undefined}
       >
         <UserRound {...icon} />
@@ -104,13 +110,13 @@ export function MainNavigation() {
       </Link>
       <Link
         to={to('/contact')}
-        className={cx(control('nav', path === '/contact'), 'gap-1.5')}
+        className={cx(control('nav', path === '/contact'), 'gap-1.5', item)}
         aria-current={path === '/contact' ? 'page' : undefined}
       >
         <AtSign {...icon} />
         {t.nav.contact}
       </Link>
-      <ActionLink variant="nav" href={profile.cv} className="gap-1.5">
+      <ActionLink variant="nav" href={profile.cv} className={cx('gap-1.5', item)}>
         <FileText {...icon} />
         {t.nav.cv}
       </ActionLink>
@@ -119,6 +125,7 @@ export function MainNavigation() {
         ariaLabel={t.nav.legal}
         active={legalPages.some((entry) => path === entry.route)}
         width="w-72"
+        inline={stacked}
         label={
           <>
             <Scale {...icon} />

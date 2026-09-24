@@ -11,4 +11,4 @@ summary: Need a senior engineer, technical lead or delivery partner?
 - Technical leadership
 - Product architecture and delivery
 
-**Have a role where I can make an impact? Let's talk.**
+**Have a role or project where I can make an impact? Let's talk.**

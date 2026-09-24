@@ -11,4 +11,4 @@ summary: ¿Necesitas ingeniería senior, liderazgo técnico o apoyo para entrega
 - Liderazgo técnico
 - Arquitectura y entrega de producto
 
-**¿Tienes un puesto donde pueda aportar? Hablemos.**
+**¿Tienes un puesto o proyecto donde pueda aportar? Hablemos.**

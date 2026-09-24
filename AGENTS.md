@@ -165,10 +165,10 @@ them once per clone:
 git config core.hooksPath .githooks
 ```
 
-| Hook                                 | What it enforces                                                                                                                          |
-| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| [`commit-msg`](.githooks/commit-msg) | Conventional Commits header; lowercase subject; no trailing period; warns over 72 chars. Merge/revert/fixup commits pass through          |
-| [`pre-commit`](.githooks/pre-commit) | No merge-conflict markers; no `.env` committed; warns on large non-asset files; then `prettier`, `eslint`, `tsc --noEmit` on staged files |
+| Hook                                 | What it enforces                                                                                                                                                                               |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`commit-msg`](.githooks/commit-msg) | Conventional Commits header; lowercase subject; no trailing period; warns over 72 chars. Merge/revert/fixup commits pass through                                                               |
+| [`pre-commit`](.githooks/pre-commit) | No merge-conflict markers; no `.env` committed; warns on large non-asset files; then `lint-staged` auto-formats staged files with `prettier` and re-stages them, then `eslint`, `tsc --noEmit` |
 
 Toolchain steps are **skipped, not failed**, when a tool is not in `node_modules/.bin`. So
 the hooks work before `npm install` and tighten automatically once the stack is installed.

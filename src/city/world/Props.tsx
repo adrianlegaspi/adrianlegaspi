@@ -4,6 +4,7 @@ import { InstancedModel, deg, type Instance } from '@/city/models/InstancedModel
 import { projects } from '@/content/registry'
 import { landmarks } from '@/data/landmarks'
 import { CITY_DEPTH, CITY_WIDTH, cellAt, footprintCenter, isRoad, lotToWorld } from './cityGrid'
+import { LightBulb } from './VehicleLights'
 
 type Props = Record<string, Instance[]>
 
@@ -112,7 +113,13 @@ function buildProps() {
   return props
 }
 
-export function Props({ lit = false }: { lit?: boolean }) {
+export function Props({
+  lit = false,
+  localLights = true,
+}: {
+  lit?: boolean
+  localLights?: boolean
+}) {
   const props = useMemo(() => buildProps(), [])
   return (
     <group>
@@ -120,20 +127,25 @@ export function Props({ lit = false }: { lit?: boolean }) {
       <InstancedModel url={propAssets['traffic-light']} instances={props.trafficLight} />
       <InstancedModel url={propAssets.planter} instances={props.planter} />
       {lit &&
-        props.streetlight.map(({ position, rotation = 0 }) => (
-          <pointLight
-            key={`${position[0]},${position[2]}`}
-            position={[
-              position[0] - Math.sin(rotation) * 0.18,
-              0.58,
-              position[2] - Math.cos(rotation) * 0.18,
-            ]}
-            color="#ffd9a0"
-            intensity={1.4}
-            distance={2.8}
-            decay={2}
-          />
-        ))}
+        props.streetlight.map(({ position, rotation = 0 }) => {
+          const lampPosition: [number, number, number] = [
+            position[0] - Math.sin(rotation) * 0.18,
+            0.58,
+            position[2] - Math.cos(rotation) * 0.18,
+          ]
+          return localLights ? (
+            <pointLight
+              key={`${position[0]},${position[2]}`}
+              position={lampPosition}
+              color="#ffd9a0"
+              intensity={1.4}
+              distance={2.8}
+              decay={2}
+            />
+          ) : (
+            <LightBulb key={`${position[0]},${position[2]}`} position={lampPosition} />
+          )
+        })}
     </group>
   )
 }

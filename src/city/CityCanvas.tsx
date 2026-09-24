@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { LoaderCircle } from 'lucide-react'
 import { Canvas } from '@react-three/fiber'
 import { useProgress } from '@react-three/drei'
@@ -37,7 +36,7 @@ function LoadingLabel() {
 }
 
 export function CityCanvas() {
-  const { layout, t } = usePortfolio()
+  const { quality, t } = usePortfolio()
   const { clear } = useSelection()
 
   /**
@@ -61,18 +60,21 @@ export function CityCanvas() {
     >
       <Canvas
         flat
-        shadows
-        dpr={[1, layout === 'mobile' ? 1.5 : 2]}
+        shadows={quality.shadows}
+        dpr={quality.dpr}
+        frameloop={quality.frameloop}
         camera={{ fov: 38, near: 0.5, far: 200 }}
         // Local clipping is on for the train, which is cut off at the lips of the base.
-        gl={{ antialias: true, powerPreference: 'high-performance', localClippingEnabled: true }}
+        gl={{
+          antialias: quality.antialias,
+          powerPreference: 'high-performance',
+          localClippingEnabled: true,
+        }}
         aria-label={t.city.canvasLabel}
         style={{ touchAction: 'none' }}
         onPointerMissed={onPointerMissed}
       >
-        <Suspense fallback={null}>
-          <CityScene />
-        </Suspense>
+        <CityScene />
       </Canvas>
       <LoadingLabel />
     </div>

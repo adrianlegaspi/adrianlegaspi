@@ -85,6 +85,21 @@ export function GlowMaterial({
   )
 }
 
+/** Visible lamp on low quality devices without a per-fragment point light. */
+export function LightBulb({ position }: { position: [number, number, number] }) {
+  return (
+    <sprite position={position} scale={0.35} raycast={() => null}>
+      <spriteMaterial
+        map={glowSprite()}
+        color={HEADLIGHT}
+        transparent
+        blending={AdditiveBlending}
+        depthWrite={false}
+      />
+    </sprite>
+  )
+}
+
 /** Lamp offsets and sizes in car space. The kit models all face +Z. */
 const LAMPS = [
   { x: -0.12, y: 0.11, z: 0.33, size: 0.22, color: HEADLIGHT },

@@ -58,7 +58,7 @@ export const surface: Record<SurfaceVariant, string> = {
   pill: 'rounded-full bg-surface-veil shadow-sm backdrop-blur',
   menu: 'rounded-panel border border-line bg-surface p-1.5 shadow-lg backdrop-blur',
   sheet:
-    'rounded-t-2xl border-t border-line-veil bg-surface shadow-[0_-4px_24px_rgba(46,30,12,0.14)] backdrop-blur',
+    'rounded-t-2xl border-t border-line-veil bg-surface shadow-[0_-4px_24px_rgba(46,30,12,0.14)]',
 }
 
 export const link = cx('text-accent underline underline-offset-2', focusRing)

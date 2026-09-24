@@ -63,6 +63,8 @@ export function CityCamera({
   const camera = useThree((state) => state.camera)
   const canvas = useThree((state) => state.gl.domElement)
   const height = useThree((state) => state.size.height)
+  const invalidate = useThree((state) => state.invalidate)
+  const frameloop = useThree((state) => state.frameloop)
 
   // `want` is where the visitor has asked to be, `view` is where the camera has
   // got to. Input only ever writes the first and the frame loop only ever writes
@@ -90,12 +92,14 @@ export function CityCamera({
       glide.current = null
       focused.current = false
       want.current.target.addScaledVector(groundRight, -dx).addScaledVector(groundUp, dy)
+      invalidate()
     }
 
     const zoom = (factor: number) => {
       glide.current = null
       focused.current = false
       want.current.distance = clamp(want.current.distance * factor, MIN_DISTANCE, MAX_DISTANCE)
+      invalidate()
     }
 
     /** Centroid of the live pointers, so one finger and two pan the same way. */
@@ -149,13 +153,18 @@ export function CityCamera({
       if (!(event.code in PAN_KEYS)) return
       event.preventDefault()
       keys.current.add(event.code)
+      invalidate()
     }
 
     const onKeyUp = (event: KeyboardEvent) => {
       keys.current.delete(event.code)
+      invalidate()
     }
 
-    const onBlur = () => keys.current.clear()
+    const onBlur = () => {
+      keys.current.clear()
+      invalidate()
+    }
 
     canvas.addEventListener('pointerdown', onPointerDown)
     canvas.addEventListener('wheel', onWheel, { passive: false })
@@ -175,7 +184,7 @@ export function CityCamera({
       window.removeEventListener('keyup', onKeyUp)
       window.removeEventListener('blur', onBlur)
     }
-  }, [camera, canvas, height])
+  }, [camera, canvas, height, invalidate])
 
   // Depending on the tuple identity would re-run this on every parent render.
   const focusX = focus?.[0]
@@ -199,7 +208,8 @@ export function CityCamera({
         elapsed: 0,
       }
     }
-  }, [focusX, focusZ, layout, instant])
+    invalidate()
+  }, [focusX, focusZ, layout, instant, invalidate])
 
   useFrame((_, delta) => {
     // A backgrounded tab must not fling the camera across the district.
@@ -247,6 +257,14 @@ export function CityCamera({
       .copy(view.current.target)
       .addScaledVector(CAMERA_DIRECTION, view.current.distance)
     camera.lookAt(view.current.target)
+    if (
+      frameloop === 'demand' &&
+      (glide.current ||
+        keys.current.size ||
+        view.current.target.distanceToSquared(want.current.target) > 0.000001 ||
+        Math.abs(view.current.distance - want.current.distance) > 0.001)
+    )
+      invalidate()
   })
 
   return null

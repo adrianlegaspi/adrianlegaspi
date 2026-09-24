@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom'
 import { strings, type Locale, type Strings } from '@/i18n'
 import { splitLocale } from '@/app/routes'
 import { initialSoundEnabled, setCityAudioEnabled, storeSoundEnabled } from '@/audio/cityAudio'
+import { renderQuality, type RenderQuality } from '@/city/renderQuality'
 import {
   initialTimeMode,
   resolveTheme,
@@ -36,6 +37,7 @@ interface Portfolio {
   hoveredProjectId: string | null
   setHoveredProjectId: (id: string | null) => void
   layout: Layout
+  quality: RenderQuality
   reducedMotion: boolean
 }
 
@@ -70,6 +72,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   const [, tick] = useState(0)
 
   const isMobile = useMediaQuery('(max-width: 767px)')
+  const lowQuality = useMediaQuery('(max-width: 1023px), (pointer: coarse)')
   const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
   // `auto` follows the visitor's clock, so it has to be re-checked while the
@@ -162,6 +165,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       hoveredProjectId,
       setHoveredProjectId,
       layout: isMobile ? 'mobile' : 'desktop',
+      quality: lowQuality ? renderQuality.low : renderQuality.standard,
       reducedMotion,
     }),
     [
@@ -173,6 +177,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       setSoundEnabled,
       hoveredProjectId,
       isMobile,
+      lowQuality,
       reducedMotion,
     ],
   )

@@ -3,6 +3,7 @@ import { siteAssets } from '@/city/assets'
 import { wasClick } from '@/city/camera/dragGuard'
 import { Model } from '@/city/models/Model'
 import { deg, InstancedModel, type Instance } from '@/city/models/InstancedModel'
+import { LightBulb } from '@/city/world/VehicleLights'
 import {
   HoverLabel,
   InteractionMarker,
@@ -86,6 +87,7 @@ export function ConstructionSite({
   footprint,
   state,
   lit = false,
+  localLights = true,
   preview,
   onSelect,
   onHoverChange,
@@ -95,6 +97,7 @@ export function ConstructionSite({
   state: BuildingState
   /** Work lights on, from the time-of-day preset. */
   lit?: boolean
+  localLights?: boolean
   preview?: BuildingPreview | null
   onSelect: () => void
   onHoverChange: (hovered: boolean) => void
@@ -136,16 +139,25 @@ export function ConstructionSite({
         />
       ))}
       {lit &&
-        WORK_LIGHTS.map(({ position }) => (
-          <pointLight
-            key={`${position[0]},${position[1]}`}
-            position={[position[0], SLAB_HEIGHT + WORK_LIGHT_Y, position[1]]}
-            color="#ffe6b8"
-            intensity={1.6}
-            distance={3}
-            decay={2}
-          />
-        ))}
+        WORK_LIGHTS.map(({ position }) => {
+          const lampPosition: [number, number, number] = [
+            position[0],
+            SLAB_HEIGHT + WORK_LIGHT_Y,
+            position[1],
+          ]
+          return localLights ? (
+            <pointLight
+              key={`${position[0]},${position[1]}`}
+              position={lampPosition}
+              color="#ffe6b8"
+              intensity={1.6}
+              distance={3}
+              decay={2}
+            />
+          ) : (
+            <LightBulb key={`${position[0]},${position[1]}`} position={lampPosition} />
+          )
+        })}
       <InteractionMarker height={SITE_HEIGHT} state={state} />
       <HoverLabel visible={state === 'hovered'} height={SITE_HEIGHT} preview={preview} />
     </group>

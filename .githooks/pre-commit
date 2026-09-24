@@ -60,12 +60,10 @@ run() { # run <label> <bin> <args...> ; skips when the binary is not installed
 }
 
 web=$(printf '%s\n' "$staged" | grep -E '\.(ts|tsx|js|jsx|mjs|cjs)$')
-fmt=$(printf '%s\n' "$staged" | grep -E '\.(ts|tsx|js|jsx|mjs|cjs|json|css|md|html)$')
 
-if [ -n "$fmt" ]; then
-	# shellcheck disable=SC2086
-	run "prettier" prettier --check $fmt
-fi
+# Formats staged content only and re-stages it; unstaged hunks are stashed
+# around the write, so a partial `git add -p` stays partial.
+run "prettier" lint-staged
 
 if [ -n "$web" ]; then
 	# shellcheck disable=SC2086
@@ -78,8 +76,7 @@ fi
 
 if [ "$fail" -ne 0 ]; then
 	echo ""
-	echo "[pre-commit] Commit aborted. Auto-fix formatting with:  npx prettier --write ."
-	echo "             Then re-stage the files and commit again."
+	echo "[pre-commit] Commit aborted. Fix the errors above, re-stage and commit again."
 	exit 1
 fi
 

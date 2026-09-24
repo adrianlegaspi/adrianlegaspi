@@ -7,7 +7,7 @@ import type { TimePreset } from './timeOfDay'
  * Visual environment only. The geometry of the city never changes with the
  * time of day (spec §19).
  */
-export function Environment({ preset }: { preset: TimePreset }) {
+export function Environment({ preset, shadows }: { preset: TimePreset; shadows: boolean }) {
   const { centerX, centerZ } = cityBounds
   // The sun aims at the middle of the district, so the shadow frustum only has
   // to cover the city rather than everything between the light and the origin.
@@ -30,7 +30,7 @@ export function Environment({ preset }: { preset: TimePreset }) {
           preset.sun.position[1],
           centerZ + preset.sun.position[2],
         ]}
-        castShadow
+        castShadow={shadows}
         shadow-mapSize={[2048, 2048]}
         shadow-camera-left={-radius}
         shadow-camera-right={radius}

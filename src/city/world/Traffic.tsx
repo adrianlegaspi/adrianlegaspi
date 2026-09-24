@@ -28,7 +28,6 @@ function CarModel({
   meshRef: (mesh: InstancedMesh | null) => void
 }) {
   const { geometry, material } = useModel(url)
-  if (!cars.length) return null
   return (
     <instancedMesh
       ref={meshRef}
@@ -86,16 +85,19 @@ export function Traffic({
 
   return (
     <group>
-      {carModels.map((url, model) => (
-        <CarModel
-          key={url}
-          url={url}
-          cars={byModel[model]}
-          meshRef={(mesh) => {
-            meshes.current[model] = mesh
-          }}
-        />
-      ))}
+      {carModels.map(
+        (url, model) =>
+          byModel[model].length > 0 && (
+            <CarModel
+              key={url}
+              url={url}
+              cars={byModel[model]}
+              meshRef={(mesh) => {
+                meshes.current[model] = mesh
+              }}
+            />
+          ),
+      )}
       {lights > 0 && <CarLights cars={cars} strength={lights} />}
     </group>
   )

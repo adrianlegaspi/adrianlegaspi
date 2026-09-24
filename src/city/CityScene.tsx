@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { Suspense, useCallback, useEffect } from 'react'
 import { buildingAssets } from './assets'
 import { CityBuilding, type BuildingState } from './buildings/CityBuilding'
 import { ConstructionSite } from './buildings/ConstructionSite'
@@ -41,7 +41,7 @@ const CARDOM_SIGN_POSITION: [number, number, number] = (() => {
 })()
 
 export function CityScene() {
-  const { preset, hoveredProjectId, setHoveredProjectId, layout, reducedMotion, locale } =
+  const { preset, hoveredProjectId, setHoveredProjectId, layout, quality, reducedMotion, locale } =
     usePortfolio()
   const { selection, selectProject, selectLandmark } = useSelection()
 
@@ -66,67 +66,91 @@ export function CityScene() {
 
   return (
     <>
-      <Environment preset={preset} />
+      <Environment preset={preset} shadows={quality.shadows} />
       <Ground preset={preset} />
-      <Roads />
-      <Rail moving={!reducedMotion} lights={preset.vehicleLights} />
-      <Greenery />
-      <DecorativeBuildings />
-      <Props lit={preset.streetlights} />
-      <Scenery />
-      <PylonSign position={KINOKO_SIGN_POSITION} texture="/textures/kinoko-merge-sign.png" />
-      <PylonSign
-        position={CARDOM_SIGN_POSITION}
-        rotation={90}
-        scale={CARDOM_SIGN_SCALE}
-        texture="/textures/cardom-quest-sign.png"
-      />
-      <Traffic layout={layout} moving={!reducedMotion} lights={preset.vehicleLights} />
+      <Suspense fallback={null}>
+        <Roads />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Rail moving={!reducedMotion && quality.animate} lights={preset.vehicleLights} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Greenery />
+      </Suspense>
+      <Suspense fallback={null}>
+        <DecorativeBuildings />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Props lit={preset.streetlights} localLights={quality.localLights} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Scenery />
+      </Suspense>
+      <Suspense fallback={null}>
+        <PylonSign position={KINOKO_SIGN_POSITION} texture="/textures/kinoko-merge-sign.png" />
+        <PylonSign
+          position={CARDOM_SIGN_POSITION}
+          rotation={90}
+          scale={CARDOM_SIGN_SCALE}
+          texture="/textures/cardom-quest-sign.png"
+        />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Traffic
+          layout={layout}
+          moving={!reducedMotion && quality.animate}
+          lights={preset.vehicleLights}
+        />
+      </Suspense>
 
       {projects.map((project) => {
         const content = doc(project, locale)
         return (
-          <CityBuilding
-            key={project.id}
-            url={buildingAssets[project.building.model]}
-            center={footprintCenter(project.building.grid, project.building.footprint)}
-            rotation={project.building.rotation}
-            scale={project.building.scale}
-            state={stateOf(project.id)}
-            glow={preset.windowGlow}
-            preview={{ title: content.title, summary: content.summary }}
-            onSelect={() => selectProject(project.id)}
-            onHoverChange={hover(project.id)}
-          />
+          <Suspense key={project.id} fallback={null}>
+            <CityBuilding
+              url={buildingAssets[project.building.model]}
+              center={footprintCenter(project.building.grid, project.building.footprint)}
+              rotation={project.building.rotation}
+              scale={project.building.scale}
+              state={stateOf(project.id)}
+              glow={preset.windowGlow}
+              preview={{ title: content.title, summary: content.summary }}
+              onSelect={() => selectProject(project.id)}
+              onHoverChange={hover(project.id)}
+            />
+          </Suspense>
         )
       })}
 
       {landmarks.map((landmark) => {
         const content = page(landmark.page, locale)
         const preview = { title: content.title, summary: content.summary }
-        return landmark.model ? (
-          <CityBuilding
-            key={landmark.id}
-            url={buildingAssets[landmark.model]}
-            center={footprintCenter(landmark.grid, landmark.footprint)}
-            rotation={landmark.rotation}
-            state={stateOf(landmark.id)}
-            glow={preset.windowGlow}
-            preview={preview}
-            onSelect={() => selectLandmark(landmark.id)}
-            onHoverChange={hover(landmark.id)}
-          />
-        ) : (
-          <ConstructionSite
-            key={landmark.id}
-            center={footprintCenter(landmark.grid, landmark.footprint)}
-            footprint={landmark.footprint}
-            state={stateOf(landmark.id)}
-            lit={preset.streetlights}
-            preview={preview}
-            onSelect={() => selectLandmark(landmark.id)}
-            onHoverChange={hover(landmark.id)}
-          />
+        return (
+          <Suspense key={landmark.id} fallback={null}>
+            {landmark.model ? (
+              <CityBuilding
+                url={buildingAssets[landmark.model]}
+                center={footprintCenter(landmark.grid, landmark.footprint)}
+                rotation={landmark.rotation}
+                state={stateOf(landmark.id)}
+                glow={preset.windowGlow}
+                preview={preview}
+                onSelect={() => selectLandmark(landmark.id)}
+                onHoverChange={hover(landmark.id)}
+              />
+            ) : (
+              <ConstructionSite
+                center={footprintCenter(landmark.grid, landmark.footprint)}
+                footprint={landmark.footprint}
+                state={stateOf(landmark.id)}
+                lit={preset.streetlights}
+                localLights={quality.localLights}
+                preview={preview}
+                onSelect={() => selectLandmark(landmark.id)}
+                onHoverChange={hover(landmark.id)}
+              />
+            )}
+          </Suspense>
         )
       })}
 

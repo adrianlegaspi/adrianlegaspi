@@ -86,6 +86,13 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = locale
     document.documentElement.dataset.theme = theme
+    // Browser chrome matches the header, read from the token so it tracks the theme.
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute(
+        'content',
+        getComputedStyle(document.documentElement).getPropertyValue('--color-surface-bare').trim(),
+      )
   }, [locale, theme])
 
   const setTimeMode = useCallback((next: TimeMode) => {

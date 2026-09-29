@@ -13,7 +13,7 @@ cv:
 
   sections:
     profile:
-      - 'Senior Software Engineer with 9+ years building production React/TypeScript applications, from fintech platforms to enterprise security dashboards, with hands-on AI integration experience.'
+      - 'Senior Software Engineer with 9+ years building production React/TypeScript applications, from fintech platforms to enterprise security dashboards, plus Python backend ownership and hands-on AI integration experience.'
 
     experience:
       - company: JointechAI
@@ -21,9 +21,12 @@ cv:
         location: Tijuana, Mexico
         start_date: 2022-08
         end_date: present
+        summary: 'Contracted through Borderux to **Viasat**, the primary end client for the full tenure.'
         highlights:
-          - '**Viasat Internal Security Application (via Borderux):** Architected and developed a centralized React and TypeScript dashboard aggregating findings across a platform used by 4,000+ internal users, serving as the sole frontend engineer embedded within a backend-heavy team of 15 engineers.'
-          - '**Jointech & Borderux Internal Projects:** Acted as Tech Lead for AI wrapper application across a team of 5 engineers, guiding technical architecture and implementation. Built and maintained an internal Employee Management System handling 30 employees alongside primary enterprise deliverables.'
+          - '**Viasat Internal Security Application:** Architected a centralized React and TypeScript dashboard aggregating security findings for 4,000+ internal users as the sole frontend engineer in a 15-engineer team.'
+          - '**Viasat Python Backend:** Owned backend features end to end in the platform''s Python services.'
+          - '**Jointech Agentic HR & CRM App:** Led an agentic HR and CRM platform for 30 employees with 3 junior devs and 1 designer.'
+          - '**Reciplease (Borderux side project):** Shipped to production a public app that extracts food blog recipes and processes them through an AI agent into readable and interactive recipes, with a Python backend and React frontend on GCP (Firebase).'
 
       - company: Arte Digital
         position: Software Engineer
@@ -55,9 +58,9 @@ cv:
       - label: Frontend
         details: TypeScript, React, JavaScript (vanilla / jQuery), SCSS, Pixel-perfect design implementation
       - label: Backend & Databases
-        details: NodeJs, PostgreSQL, Firebase, Laravel, Angular
+        details: Python, NodeJs, PostgreSQL, Firebase, Laravel, Angular
       - label: Cloud & DevOps
-        details: Amazon Web Services, CI/CD (Github Actions), Software Architecture
+        details: Google Cloud Platform, Amazon Web Services, CI/CD (Github Actions), Software Architecture
       - label: AI & Emerging
         details: AI Models RAG, Fine Tuning, AIops
       - label: Other
@@ -73,12 +76,12 @@ cv:
       - name: 'Cardom ([Play Store](https://play.google.com/store/apps/details?id=cardom.procreations.dev))'
         date: '2026'
         highlights:
-          - 'Independently developed and released Cardom, a web-based videogame, showcasing full-stack product ownership from concept to launch.'
+          - 'Independently developed and released Cardom, a web-based videogame, owning the full stack from concept to launch.'
 
       - name: 'Shroom Merge ([Play Store](https://play.google.com/store/apps/details?id=dev.procreations.shroommerge), [App Store](https://apps.apple.com/us/app/kinoko-merge/id6785820123))'
         date: 'July 2026'
         highlights:
-          - 'Independently developed and released Shroom Merge (Kinoko Merge on iOS), a mobile merge game, taking the project from concept to Play Store and App Store launch.'
+          - 'Independently developed and released Shroom Merge (Kinoko Merge on iOS), a mobile merge game, from concept to launch.'
 
 design:
   theme: engineeringresumes

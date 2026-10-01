@@ -23,10 +23,10 @@ cv:
         end_date: present
         summary: 'Contracted through Borderux to **Viasat**, the primary end client for the full tenure.'
         highlights:
-          - '**Viasat Internal Security Application:** Architected a centralized React and TypeScript dashboard aggregating security findings for 4,000+ internal users as the sole frontend engineer in a 15-engineer team.'
+          - '**Viasat Internal Security Application:** Architected a centralized React and TypeScript security dashboard tool used across multiple internal teams as the sole frontend engineer in a team of security and backend engineers.'
           - '**Viasat Python Backend:** Owned backend features end to end in the platform''s Python services.'
           - '**Jointech Agentic HR & CRM App:** Led an agentic HR and CRM platform for 30 employees with 3 junior devs and 1 designer.'
-          - '**Reciplease (Borderux side project):** Shipped to production a public app that extracts food blog recipes and processes them through an AI agent into readable and interactive recipes, with a Python backend and React frontend on GCP (Firebase).'
+          - '**Reciplease (Borderux side project):** Shipped a public app that extracts food blog recipes and processes them through an AI agent into readable and interactive recipes, with a Python backend and React frontend on GCP (Firebase).'
 
       - company: Arte Digital
         position: Software Engineer

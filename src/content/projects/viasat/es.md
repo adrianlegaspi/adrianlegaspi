@@ -19,8 +19,8 @@ global. La herramienta sirve a múltiples equipos internos.
   único ingeniero de frontend dentro de un equipo de ingenieros de seguridad y backend.
 - Me encargué de las notificaciones por correo de la plataforma en el backend en Python:
   construí los correos y los conecté con los servicios de envío.
-- Consumí y depuré las APIs del backend desde el frontend e hice cambios menores en el
-  backend cuando fue necesario.
+- Consumí y depuré las APIs del backend desde el frontend e hice los cambios o
+  correcciones que el backend requería.
 
 ## Aspectos técnicos
 

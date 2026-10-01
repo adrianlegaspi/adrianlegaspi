@@ -19,8 +19,8 @@ multiple internal teams.
   frontend engineer in a team of security and backend engineers.
 - Owned the platform's email notifications in the Python backend, building the emails and
   connecting them to the sending services.
-- Consumed and debugged the backend APIs from the frontend and made small changes to the
-  backend when needed.
+- Consumed and debugged the backend APIs from the frontend and made the required changes
+  or fixes to the backend when needed.
 
 ## Technical highlights
 

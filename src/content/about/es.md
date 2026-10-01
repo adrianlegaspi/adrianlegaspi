@@ -11,9 +11,9 @@ Más de nueve años construyendo software que la gente usa para trabajar: plataf
 internas, herramientas de seguridad, fintech y aplicaciones operativas. El tipo de
 software que se juzga por si aguanta, no por si se ve bien en una demo.
 
-Actualmente soy el único ingeniero de frontend en una plataforma interna centralizada de
-seguridad para más de 4,000 usuarios en Viasat, dentro de un equipo de 15 personas
-enfocado en backend. Antes: funcionalidades fintech para una plataforma con 10,000
+Actualmente soy el único ingeniero de frontend en una herramienta interna centralizada de
+dashboard de seguridad usada por múltiples equipos en Viasat, dentro de un equipo de
+ingenieros de seguridad y backend. Antes: funcionalidades fintech para una plataforma con 10,000
 usuarios, dashboards en Angular y APIs en Laravel para más de 3,000 profesionales del
 derecho, y una app de registro prehospitalario usada por más de 180 bomberos y paramédicos
 en 18 estaciones de Tijuana.

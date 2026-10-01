@@ -11,11 +11,11 @@ More than nine years building software people use to do their jobs: internal pla
 security tooling, fintech and operational applications. The kind of software that is
 judged on whether it holds up, not on whether it demos well.
 
-Currently the sole frontend engineer on a centralized internal security platform serving
-more than 4,000 users at Viasat, embedded in a backend-heavy team of 15. Before that,
-fintech features for a platform with 10,000 users, Angular dashboards and Laravel APIs
-for more than 3,000 legal professionals, and a pre-hospital logging app used by 180+
-firefighters and paramedics across 18 stations in Tijuana.
+Currently the sole frontend engineer on a centralized internal security dashboard tool used
+across multiple teams at Viasat, embedded in a team of security and backend engineers.
+Before that, fintech features for a platform with 10,000 users, Angular dashboards and
+Laravel APIs for more than 3,000 legal professionals, and a pre-hospital logging app used
+by 180+ firefighters and paramedics across 18 stations in Tijuana.
 
 ## What I do
 
